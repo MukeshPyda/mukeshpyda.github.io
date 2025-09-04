@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>TORHAT</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    .pagination {
+      text-align: center;
+      margin-top: 1rem;
+    }
+    .pagination button {
+      background: #111;
+      border: 1px solid #00ff00;
+      color: #00ff00;
+      padding: 0.4rem 0.8rem;
+      margin: 0 0.2rem;
+      cursor: pointer;
+      font-family: monospace;
+    }
+    .pagination button.active {
+      background-color: #00ff00;
+      color: #000;
+    }
+    #resultCount {
+      text-align: center;
+      margin-top: 1rem;
+      font-family: monospace;
+      color: #0f0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>💻 CTF Walkthroughs</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="https://hmcyberacademy.com/" target="_blank">HMCA</a>
+    </nav>
+  </header>
+
+  <!-- Search Input -->
+  <div style="text-align: center; margin-top: 2rem;">
+    <input id="search" type="text" placeholder="Search videos..." style="padding: 0.5rem; width: 300px; font-family: monospace;">
+  </div>
+
+  <!-- Result Count -->
+  <div id="resultCount"></div>
+
+  <!-- Video Table -->
+  <table id="videoTable" style="display:none;">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody id="videoTableBody"></tbody>
+  </table>
+
+  <!-- Pagination -->
+  <div class="pagination" id="pagination"></div>
+
+  <!-- Footer -->
+  <footer>
+    <p>Contact me:</p>
+    <a href="https://twitter.com/@HMCyberAcademy" target="_blank"><i class="fab fa-twitter"></i></a>
+    <a href="https://www.linkedin.com/company/hmcyberacademy" target="_blank"><i class="fab fa-linkedin"></i></a>
+    <a href="mailto:support@hmcyberacademy.com"><i class="fas fa-envelope"></i></a>
+    <p>&copy; 2025 HMCyberAcademy</p>
+  </footer>
+
+  <!-- External JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
