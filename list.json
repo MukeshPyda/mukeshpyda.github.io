@@ -1,8 +1,8 @@
 [
   {
-    "title": "Advanced Buffer Overflow",
-    "url": "https://www.youtube.com/watch?v=example0",
-    "description": "Watch this deep dive into common exploitation techniques."
+    "title": "Bandit 0->1",
+    "url": "https://mukeshpyda.github.io/blog/overthewire/1_Bandit/bandit0-1.html",
+    "description": "Connect to ssh and cat the readme file."
   },
   {
     "title": "Brute Forcing FTP",
