@@ -10,6 +10,15 @@ footer a i {
   footer a i:hover {
     color: #00dd00;
   }
+  footer {
+    margin-top: 4rem;
+    font-size: 1.5rem;
+  }
+  
+  footer i {
+    margin: 0 0.5rem;
+    font-size: 1.2rem;
+  }
   
   #search::placeholder {
     text-align: center;
@@ -86,15 +95,5 @@ body {
   
   a.video-link:hover {
     text-decoration: underline;
-  }
-  
-  footer {
-    margin-top: 4rem;
-    font-size: 1.5rem;
-  }
-  
-  footer i {
-    margin: 0 0.5rem;
-    font-size: 1.2rem;
   }
   

