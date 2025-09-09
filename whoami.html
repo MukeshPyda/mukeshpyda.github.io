@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>About - TORHAT Profile</title>
+  <link rel="icon" type="image/x-icon" href="favicon.png"/>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    body {
+      font-size: 2rem; /* Keep same size as homepage */
+    }
+
+    .about-description {
+      max-width: 1200px;
+      margin: 2rem auto;
+      text-align: center;
+      font-family: monospace;
+      color: #00ff00;
+    }
+
+    .grid-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      padding: 2rem;
+    }
+
+    .grid-box {
+      background-color: #111;
+      border: 2px solid #00ff00;
+      border-radius: 10px;
+      padding: 1.5rem;
+      width: 300px;
+      text-align: center;
+      font-family: monospace;
+      color: #00ff00;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .grid-box:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px #00ff00;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.9);
+    }
+
+    .modal-content {
+      background-color: #0f0f0f;
+      margin: 5% auto;
+      padding: 20px;
+      border: 2px solid #00ff00;
+      border-radius: 10px;
+      width: 80%;
+      height: 80%;
+      overflow-y: auto;
+      color: #00ff00;
+      font-family: monospace;
+    }
+
+    .modal-content::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    .modal-content::-webkit-scrollbar-track {
+      background: #111;
+    }
+
+    .modal-content::-webkit-scrollbar-thumb {
+      background: #00ff00;
+      border-radius: 5px;
+    }
+
+    .close {
+      color: #00ff00;
+      float: right;
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    .popup-image {
+      max-width: 100%;
+      border: 1px solid #00ff00;
+      border-radius: 4px;
+      margin: 1rem 0;
+    }
+
+    .popup-section {
+      margin-bottom: 2rem;
+    }
+
+    .popup-section h3 {
+      color: #00ff00;
+      margin-bottom: 0.5rem;
+    }
+    footer {
+        text-align: center;
+        padding: 2rem;
+        background-color: #0a0a0a;
+        border-top: 2px solid #00ff00;
+        color: #00ff00;
+        font-family: monospace;
+        font-size: 1.5rem;
+        }
+
+    footer a {
+        color: #00ff00;
+        margin: 0 10px;
+        text-decoration: none;
+        font-size: 1.5rem;
+        }
+
+    footer a i {
+        font-size: 1.5rem; /* Ensures icons aren't too large */
+        }
+
+    footer a:hover {
+        color: #00dd00;
+        }
+
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>💻TORHAT's Profile</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="whoami.html">About</a>
+      <a href="https://hmcyberacademy.com/" target="_blank">HMCA</a>
+    </nav>
+  </header>
+
+  <!-- User Description -->
+  <div class="about-description">
+    <p>
+      Hey, I’m TORHAT, a cybersecurity professional who dives into networks, breaks systems, and documents every pwned machine.<br></br>
+      Whether it's binary exploitation or crafting payloads, I live for that green-on-black glow.<br></br>
+      For 1-to-1 mentorship, Contact: support@hmcyberacademy.com
+    </p>
+  </div>
+
+  <!-- Grid of Sections -->
+  <div class="grid-container">
+    <div class="grid-box" onclick="openModal('education')">Dual Master's from IIT Kharagpur and NIT Rourkela</div>
+    <div class="grid-box" onclick="openModal('workshops')">Workshops throughout India</div>
+    <div class="grid-box" onclick="openModal('content')">Creation at HMCA</div>
+    <div class="grid-box" onclick="openModal('certs')">Certified Information Assurance Professional</div>
+    <div class="grid-box" onclick="openModal('ctfs')">Top 1% in CTF platforms</div>
+    <div class="grid-box" onclick="openModal('research')">Security Research</div>
+    <div class="grid-box" onclick="openModal('tools')">Tools Built</div>
+    <div class="grid-box" onclick="openModal('experience')">Work Experience</div>
+  </div>
+
+  <!-- Modal -->
+  <div id="modal" class="modal">
+    <div class="modal-content" id="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+
+      <!-- Populated dynamically -->
+    </div>
+  </div>
+
+  <script>
+    const modal = document.getElementById("modal");
+    const modalContent = document.getElementById("modal-content");
+
+    const popupData = {
+      education: {
+        title: "Education",
+        sections: [
+          {
+            heading: "Post Graduation in Cybersecurity",
+            text: "> Completed M.Tech at IIT Kharagpur and also earned a Master's degree from NIT Rourkela.<br></br>\
+            > Specialized in Cybersecurity with a focus on VAPT, Forensics, Malware analysis, and Reverse engineering."
+          }
+        ]
+      },
+      workshops: {
+        title: "Workshops",
+        sections: [
+          {
+            heading: "Cybersecurity Workshops throughout India",
+            text: "> Conducted advanced-level workshops with practical assessments on VAPT, Forensics, reversing binaries.<br></br>\
+            > For more detailed gallery, check out: <a href='https://hmcyberacademy.com/gallery' target=_blank>https://hmcyberacademy.com/gallery</a>",
+            image: [
+                "images/workshop1.jpg",
+                "images/workshop2.jpg"
+            ]
+          }
+        ]
+      },
+      content: {
+        title: "Content Creation",
+        sections: [
+          {
+            heading: "HMCyberAcademy",
+            text: "> For those who can't afford, HMCyberAcademy provides High Quality Free Cybersecurity Video Tutorials.<br></br>\
+            > Created over 300+ walkthrough videos on Security Labs & CTFs.<br></br>\
+            > <a href='https://youtube.com/@hmcyberacademy'>https://youtube.com/@hmcyberacademy</a><br></br>\
+            > Support our mission to spread cybersecurity awareness.<br></br>\
+            > consider donating to help us create more valuable content!<br></br>\
+            > <a href='https://hmcyberacademy.com/donate' target=_blank>https://hmcyberacademy.com/donate</a><br></br>\
+            > Here's what our audience say:",
+            image: [
+                "images/yt1.jpg",
+                "images/yt8.jpg",
+                "images/yt3.jpg",
+                "images/yt4.jpg",
+                "images/yt5.jpg",
+                "images/yt6.jpg",
+                "images/yt2.jpg",
+                "images/yt7.jpg"
+            ]}
+        //   ,
+        //   {
+        //     heading: "Blogging",
+        //     text: "Write detailed writeups and research articles on medium and personal blog.",
+        //     image: ["images/workshop1.jpg"]
+        //   }
+        ]
+      },
+      certs: {
+        title: "Certifications",
+        sections: [
+          {
+            heading: "CIAP",
+            text: "<strong>Certified Information Assurance Professional</strong>(CIAP), awarded by the <strong>Defence Institute of Advanced Technology</strong> (DIAT) in collaboration with <strong>Defence Research and Development Organisation</strong> (DRDO).",
+            // image: ["images/oscp.jpg"]
+          }
+        ]
+      },
+      ctfs: {
+        title: "Top 1% in CTF platforms",
+        sections: [
+          {
+            heading: "TryHackme",
+            text: "Top 1% of the Top 1% user in TryHackMe. <a href='https://tryhackme.com/p/TORHAT' target=_blank>https://tryhackme.com/p/TORHAT</a>",
+            image: ["images/ctf1.jpg"]
+          },
+          {
+            heading: "WeChall",
+            text: "Top 1% in Wechall.net. <a href='https://www.wechall.net/profile/TORHAT' target=_blank>https://www.wechall.net/profile/TORHAT</a><br></br>Global Rank: 2280<br></br>Country Rank: 35",
+            image: ["images/ctf2.jpg"]
+          }
+        ]
+      },
+      research: {
+        title: "Security Research",
+        sections: [
+          {
+            heading: "Application Security & Reverse Engineering",
+            text: "> Doing extensive research on Application Security and Reverse Engineering.<br></br>\
+            > Documenting everything in form of Video tutorials and Blogs.",
+            //image: "images/vuln.jpg"
+          }
+        ]
+      },
+      tools: {
+        title: "Tools Built",
+        sections: [
+          {
+            heading: "Cryptocurrency Trading Bot",
+            text: "> Built with Python, uses websockets to collect data and intelligently makes orders(Trades) 24x7.<br></br>\
+            > Automates all manual tasks.<br></br>\
+            > Generates revenue throughout the day",
+            //image: "images/tool.jpg"
+          }
+        ]
+      },
+      experience: {
+        title: "Work Experience",
+        sections: [
+            {
+            heading: "Consultant - Deloitte Touche Tohmatsu India Pvt. Ltd.",
+            text: "> Prepared detailed effort estimations, SOW reports and communicate findings to clients, ensuring clear articulation of security vulnerabilities and remediation strategies.<br></br>\
+            > Reverse engineered malware such as rootkits, bootkits, ransomwares, viruses, polygots etc.<br></br>\
+            > Delivered security advisement and mentorship to fellow team members, enhancing security awareness on latest trends.",
+            //image: "images/asdf.jpg"
+          },
+          {
+            heading: "Sr. Security Researcher - Loginsoft Pvt Ltd.",
+            text: "> Worked with a team to perform Detailed vulnerability assessments and pentesting of web applications and API. <br></br>\
+            > Collaborated with Developers to validate, assess and mitigate identified vulnerabilities.<br></br>\
+            > Did research on latest CVEs and documented comprehensive reports on patches.",
+            //image: "images/asdf.jpg"
+          },
+          
+        ]
+      }
+    };
+
+    function openModal(key) {
+      const data = popupData[key];
+      let html = `<span class="close" onclick="closeModal()">&times;</span>`;
+      html += `<h2>${data.title}</h2>`;
+
+      data.sections.forEach(section => {
+        html += `
+        <div class="popup-section">
+            <h3>${section.heading}</h3>
+            <p>${section.text}</p>
+            ${section.image && section.image.length ? section.image.map(img => `
+                <img src="${img}" alt="Section Image" class="popup-image" />
+            `).join('') : ''}
+        </div>
+        `;
+      });
+
+      modalContent.innerHTML = html;
+      modal.style.display = "block";
+    }
+
+    function closeModal() {
+      modal.style.display = "none";
+    }
+
+    // Optional: close modal on outside click
+    window.onclick = function(event) {
+      if (event.target === modal) {
+        closeModal();
+      }
+    }
+  </script>
+  <!-- Footer -->
+  <footer>
+    <p>Contact me:</p>
+    <a href="https://twitter.com/@TOR_HAT" target="_blank"><i class="fab fa-twitter"></i></a>
+    <a href="https://www.linkedin.com/in/mukesh-pyda/" target="_blank"><i class="fab fa-linkedin"></i></a>
+    <a href="mailto:support@hmcyberacademy.com"><i class="fas fa-envelope"></i></a>
+    <p>&copy; 2025 HMCyberAcademy</p>
+  </footer>
+
+</body>
+</html>

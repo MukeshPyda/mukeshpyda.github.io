@@ -9,7 +9,7 @@ let currentPage = 1;
 const resultsPerPage = 10;
 
 async function fetchFilteredVideos(query) {
-  const res = await fetch('videos.json');
+  const res = await fetch('list.json');
   const allVideos = await res.json();
 
   // Simulate backend filtering
