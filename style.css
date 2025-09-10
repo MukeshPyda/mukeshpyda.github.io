@@ -19,6 +19,29 @@ footer a i {
     margin: 0 0.5rem;
     font-size: 1.2rem;
   }
+  .pagination {
+    text-align: center;
+    margin-top: 1rem;
+  }
+  .pagination button {
+    background: #111;
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    padding: 0.4rem 0.8rem;
+    margin: 0 0.2rem;
+    cursor: pointer;
+    font-family: monospace;
+  }
+  .pagination button.active {
+    background-color: #00ff00;
+    color: #000;
+  }
+  #resultCount {
+    text-align: center;
+    margin-top: 1rem;
+    font-family: monospace;
+    color: #0f0;
+  }
   
   #search::placeholder {
     text-align: center;
@@ -26,6 +49,12 @@ footer a i {
     opacity: 0.7; /* Optional: subtle look */
   }
   
+  #resultCount {
+    text-align: center;
+    margin-top: 1rem;
+    font-family: monospace;
+    color: #0f0;
+  }
 #search {
     padding: 1rem;
     width: 500px;

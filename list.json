@@ -1,152 +1,1078 @@
 [
   {
     "title": "Bandit 0->1",
-    "url": "https://mukeshpyda.github.io/blog/overthewire/bandit/bandit0-1.html",
+    "url": "/blog/overthewire/bandit/bandit0-1.html",
     "description": "Connect to ssh and cat the readme file."
   },
   {
-    "title": "Brute Forcing FTP",
-    "url": "https://www.youtube.com/watch?v=example1",
-    "description": "Focus on privilege escalation in Linux environments."
+    "title": "Bandit 1->2",
+    "url": "/blog/overthewire/bandit/bandit1-2.html",
+    "description": "Connect to ssh and cat the readme file."
   },
   {
-    "title": "Command Injection Basics",
-    "url": "https://www.youtube.com/watch?v=example2",
-    "description": "Easy to follow, practical hacking techniques."
+    "title": "Bandit 2->3",
+    "url": "/blog/overthewire/bandit/bandit2-3.html",
+    "description": "Connect to ssh and cat the readme file."
   },
   {
-    "title": "Directory Traversal Explained",
-    "url": "https://www.youtube.com/watch?v=example3",
-    "description": "Easy to follow, practical hacking techniques."
+    "title": "Bandit 3->4",
+    "url": "/blog/overthewire/bandit/bandit3-4.html",
+    "description": "Connect to ssh and cat the readme file."
   },
   {
-    "title": "Enumeration with Nmap",
-    "url": "https://www.youtube.com/watch?v=example4",
-    "description": "Basic and advanced attack chaining shown clearly."
+    "title": "Bandit 4->5",
+    "url": "/blog/overthewire/bandit/bandit4-5.html",
+    "description": "Connect to ssh and cat the readme file."
   },
   {
-    "title": "File Inclusion Exploit",
-    "url": "https://www.youtube.com/watch?v=example5",
-    "description": "Focus on privilege escalation in Linux environments."
+    "title": "Bandit 5->6",
+    "url": "/blog/overthewire/bandit/bandit5-6.html",
+    "description": "Connect to ssh and cat the readme file."
   },
   {
-    "title": "Getting Shell with Netcat",
-    "url": "https://www.youtube.com/watch?v=example6",
-    "description": "Watch this deep dive into common exploitation techniques."
+    "title": "Bandit 6->7",
+    "url": "/blog/overthewire/bandit/bandit6-7.html",
+    "description": "Connect to ssh and cat the readme file."
   },
   {
-    "title": "HTB - Arctic Walkthrough",
-    "url": "https://www.youtube.com/watch?v=example7",
-    "description": "Basic and advanced attack chaining shown clearly."
+    "title": "Bandit 7->8",
+    "url": "/blog/overthewire/bandit/bandit7-8.html",
+    "description": "Connect to ssh and cat the readme file."
   },
   {
-    "title": "Initial Foothold via SMB",
-    "url": "https://www.youtube.com/watch?v=example8",
-    "description": "Perfect for beginners learning offensive security."
+    "title": "Bandit 8->9",
+    "url": "/blog/overthewire/bandit/bandit8-9.html",
+    "description": "Connect to ssh and cat the readme file."
   },
   {
-    "title": "Joomla RCE Explained",
-    "url": "https://www.youtube.com/watch?v=example9",
-    "description": "Watch this deep dive into common exploitation techniques."
+    "title": "Bandit 9->10",
+    "url": "/blog/overthewire/bandit/bandit9-10.html",
+    "description": "Connect to ssh and cat the readme file."
   },
   {
-    "title": "Kerberos Attacks Intro",
-    "url": "https://www.youtube.com/watch?v=example10",
-    "description": "Advanced tips for real-world penetration testing."
+    "title": "Bandit 10->11",
+    "url": "/blog/overthewire/bandit/bandit10-11.html",
+    "description": "Connect to ssh and cat the readme file."
   },
   {
-    "title": "LFI and RCE Chain",
-    "url": "https://www.youtube.com/watch?v=example11",
-    "description": "Covering recon, exploitation, and post-exploitation."
+    "title": "Bandit 11->12",
+    "url": "/blog/overthewire/bandit/bandit11-12.html",
+    "description": "Connect to ssh and cat the readme file."
   },
   {
-    "title": "Metasploit Magic",
-    "url": "https://www.youtube.com/watch?v=example12",
-    "description": "Perfect for beginners learning offensive security."
+    "title": "Bandit 12->13",
+    "url": "/blog/overthewire/bandit/bandit12-13.html",
+    "description": "Connect to ssh and cat the readme file."
   },
   {
-    "title": "Nmap Scripting Deep Dive",
-    "url": "https://www.youtube.com/watch?v=example13",
-    "description": "Perfect for beginners learning offensive security."
+    "title": "Bandit 13->14",
+    "url": "/blog/overthewire/bandit/bandit13-14.html",
+    "description": "Connect to ssh and cat the readme file."
   },
   {
-    "title": "OSINT for Hackers",
-    "url": "https://www.youtube.com/watch?v=example14",
-    "description": "Covering recon, exploitation, and post-exploitation."
+    "title": "Bandit 14->15",
+    "url": "/blog/overthewire/bandit/bandit14-15.html",
+    "description": "Connect to ssh and cat the readme file."
   },
   {
-    "title": "Privilege Escalation Linux",
-    "url": "https://www.youtube.com/watch?v=example15",
-    "description": "Covering recon, exploitation, and post-exploitation."
+    "title": "Bandit 15->16",
+    "url": "/blog/overthewire/bandit/bandit15-16.html",
+    "description": "Connect to ssh and cat the readme file."
   },
   {
-    "title": "Quick Win on Node App",
-    "url": "https://www.youtube.com/watch?v=example16",
-    "description": "Easy to follow, practical hacking techniques."
+    "title": "Bandit 16->17",
+    "url": "/blog/overthewire/bandit/bandit16-17.html",
+    "description": "Connect to ssh and cat the readme file."
   },
   {
-    "title": "Reverse Shell Techniques",
-    "url": "https://www.youtube.com/watch?v=example17",
-    "description": "Basic and advanced attack chaining shown clearly."
+    "title": "Bandit 17->18",
+    "url": "/blog/overthewire/bandit/bandit17-18.html",
+    "description": "Connect to ssh and cat the readme file."
   },
   {
-    "title": "SQL Injection 101",
-    "url": "https://www.youtube.com/watch?v=example18",
-    "description": "Watch this deep dive into common exploitation techniques."
+    "title": "Bandit 18->19",
+    "url": "/blog/overthewire/bandit/bandit18-19.html",
+    "description": "Connect to ssh and cat the readme file."
   },
   {
-    "title": "Token Stealing via XSS",
-    "url": "https://www.youtube.com/watch?v=example19",
-    "description": "Basic and advanced attack chaining shown clearly."
+    "title": "Bandit 19->20",
+    "url": "/blog/overthewire/bandit/bandit19-20.html",
+    "description": "Connect to ssh and cat the readme file."
   },
   {
-    "title": "UDP Scanning Strategy",
-    "url": "https://www.youtube.com/watch?v=example20",
-    "description": "Advanced tips for real-world penetration testing."
+    "title": "Bandit 20->21",
+    "url": "/blog/overthewire/bandit/bandit20-21.html",
+    "description": "Connect to ssh and cat the readme file."
   },
   {
-    "title": "VPN Pivoting Guide",
-    "url": "https://www.youtube.com/watch?v=example21",
-    "description": "Easy to follow, practical hacking techniques."
+    "title": "Bandit 21->22",
+    "url": "/blog/overthewire/bandit/bandit21-22.html",
+    "description": "Connect to ssh and cat the readme file."
   },
   {
-    "title": "Web Caching Attack",
-    "url": "https://www.youtube.com/watch?v=example22",
-    "description": "Focus on privilege escalation in Linux environments."
+    "title": "Bandit 22->23",
+    "url": "/blog/overthewire/bandit/bandit22-23.html",
+    "description": "Connect to ssh and cat the readme file."
   },
   {
-    "title": "XSS via DOM Manipulation",
-    "url": "https://www.youtube.com/watch?v=example23",
-    "description": "Watch this deep dive into common exploitation techniques."
+    "title": "Bandit 23->24",
+    "url": "/blog/overthewire/bandit/bandit23-24.html",
+    "description": "Connect to ssh and cat the readme file."
   },
   {
-    "title": "Yara Rules for Malware",
-    "url": "https://www.youtube.com/watch?v=example24",
-    "description": "Covering recon, exploitation, and post-exploitation."
+    "title": "Bandit 24->25",
+    "url": "/blog/overthewire/bandit/bandit24-25.html",
+    "description": "Connect to ssh and cat the readme file."
   },
   {
-    "title": "Zero-Day Logic Flaw",
-    "url": "https://www.youtube.com/watch?v=example25",
-    "description": "Watch this deep dive into common exploitation techniques."
+    "title": "Bandit 25->26",
+    "url": "/blog/overthewire/bandit/bandit25-26.html",
+    "description": "Connect to ssh and cat the readme file."
   },
   {
-    "title": "Basic Web App Recon",
-    "url": "https://www.youtube.com/watch?v=example26",
-    "description": "Perfect for beginners learning offensive security."
+    "title": "Bandit 26->27",
+    "url": "/blog/overthewire/bandit/bandit26-27.html",
+    "description": "Connect to ssh and cat the readme file."
   },
   {
-    "title": "Cross-Site Request Forgery",
-    "url": "https://www.youtube.com/watch?v=example27",
-    "description": "Easy to follow, practical hacking techniques."
+    "title": "Bandit 27->28",
+    "url": "/blog/overthewire/bandit/bandit27-28.html",
+    "description": "Connect to ssh and cat the readme file."
   },
   {
-    "title": "DNS Zone Transfer",
-    "url": "https://www.youtube.com/watch?v=example28",
-    "description": "Advanced tips for real-world penetration testing."
+    "title": "Bandit 28->29",
+    "url": "/blog/overthewire/bandit/bandit28-29.html",
+    "description": "Connect to ssh and cat the readme file."
   },
   {
-    "title": "ElasticSearch Misconfig",
-    "url": "https://www.youtube.com/watch?v=example29",
-    "description": "A solid walkthrough of HTB-style challenges."
+    "title": "Bandit 29->30",
+    "url": "/blog/overthewire/bandit/bandit29-30.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Bandit 30->31",
+    "url": "/blog/overthewire/bandit/bandit30-31.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Bandit 31->32",
+    "url": "/blog/overthewire/bandit/bandit31-32.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Bandit 32->33",
+    "url": "/blog/overthewire/bandit/bandit32-33.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Natas 0->1",
+    "url": "/blog/overthewire/natas/natas0-1.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Natas 1->2",
+    "url": "/blog/overthewire/natas/natas1-2.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Natas 2->3",
+    "url": "/blog/overthewire/natas/natas2-3.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Natas 3->4",
+    "url": "/blog/overthewire/natas/natas3-4.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Natas 4->5",
+    "url": "/blog/overthewire/natas/natas4-5.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Natas 5->6",
+    "url": "/blog/overthewire/natas/natas5-6.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Natas 6->7",
+    "url": "/blog/overthewire/natas/natas6-7.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Natas 7->8",
+    "url": "/blog/overthewire/natas/natas7-8.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Natas 8->9",
+    "url": "/blog/overthewire/natas/natas8-9.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Natas 9->10",
+    "url": "/blog/overthewire/natas/natas9-10.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Natas 10->11",
+    "url": "/blog/overthewire/natas/natas10-11.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Natas 11->12",
+    "url": "/blog/overthewire/natas/natas11-12.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Natas 12->13",
+    "url": "/blog/overthewire/natas/natas12-13.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Natas 13->14",
+    "url": "/blog/overthewire/natas/natas13-14.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Natas 14->15",
+    "url": "/blog/overthewire/natas/natas14-15.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Natas 15->16",
+    "url": "/blog/overthewire/natas/natas15-16.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Natas 16->17",
+    "url": "/blog/overthewire/natas/natas16-17.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Natas 17->18",
+    "url": "/blog/overthewire/natas/natas17-18.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Natas 18->19",
+    "url": "/blog/overthewire/natas/natas18-19.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Natas 19->20",
+    "url": "/blog/overthewire/natas/natas19-20.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Natas 20->21",
+    "url": "/blog/overthewire/natas/natas20-21.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Natas 21->22",
+    "url": "/blog/overthewire/natas/natas21-22.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Natas 22->23",
+    "url": "/blog/overthewire/natas/natas22-23.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Natas 23->24",
+    "url": "/blog/overthewire/natas/natas23-24.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Natas 24->25",
+    "url": "/blog/overthewire/natas/natas24-25.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Natas 25->26",
+    "url": "/blog/overthewire/natas/natas25-26.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Natas 26->27",
+    "url": "/blog/overthewire/natas/natas26-27.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Natas 27->28",
+    "url": "/blog/overthewire/natas/natas27-28.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Natas 28->29",
+    "url": "/blog/overthewire/natas/natas28-29.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Natas 29->30",
+    "url": "/blog/overthewire/natas/natas29-30.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Natas 30->31",
+    "url": "/blog/overthewire/natas/natas30-31.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Natas 31->32",
+    "url": "/blog/overthewire/natas/natas31-32.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Natas 32->33",
+    "url": "/blog/overthewire/natas/natas32-33.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Natas 33->34",
+    "url": "/blog/overthewire/natas/natas33-34.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Leviathan 0->1",
+    "url": "/blog/overthewire/leviathan/leviathan0-1.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Leviathan 1->2",
+    "url": "/blog/overthewire/leviathan/leviathan1-2.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Leviathan 2->3",
+    "url": "/blog/overthewire/leviathan/leviathan2-3.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Leviathan 3->4",
+    "url": "/blog/overthewire/leviathan/leviathan3-4.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Leviathan 4->5",
+    "url": "/blog/overthewire/leviathan/leviathan4-5.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Leviathan 5->6",
+    "url": "/blog/overthewire/leviathan/leviathan5-6.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Leviathan 6->7",
+    "url": "/blog/overthewire/leviathan/leviathan6-7.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Krypton 0->1",
+    "url": "/blog/overthewire/krypton/krypton0-1.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Krypton 1->2",
+    "url": "/blog/overthewire/krypton/krypton1-2.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Krypton 2->3",
+    "url": "/blog/overthewire/krypton/krypton2-3.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Krypton 3->4",
+    "url": "/blog/overthewire/krypton/krypton3-4.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Krypton 4->5",
+    "url": "/blog/overthewire/krypton/krypton4-5.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Krypton 5->6",
+    "url": "/blog/overthewire/krypton/krypton5-6.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Krypton 6->7",
+    "url": "/blog/overthewire/krypton/krypton6-7.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Narnia 0->1",
+    "url": "/blog/overthewire/narnia/narnia0-1.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Narnia 1->2",
+    "url": "/blog/overthewire/narnia/narnia1-2.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Narnia 2->3",
+    "url": "/blog/overthewire/narnia/narnia2-3.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Narnia 3->4",
+    "url": "/blog/overthewire/narnia/narnia3-4.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Narnia 4->5",
+    "url": "/blog/overthewire/narnia/narnia4-5.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Narnia 5->6",
+    "url": "/blog/overthewire/narnia/narnia5-6.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Narnia 6->7",
+    "url": "/blog/overthewire/narnia/narnia6-7.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Narnia 7->8",
+    "url": "/blog/overthewire/narnia/narnia7-8.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Narnia 8->9",
+    "url": "/blog/overthewire/narnia/narnia8-9.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Behemoth 0->1",
+    "url": "/blog/overthewire/behemoth/behemoth0-1.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Behemoth 1->2",
+    "url": "/blog/overthewire/behemoth/behemoth1-2.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Behemoth 2->3",
+    "url": "/blog/overthewire/behemoth/behemoth2-3.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Behemoth 3->4",
+    "url": "/blog/overthewire/behemoth/behemoth3-4.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Behemoth 4->5",
+    "url": "/blog/overthewire/behemoth/behemoth4-5.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Behemoth 5->6",
+    "url": "/blog/overthewire/behemoth/behemoth5-6.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Behemoth 6->7",
+    "url": "/blog/overthewire/behemoth/behemoth6-7.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Behemoth 7->8",
+    "url": "/blog/overthewire/behemoth/behemoth7-8.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "SQL injection vulnerability in WHERE clause allowing retrieval of hidden data",
+    "url": "/blog/portswigger/server-side/sql-injection/sql-injection-vulnerability-in-where-clause-allowing-retrieval-of-hidden-data.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "SQL injection vulnerability allowing login bypass",
+    "url": "/blog/portswigger/server-side/sql-injection/sql-injection-vulnerability-allowing-login-bypass.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "SQL injection attack, querying the database type and version on Oracle",
+    "url": "/blog/portswigger/server-side/sql-injection/sql-injection-attack-querying-the-database-type-and-version-on-oracle.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "SQL injection attack, querying the database type and version on MySQL and Microsoft",
+    "url": "/blog/portswigger/server-side/sql-injection/sql-injection-attack-querying-the-database-type-and-version-on-mysql-and-microsoft.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "SQL injection attack, listing the database contents on non-Oracle databases",
+    "url": "/blog/portswigger/server-side/sql-injection/sql-injection-attack-listing-the-database-contents-on-non-oracle-databases.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "SQL injection attack, listing the database contents on Oracle",
+    "url": "/blog/portswigger/server-side/sql-injection/sql-injection-attack-listing-the-database-contents-on-oracle.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "SQL injection UNION attack, determining the number of columns returned by the query",
+    "url": "/blog/portswigger/server-side/sql-injection/sql-injection-union-attack-determining-the-number-of-columns-returned-by-the-query.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "SQL injection UNION attack, finding a column containing text",
+    "url": "/blog/portswigger/server-side/sql-injection/sql-injection-union-attack-finding-a-column-containing-text.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "SQL injection UNION attack, retrieving data from other tables",
+    "url": "/blog/portswigger/server-side/sql-injection/sql-injection-union-attack-retrieving-data-from-other-tables.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "SQL injection UNION attack, retrieving multiple values in a single column",
+    "url": "/blog/portswigger/server-side/sql-injection/sql-injection-union-attack-retrieving-multiple-values-in-a-single-column.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Blind SQL injection with conditional responses",
+    "url": "/blog/portswigger/server-side/sql-injection/blind-sql-injection-with-conditional-responses.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Blind SQL injection with conditional errors",
+    "url": "/blog/portswigger/server-side/sql-injection/blind-sql-injection-with-conditional-errors.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Visible error-based SQL injection",
+    "url": "/blog/portswigger/server-side/sql-injection/visible-error-based-sql-injection.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Blind SQL injection with time delays",
+    "url": "/blog/portswigger/server-side/sql-injection/blind-sql-injection-with-time-delays.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Blind SQL injection with time delays and information retrieval",
+    "url": "/blog/portswigger/server-side/sql-injection/blind-sql-injection-with-time-delays-and-information-retrieval.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Blind SQL injection with out-of-band interaction",
+    "url": "/blog/portswigger/server-side/sql-injection/blind-sql-injection-with-out-of-band-interaction.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Blind SQL injection with out-of-band data exfiltration",
+    "url": "/blog/portswigger/server-side/sql-injection/blind-sql-injection-with-out-of-band-data-exfiltration.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "SQL injection with filter bypass via XML encoding",
+    "url": "/blog/portswigger/server-side/sql-injection/sql-injection-with-filter-bypass-via-xml-encoding.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Username enumeration via different responses",
+    "url": "/blog/portswigger/server-side/authentication/username-enumeration-via-different-responses.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "2FA simple bypass",
+    "url": "/blog/portswigger/server-side/authentication/2fa-simple-bypass.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Password reset broken logic",
+    "url": "/blog/portswigger/server-side/authentication/password-reset-broken-logic.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Username enumeration via subtly different responses",
+    "url": "/blog/portswigger/server-side/authentication/username-enumeration-via-subtly-different-responses.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Username enumeration via response timing",
+    "url": "/blog/portswigger/server-side/authentication/username-enumeration-via-response-timing.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Broken brute-force protection, IP block",
+    "url": "/blog/portswigger/server-side/authentication/broken-brute-force-protection-ip-block.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Username enumeration via account lock",
+    "url": "/blog/portswigger/server-side/authentication/username-enumeration-via-account-lock.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "2FA broken logic",
+    "url": "/blog/portswigger/server-side/authentication/2fa-broken-logic.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Brute-forcing a stay-logged-in cookie",
+    "url": "/blog/portswigger/server-side/authentication/brute-forcing-a-stay-logged-in-cookie.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Offline password cracking",
+    "url": "/blog/portswigger/server-side/authentication/offline-password-cracking.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Password reset poisoning via middleware",
+    "url": "/blog/portswigger/server-side/authentication/password-reset-poisoning-via-middleware.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Password brute-force via password change",
+    "url": "/blog/portswigger/server-side/authentication/password-brute-force-via-password-change.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Broken brute-force protection, multiple credentials per request",
+    "url": "/blog/portswigger/server-side/authentication/broken-brute-force-protection-multiple-credentials-per-request.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "2FA bypass using a brute-force attack",
+    "url": "/blog/portswigger/server-side/authentication/2fa-bypass-using-a-brute-force-attack.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "File path traversal, simple case",
+    "url": "/blog/portswigger/server-side/path-traversal/file-path-traversal-simple-case.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "File path traversal, traversal sequences blocked with absolute path bypass",
+    "url": "/blog/portswigger/server-side/path-traversal/file-path-traversal-traversal-sequences-blocked-with-absolute-path-bypass.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "File path traversal, traversal sequences stripped non-recursively",
+    "url": "/blog/portswigger/server-side/path-traversal/file-path-traversal-traversal-sequences-stripped-non-recursively.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "File path traversal, traversal sequences stripped with superfluous URL-decode",
+    "url": "/blog/portswigger/server-side/path-traversal/file-path-traversal-traversal-sequences-stripped-with-superfluous-url-decode.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "File path traversal, validation of start of path",
+    "url": "/blog/portswigger/server-side/path-traversal/file-path-traversal-validation-of-start-of-path.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "File path traversal, validation of file extension with null byte bypass",
+    "url": "/blog/portswigger/server-side/path-traversal/file-path-traversal-validation-of-file-extension-with-null-byte-bypass.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "OS command injection, simple case",
+    "url": "/blog/portswigger/server-side/command-injection/os-command-injection-simple-case.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Blind OS command injection with time delays",
+    "url": "/blog/portswigger/server-side/command-injection/blind-os-command-injection-with-time-delays.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Blind OS command injection with output redirection",
+    "url": "/blog/portswigger/server-side/command-injection/blind-os-command-injection-with-output-redirection.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Blind OS command injection with out-of-band interaction",
+    "url": "/blog/portswigger/server-side/command-injection/blind-os-command-injection-with-out-of-band-interaction.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Blind OS command injection with out-of-band data exfiltration",
+    "url": "/blog/portswigger/server-side/command-injection/blind-os-command-injection-with-out-of-band-data-exfiltration.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Excessive trust in client-side controls",
+    "url": "/blog/portswigger/server-side/business-logic/excessive-trust-in-client-side-controls  .html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "High-level logic vulnerability",
+    "url": "/blog/portswigger/server-side/business-logic/high-level-logic-vulnerability.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Inconsistent security controls",
+    "url": "/blog/portswigger/server-side/business-logic/inconsistent-security-controls.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Flawed enforcement of business rules",
+    "url": "/blog/portswigger/server-side/business-logic/flawed-enforcement-of-business-rules.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Low-level logic flaw",
+    "url": "/blog/portswigger/server-side/business-logic/low-level-logic-flaw.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Inconsistent handling of exceptional input",
+    "url": "/blog/portswigger/server-side/business-logic/inconsistent-handling-of-exceptional-input.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Weak isolation on dual-use endpoint",
+    "url": "/blog/portswigger/server-side/business-logic/weak-isolation-on-dual-use-endpoint.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Insufficient workflow validation",
+    "url": "/blog/portswigger/server-side/business-logic/insufficient-workflow-validation.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Authentication bypass via flawed state machine",
+    "url": "/blog/portswigger/server-side/business-logic/authentication-bypass-via-flawed-state-machine.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Infinite money logic flaw",
+    "url": "/blog/portswigger/server-side/business-logic/infinite-money-logic-flaw.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Authentication bypass via encryption oracle",
+    "url": "/blog/portswigger/server-side/business-logic/authentication-bypass-via-encryption-oracle.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Bypassing access controls using email address parsing discrepancies",
+    "url": "/blog/portswigger/server-side/business-logic/bypassing-access-controls-using-email-address-parsing-discrepancies.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Information disclosure in error messages",
+    "url": "/blog/portswigger/server-side/information-disclosure/information-disclosure-in-error-messages.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Information disclosure on debug page",
+    "url": "/blog/portswigger/server-side/information-disclosure/information-disclosure-on-debug-page.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Source code disclosure via backup files",
+    "url": "/blog/portswigger/server-side/information-disclosure/source-code-disclosure-via-backup-files.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Authentication bypass via information disclosure",
+    "url": "/blog/portswigger/server-side/information-disclosure/authentication-bypass-via-information-disclosure.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Information disclosure in version control history",
+    "url": "/blog/portswigger/server-side/information-disclosure/information-disclosure-in-version-control-history.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Unprotected admin functionality",
+    "url": "/blog/portswigger/server-side/access-control/unprotected-admin-functionality.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Unprotected admin functionality with unpredictable URL",
+    "url": "/blog/portswigger/server-side/access-control/unprotected-admin-functionality-with-unpredictable-url.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "User role controlled by request parameter",
+    "url": "/blog/portswigger/server-side/access-control/user-role-controlled-by-request-parameter.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "User role can be modified in user profile",
+    "url": "/blog/portswigger/server-side/access-control/user-role-can-be-modified-in-user-profile.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "User ID controlled by request parameter",
+    "url": "/blog/portswigger/server-side/access-control/user-id-controlled-by-request-parameter.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "User ID controlled by request parameter, with unpredictable user IDs",
+    "url": "/blog/portswigger/server-side/access-control/user-id-controlled-by-request-parameter-with-unpredictable-user-ids.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "User ID controlled by request parameter with data leakage in redirect",
+    "url": "/blog/portswigger/server-side/access-control/user-id-controlled-by-request-parameter-with-data-leakage-in-redirect.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "User ID controlled by request parameter with password disclosure",
+    "url": "/blog/portswigger/server-side/access-control/user-id-controlled-by-request-parameter-with-password-disclosure.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Insecure direct object references",
+    "url": "/blog/portswigger/server-side/access-control/insecure-direct-object-references.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "URL-based access control can be circumvented",
+    "url": "/blog/portswigger/server-side/access-control/url-based-access-control-can-be-circumvented.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Method-based access control can be circumvented",
+    "url": "/blog/portswigger/server-side/access-control/method-based-access-control-can-be-circumvented.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Multi-step process with no access control on one step",
+    "url": "/blog/portswigger/server-side/access-control/multi-step-process-with-no-access-control-on-one-step.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Referer-based access control",
+    "url": "/blog/portswigger/server-side/access-control/referer-based-access-control.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Remote code execution via web shell upload",
+    "url": "/blog/portswigger/server-side/file-upload/remote-code-execution-via-web-shell-upload.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Web shell upload via Content-Type restriction bypass",
+    "url": "/blog/portswigger/server-side/file-upload/web-shell-upload-via-content-type-restriction-bypass.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Web shell upload via path traversal",
+    "url": "/blog/portswigger/server-side/file-upload/web-shell-upload-via-path-traversal.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Web shell upload via extension blacklist bypass",
+    "url": "/blog/portswigger/server-side/file-upload/web-shell-upload-via-extension-blacklist-bypass.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Web shell upload via obfuscated file extension",
+    "url": "/blog/portswigger/server-side/file-upload/web-shell-upload-via-obfuscated-file-extension.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Remote code execution via polyglot web shell upload",
+    "url": "/blog/portswigger/server-side/file-upload/remote-code-execution-via-polyglot-web-shell-upload.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Web shell upload via race condition",
+    "url": "/blog/portswigger/server-side/file-upload/web-shell-upload-via-race-condition.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Limit overrun race conditions",
+    "url": "/blog/portswigger/server-side/race-conditions/limit-overrun-race-conditions.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Bypassing rate limits via race conditions",
+    "url": "/blog/portswigger/server-side/race-conditions/bypassing-rate-limits-via-race-conditions.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Multi-endpoint race conditions",
+    "url": "/blog/portswigger/server-side/race-conditions/multi-endpoint-race-conditions.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Single-endpoint race conditions",
+    "url": "/blog/portswigger/server-side/race-conditions/single-endpoint-race-conditions.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Exploiting time-sensitive vulnerabilities",
+    "url": "/blog/portswigger/server-side/race-conditions/exploiting-time-sensitive-vulnerabilities.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Partial construction race conditions",
+    "url": "/blog/portswigger/server-side/race-conditions/partial-construction-race-conditions.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Basic SSRF against the local server",
+    "url": "/blog/portswigger/server-side/ssrf/basic-ssrf-against-the-local-server.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Basic SSRF against another back-end system",
+    "url": "/blog/portswigger/server-side/ssrf/basic-ssrf-against-another-backend-system.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Blind SSRF with out-of-band detection",
+    "url": "/blog/portswigger/server-side/ssrf/blind-ssrf-with-outofband-detection.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "SSRF with blacklist-based input filter",
+    "url": "/blog/portswigger/server-side/ssrf/ssrf-with-blacklistbased-input-filter.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "SSRF with filter bypass via open redirection vulnerability",
+    "url": "/blog/portswigger/server-side/ssrf/ssrf-with-filter-bypass-via-open-redirection-vulnerability.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Blind SSRF with Shellshock exploitation",
+    "url": "/blog/portswigger/server-side/ssrf/blind-ssrf-with-shellshock-exploitation.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "SSRF with whitelist-based input filter",
+    "url": "/blog/portswigger/server-side/ssrf/ssrf-with-whitelistbased-input-filter.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Exploiting XXE using external entities to retrieve files",
+    "url": "/blog/portswigger/server-side/xxe/exploiting-xxe-using-external-entities-to-retrieve-files.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Exploiting XXE to perform SSRF attacks",
+    "url": "/blog/portswigger/server-side/xxe/exploiting-xxe-to-perform-ssrf-attacks.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Blind XXE with out-of-band interaction",
+    "url": "/blog/portswigger/server-side/xxe/blind-xxe-with-outofband-interaction.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Blind XXE with out-of-band interaction via XML parameter entities",
+    "url": "/blog/portswigger/server-side/xxe/blind-xxe-with-outofband-interaction-via-xml-parameter-entities.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Exploiting blind XXE to exfiltrate data using a malicious external DTD",
+    "url": "/blog/portswigger/server-side/xxe/exploiting-blind-xxe-to-exfiltrate-data-using-a-malicious-external-dtd.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Exploiting blind XXE to retrieve data via error messages",
+    "url": "/blog/portswigger/server-side/xxe/exploiting-blind-xxe-to-retrieve-data-via-error-messages.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Exploiting XInclude to retrieve files",
+    "url": "/blog/portswigger/server-side/xxe/exploiting-xinclude-to-retrieve-files.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Exploiting XXE via image file upload",
+    "url": "/blog/portswigger/server-side/xxe/exploiting-xxe-via-image-file-upload.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Exploiting XXE to retrieve data by repurposing a local DTD",
+    "url": "/blog/portswigger/server-side/xxe/exploiting-xxe-to-retrieve-data-by-repurposing-a-local-dtd.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Detecting NoSQL injection",
+    "url": "/blog/portswigger/server-side/nosqli/detecting-nosql-injection.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Exploiting NoSQL operator injection to bypass authentication",
+    "url": "/blog/portswigger/server-side/nosqli/exploiting-nosql-operator-injection-to-bypass-authentication.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Exploiting NoSQL injection to extract data",
+    "url": "/blog/portswigger/server-side/nosqli/exploiting-nosql-injection-to-extract-data.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Exploiting NoSQL operator injection to extract unknown fields",
+    "url": "/blog/portswigger/server-side/nosqli/exploiting-nosql-operator-injection-to-extract-unknown-fields.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Exploiting an API endpoint using documentation",
+    "url": "/blog/portswigger/server-side/api/exploiting-an-api-endpoint-using-documentation.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Exploiting server-side parameter pollution in a query string",
+    "url": "/blog/portswigger/server-side/api/exploiting-server-side-parameter-pollution-in-a-query-string.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Finding and exploiting an unused API endpoint",
+    "url": "/blog/portswigger/server-side/api/finding-and-exploiting-an-unused-api-endpoint.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Exploiting a mass assignment vulnerability",
+    "url": "/blog/portswigger/server-side/api/exploiting-a-mass-assignment-vulnerability.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Exploiting server-side parameter pollution in a REST URL",
+    "url": "/blog/portswigger/server-side/api/exploiting-server-side-parameter-pollution-in-a-rest-url.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Exploiting path mapping for web cache deception",
+    "url": "/blog/portswigger/server-side/wcd/exploiting-path-mapping-for-web-cache-deception.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Exploiting path delimiters for web cache deception",
+    "url": "/blog/portswigger/server-side/wcd/exploiting-path-delimiters-for-web-cache-deception.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Exploiting origin server normalization for web cache deception",
+    "url": "/blog/portswigger/server-side/wcd/exploiting-origin-server-normalization-for-web-cache-deception.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Exploiting cache server normalization for web cache deception",
+    "url": "/blog/portswigger/server-side/wcd/exploiting-cache-server-normalization-for-web-cache-deception.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "Exploiting exact-match cache rules for web cache deception",
+    "url": "/blog/portswigger/server-side/wcd/exploiting-exactmatch-cache-rules-for-web-cache-deception.html",
+    "description": "Connect to ssh and cat the readme file."
+  },
+  {
+    "title": "asdf",
+    "url": "/blog/overthewire/natas/natas0-1.html",
+    "description": "Connect to ssh and cat the readme file."
   }
+  
 ]
