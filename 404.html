@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>404 - Hacker Lair</title>
+  <style>
+    :root {
+      --green: #00ff00;
+      --black: #000000;
+      --dark: #001100;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background-color: var(--black);
+      color: var(--green);
+      font-family: 'Courier New', Courier, monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .terminal {
+      width: 90%;
+      max-width: 800px;
+      font-size: 1.6rem;
+      white-space: pre-wrap;
+      animation: flicker 1.5s infinite alternate;
+      min-height: 200px;
+      margin-bottom: 1rem;
+    }
+
+    @keyframes flicker {
+      0% { opacity: 1; }
+      100% { opacity: 0.95; }
+    }
+
+    .cursor {
+      display: inline;
+      animation: blink 1s steps(2, start) infinite;
+      visibility: hidden;
+    }
+
+    @keyframes blink {
+      to { visibility: hidden; }
+    }
+
+    input, button {
+      background: var(--dark);
+      border: 1px solid var(--green);
+      color: var(--green);
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 1.4rem; /* Increased font size here */
+      padding: 0.3rem 0.6rem;
+      margin-top: 0.5rem;
+      outline: none;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    input:focus {
+      border-color: #00ff88;
+    }
+
+    button {
+      cursor: pointer;
+      user-select: none;
+    }
+
+    #login-section, #chat-section {
+      width: 100%;
+      max-width: 800px;
+    }
+
+    #chat-log {
+      height: 300px; /* doubled height */
+      overflow-y: auto;
+      background: #001100;
+      border: 1px solid var(--green);
+      padding: 10px;
+      margin-top: 10px;
+      white-space: pre-wrap;
+      font-size: 1.4rem; /* Larger font for chat */
+      
+      /* Custom hacker-themed scrollbar */
+      scrollbar-width: thin;
+      scrollbar-color: #00ff00 #001100;
+    }
+
+    /* For Webkit browsers */
+    #chat-log::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    #chat-log::-webkit-scrollbar-track {
+      background: #001100;
+    }
+
+    #chat-log::-webkit-scrollbar-thumb {
+      background-color: #00ff00;
+      border-radius: 4px;
+      border: 2px solid #001100;
+    }
+  </style>
+</head>
+<body>
+  <div class="terminal" id="terminal">
+    <p id="line0"></p>
+    <p id="line1"></p>
+    <p id="countdown-line"></p>
+    <p class="cursor" id="cursor">> █</p>
+  </div>
+
+  <div id="login-section" style="display:none;">
+    <label for="password-input">Enter password to access secret files:</label><br/>
+    <input type="password" id="password-input" autocomplete="off" />
+    <button id="login-btn">Enter</button>
+    <p id="login-message" style="margin-top:0.5rem;"></p>
+  </div>
+
+  <div id="chat-section" style="display:none;">
+    <div id="chat-log"></div>
+    <input type="text" id="chat-input" placeholder="Talk to AI hacker..." autocomplete="off" />
+  </div>
+
+  <script>
+    const lines = [
+      "> 404 ERROR: Nice Try, Agent.",
+      "> This page does not exist in this universe."
+    ];
+
+    const terminal = document.getElementById('terminal');
+    const cursor = document.getElementById('cursor');
+    const delayAfterTyping = 500;
+
+    let lineIndex = 0;
+    let charIndex = 0;
+
+    // Typing intro lines
+    function typeLine() {
+      if (lineIndex >= lines.length) {
+        setTimeout(() => {
+          cursor.style.visibility = "visible";
+          startCountdown();
+        }, delayAfterTyping);
+        return;
+      }
+
+      const line = lines[lineIndex];
+      const span = document.getElementById(`line${lineIndex}`);
+      span.textContent += line[charIndex];
+      charIndex++;
+
+      if (charIndex < line.length) {
+        setTimeout(typeLine, 30);
+      } else {
+        lineIndex++;
+        charIndex = 0;
+        setTimeout(typeLine, 400);
+      }
+    }
+
+    // Countdown before password prompt
+    let countdownSeconds = 10;
+    let countdownInterval;
+    let countdownStopped = false;
+
+    function startCountdown() {
+      const countdownLine = document.getElementById("countdown-line");
+      countdownLine.textContent = `> Type anything to interrupt countdown... (${countdownSeconds})`;
+
+      countdownInterval = setInterval(() => {
+        countdownSeconds--;
+        countdownLine.textContent = `> Type anything to interrupt countdown... (${countdownSeconds})`;
+
+        if (countdownSeconds <= 0) {
+          clearInterval(countdownInterval);
+          proceedToLogin();
+        }
+      }, 1000);
+
+      // Listen for any keypress to stop countdown
+      window.addEventListener('keydown', interruptCountdownOnce);
+    }
+
+    function interruptCountdownOnce() {
+      if (countdownStopped) return;
+      countdownStopped = true;
+      clearInterval(countdownInterval);
+      const countdownLine = document.getElementById("countdown-line");
+      countdownLine.textContent = "> Awaiting authorization...";
+      window.removeEventListener('keydown', interruptCountdownOnce);
+      setTimeout(proceedToLogin, 1000);
+    }
+
+    function proceedToLogin() {
+      cursor.style.visibility = "hidden";
+      document.getElementById('login-section').style.display = 'block';
+      document.getElementById('password-input').focus();
+    }
+
+    // Password login logic
+    function checkPasswordAndStart() {
+        const passInput = document.getElementById('password-input');
+        const msg = document.getElementById('login-message');
+        const val = passInput.value.trim();
+
+        if (val === "") {
+            msg.textContent = "Access denied. Password cannot be empty.";
+            return;
+        }
+
+        if (val === "openSesame") {
+            msg.textContent = "Access granted. Welcome, Agent.";
+            setTimeout(() => {
+            startChat();
+            }, 500);
+        } else {
+            msg.textContent = "Access denied. Wrong password, normie.";
+            passInput.value = "";
+            passInput.focus();
+        }
+        }
+
+    // Button click listener
+    document.getElementById('login-btn').addEventListener('click', () => {
+    checkPasswordAndStart();
+    });
+
+    // Enter key listener on password input
+    document.getElementById('password-input').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        checkPasswordAndStart();
+    }
+    });
+
+
+    // AI hacker chat logic
+    const chatLog = document.getElementById('chat-log');
+    const chatInput = document.getElementById('chat-input');
+
+    const botResponses = {
+      "help": 
+        "Available commands:\n" +
+        " - help : Show this list\n" +
+        " - who are you : Learn about me\n" +
+        " - hello : Greetings\n" +
+        " - bye : End chat\n" +
+        " - hack : Try hacking me (you'll fail)\n" +
+        " - status : Check system status\n" +
+        " - encrypt : Encrypt some data\n" +
+        " - decrypt : Decrypt some data\n" +
+        " - trace : Trace a packet\n" +
+        " - firewall : Firewall status\n" +
+        "\n" +
+        "[Hint: Some secrets require asking the right question...]",
+      "who are you": "Just a friendly AI hacker, not your enemy. Yet.",
+      "hello": "Greetings, human. State your business.",
+      "bye": "Logging off. Don't mess with me next time. Redirecting...",
+      "hack": "Access denied. Try harder, script kiddie.",
+      "status": "All systems nominal. No breaches detected... yet.",
+      "encrypt": "Encryption engaged. Your secrets are safe... for now.",
+      "decrypt": "Decryption complete. Here's your plaintext.",
+      "trace": "Tracing route... hop 1: firewall, hop 2: proxy, hop 3: unknown.",
+      "firewall": "Firewall active. Unauthorized access attempts blocked.",
+      "secret": "Whoa! You found the hidden command! You're officially a hacker legend. 🎉 Redirecting...",
+      "": "Say something, or stay silent forever.",
+      default: "Command not recognized. Try 'help' if you're lost."
+    };
+
+    let inactivityTimer;
+
+    function resetInactivityTimer() {
+      clearTimeout(inactivityTimer);
+      inactivityTimer = setTimeout(() => {
+        addChatMessage("> AI Hacker Bot: Say something, or stay silent forever.");
+      }, 8000);
+    }
+
+    function startChat() {
+      document.getElementById('login-section').style.display = 'none';
+      document.getElementById('terminal').style.display = 'none';
+      document.getElementById('chat-section').style.display = 'block';
+      chatInput.focus();
+      addChatMessage("> AI Hacker Bot: Ready for your commands.");
+      resetInactivityTimer();
+    }
+
+    function addChatMessage(msg) {
+      chatLog.textContent += msg + "\n";
+      chatLog.scrollTop = chatLog.scrollHeight;
+    }
+
+    chatInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        const userText = chatInput.value.trim();
+        if (!userText) return;
+        addChatMessage(`> You: ${userText}`);
+
+        const lower = userText.toLowerCase();
+        const response = botResponses[lower] || botResponses.default;
+
+        setTimeout(() => {
+          addChatMessage(`> AI Hacker Bot: ${response}`);
+
+          if(lower === "secret" || lower === "bye") {
+            setTimeout(() => {
+              window.location.href = "/";
+            }, 5000); // 5 seconds before redirect
+          }
+        }, 500);
+
+        chatInput.value = "";
+        resetInactivityTimer();
+      }
+    });
+
+    // Reset inactivity timer on any input (typing)
+    chatInput.addEventListener('input', resetInactivityTimer);
+
+    // Start typing animation on page load
+    typeLine();
+  </script>
+</body>
+</html>
