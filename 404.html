@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>404 - Hacker Lair</title>
+  <title>404 - Nice Try</title>
   <style>
     :root {
       --green: #00ff00;
@@ -55,7 +55,7 @@
       border: 1px solid var(--green);
       color: var(--green);
       font-family: 'Courier New', Courier, monospace;
-      font-size: 1.4rem; /* Increased font size here */
+      font-size: 1.4rem;
       padding: 0.3rem 0.6rem;
       margin-top: 0.5rem;
       outline: none;
@@ -85,7 +85,7 @@
       padding: 10px;
       margin-top: 10px;
       white-space: pre-wrap;
-      font-size: 1.4rem; /* Larger font for chat */
+      font-size: 1.4rem;
       
       /* Custom hacker-themed scrollbar */
       scrollbar-width: thin;
@@ -130,7 +130,7 @@
 
   <script>
     const lines = [
-      "> 404 ERROR: Nice Try, Agent.",
+      "> 404 ERROR: Nice try, agent.",
       "> This page does not exist in this universe."
     ];
 
@@ -180,7 +180,7 @@
 
         if (countdownSeconds <= 0) {
           clearInterval(countdownInterval);
-          proceedToLogin();
+          window.location.href = '/'; // Redirect to / when countdown finishes
         }
       }, 1000);
 
@@ -204,41 +204,59 @@
       document.getElementById('password-input').focus();
     }
 
-    // Password login logic
-    function checkPasswordAndStart() {
-        const passInput = document.getElementById('password-input');
+    // Password login logic (with Enter key and click support)
+    document.getElementById('password-input').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const passInput = e.target;
         const msg = document.getElementById('login-message');
         const val = passInput.value.trim();
 
         if (val === "") {
-            msg.textContent = "Access denied. Password cannot be empty.";
-            return;
+          msg.textContent = "Access denied. Password cannot be empty.";
+          return;
         }
 
         if (val === "openSesame") {
-            msg.textContent = "Access granted. Welcome, Agent.";
-            setTimeout(() => {
+          msg.textContent = "Access granted. Welcome, Agent.";
+          setTimeout(() => {
             startChat();
-            }, 500);
+          }, 500);
         } else {
-            msg.textContent = "Access denied. Wrong password, normie.";
-            passInput.value = "";
-            passInput.focus();
+          msg.textContent = "Access denied. Wrong password, normie.";
+          setTimeout(() => {
+            msg.textContent = "Hint: Say the magic word in camel case to open...";
+          }, 5000); // Show hint after 2 seconds
+          passInput.value = "";
+          passInput.focus();
         }
-        }
+      }
+    });
 
-    // Button click listener
+    // Button click listener (for compatibility)
     document.getElementById('login-btn').addEventListener('click', () => {
-    checkPasswordAndStart();
-    });
+      const passInput = document.getElementById('password-input');
+      const msg = document.getElementById('login-message');
+      const val = passInput.value.trim();
 
-    // Enter key listener on password input
-    document.getElementById('password-input').addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-        checkPasswordAndStart();
-    }
-    });
+      if (val === "") {
+        msg.textContent = "Access denied. Password cannot be empty.";
+        return;
+      }
 
+      if (val === "openSesame") {
+        msg.textContent = "Access granted. Welcome, Agent.";
+        setTimeout(() => {
+          startChat();
+        }, 500);
+      } else {
+        msg.textContent = "Access denied. Wrong password, normie.";
+        setTimeout(() => {
+          msg.textContent = "Hint: Say the magic word in camel case to open...";
+        }, 5000); // Show hint after 2 seconds
+        passInput.value = "";
+        passInput.focus();
+      }
+    });
 
     // AI hacker chat logic
     const chatLog = document.getElementById('chat-log');
@@ -311,7 +329,7 @@
           if(lower === "secret" || lower === "bye") {
             setTimeout(() => {
               window.location.href = "/";
-            }, 5000); // 5 seconds before redirect
+            }, 5000); // 2 seconds before redirect
           }
         }, 500);
 
