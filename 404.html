@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <link rel="icon" type="image/x-icon" href="favicon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>404 - Nice Try</title>
+  <title>Nice Try</title>
   <style>
     :root {
       --green: #00ff00;
@@ -130,7 +131,7 @@
 
   <script>
     const lines = [
-      "> 404 ERROR: Nice try, agent.",
+      "> ERROR: Nice try, Agent.",
       "> This page does not exist in this universe."
     ];
 
@@ -224,8 +225,8 @@
         } else {
           msg.textContent = "Access denied. Wrong password, normie.";
           setTimeout(() => {
-            msg.textContent = "Hint: Say the magic word in camel case to open...";
-          }, 5000); // Show hint after 2 seconds
+            msg.textContent = "[Hint: Say the magic word in camel case to open...]";
+          }, 17000); // Show hint after 2 seconds
           passInput.value = "";
           passInput.focus();
         }
@@ -251,8 +252,8 @@
       } else {
         msg.textContent = "Access denied. Wrong password, normie.";
         setTimeout(() => {
-          msg.textContent = "Hint: Say the magic word in camel case to open...";
-        }, 5000); // Show hint after 2 seconds
+          msg.textContent = "[Hint: Say the magic word in camel case to open...]";
+        }, 17000); // Show hint after 2 seconds
         passInput.value = "";
         passInput.focus();
       }
@@ -344,5 +345,6 @@
     // Start typing animation on page load
     typeLine();
   </script>
+  <!-- b3BlblNlc2FtZQ== -->
 </body>
 </html>
