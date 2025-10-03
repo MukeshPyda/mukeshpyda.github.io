@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="HMCyberAcademy — 1-to-1 Online Cybersecurity Courses. Transform your career with job-ready skills, certifications, and expert mentorship.">
+  <title>HMCyberAcademy — For Learners</title>
+  <link rel="icon" type="image/x-icon" href="favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="learners.css">
+  <!-- EmailJS Script -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+</head>
+<body>
+  <header role="banner">
+    <div class="container header-inner">
+      <div class="brand">
+        <img src="logo.png" alt="HMCyberAcademy Logo" class="logo">
+        <div>
+          <h1>HMCyberAcademy</h1>
+          <p class="tagline">India's #1 VAPT & SOC Training</p>
+        </div>
+      </div>
+      <nav aria-label="Main navigation">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/learners.html" aria-current="page">For Learners</a></li>
+          <li><a href="/companies.html">For Companies</a></li>
+          <li><a href="/free-resources.html">Free Resources</a></li>
+        </ul>
+      </nav>
+      <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="maincontent">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="kicker">Career • Certification • Confidence</p>
+          <h2>Cybersecurity Training That Transforms Your Future</h2>
+          <p class="lead">Live 1-to-1 sessions, practical labs and mentorship focused on the single outcome you care about: faster hiring, higher pay, and a career you can be proud of.</p>
+          <div class="hero-ctas">
+            <a class="btn primary" href="#course-form" onclick="document.querySelector('#fullname').focus()">Claim My Spot</a>
+            <a class="btn ghost" href="#benefits">Why Choose Us</a>
+          </div>
+        </div>
+        <aside class="hero-stats">
+          <div class="stat-card">
+            <div class="stat-number">92%</div>
+            <p class="stat-label">Hired within 6 months</p>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">40+</div>
+            <p class="stat-label">Certifications guided</p>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">1:1</div>
+            <p class="stat-label">Personal mentorship</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="benefits" id="benefits">
+      <div class="container">
+        <h2 class="section-title">Why learners join</h2>
+        <div class="benefits-grid">
+          <article class="benefit-card">
+            <div class="card-icon" aria-hidden="true"><i class="fas fa-briefcase"></i></div>
+            <h3>Get hired faster</h3>
+            <p>We teach exactly what employers test for — live projects, interview prep and placement support.</p>
+          </article>
+          <article class="benefit-card">
+            <div class="card-icon" aria-hidden="true"><i class="fas fa-certificate"></i></div>
+            <h3>Certify with confidence</h3>
+            <p>Exam-focused labs, mock tests and mentor reviews until you pass.</p>
+          </article>
+          <article class="benefit-card">
+            <div class="card-icon" aria-hidden="true"><i class="fas fa-chalkboard-teacher"></i></div>
+            <h3>1-to-1 mentorship</h3>
+            <p>Your coach adapts lessons to your level and career goal — no one-size-fits-all.</p>
+          </article>
+          <article class="benefit-card">
+            <div class="card-icon" aria-hidden="true"><i class="fas fa-rocket"></i></div>
+            <h3>Real transformation</h3>
+            <p>Alumni double salaries, switch to global roles and get promoted faster.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="course-form" id="course-form">
+      <div class="container">
+        <h2 class="section-title">Reserve your seat — start your transformation</h2>
+        <p class="lead">Fill your details and choose a path. We'll email you next steps and batch details.</p>
+
+        <form id="learnerForm" class="form-grid" onsubmit="return false;">
+          <input type="hidden" id="csrfToken" name="_csrf" value="">
+
+          <div class="form-group">
+            <label for="fullname">Full Name *</label>
+            <input id="fullname" name="fullname" type="text" required maxlength="100" placeholder="Your full name" pattern="[A-Za-z0-9\s&.,-]{2,100}" title="Full name must be 2-100 characters (letters, numbers, spaces, &.,- allowed).">
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input id="email" name="email" type="email" required maxlength="100" placeholder="you@domain.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Enter a valid email address.">
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone Number *</label>
+            <input id="phone" name="phone" type="tel" required maxlength="15" placeholder="+91 9XXXXXXXXX" pattern="[\+]?[0-9\s()-]{5,15}" title="Phone number must be 5-15 characters (numbers, +, spaces, ()- allowed).">
+          </div>
+
+          <div class="form-group">
+            <label for="courseType">Select Type of Course *</label>
+            <select id="courseType" name="courseType" required>
+              <option value="">-- Choose --</option>
+              <option value="job">Job Oriented</option>
+              <option value="cert">Certification</option>
+              <option value="private">Private</option>
+            </select>
+          </div>
+
+          <div class="form-group" id="courseContainer" style="display:none;">
+            <label for="course">Select Course *</label>
+            <select id="course" name="course"></select>
+          </div>
+
+          <div class="form-group" id="packageContainer" style="display:none;">
+            <label for="package">Select Package *</label>
+            <select id="package" name="package"></select>
+          </div>
+
+          <div class="form-group full-width" id="courseDetails" style="display:none;"></div>
+
+          <button id="submitBtn" class="btn primary full-width" type="submit">Start My Transformation</button>
+        </form>
+
+        <div id="formMessage" style="margin-top: 1rem; color: var(--muted); display: none;"></div>
+      </div>
+    </section>
+
+    <section class="testimonials">
+      <div class="container">
+        <h2 class="section-title">Success stories</h2>
+        <div class="testimonials-grid">
+          <div class="testimonial-card">
+            <p>"The 1-to-1 mentorship and project work helped me land a SOC role in 3 months."</p>
+            <div class="testimonial-author">
+              <strong>Arjun P.</strong>
+              <span>SOC Analyst</span>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <p>"I cleared OSCP after focused labs and mentor support — my offer came 2 months later."</p>
+            <div class="testimonial-author">
+              <strong>Nisha R.</strong>
+              <span>Pen Tester</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p><strong>HMCyberAcademy</strong> — Practical cybersecurity training & mentorship.</p>
+      <p class="muted">Email: <a href="mailto:support@hmcyberacademy.com">support@hmcyberacademy.com</a></p>
+      <div class="social-icons">
+        <a href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="YouTube" class="social-link"><i class="fab fa-youtube"></i></a>
+        <a href="https://x.com/" target="_blank" rel="noopener" aria-label="Twitter/X" class="social-link"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://github.com/" target="_blank" rel="noopener" aria-label="GitHub" class="social-link"><i class="fab fa-github"></i></a>
+      </div>
+      <p class="muted">© 2025 HMCyberAcademy — All rights reserved</p>
+    </div>
+  </footer>
+
+  <script src="learners.js"></script>
+</body>
+</html>

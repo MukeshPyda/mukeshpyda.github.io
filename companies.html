@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="HMCyberAcademy — Hire pre-vetted cybersecurity talent for VAPT and SOC L1 roles. Fast recruitment, industry-aligned skills, and job-ready graduates.">
+  <title>HMCyberAcademy — For Companies</title>
+  <link rel="icon" type="image/x-icon" href="favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="companies.css">
+  <!-- EmailJS Script -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+</head>
+<body>
+  <header role="banner">
+    <div class="container header-inner">
+      <div class="brand">
+        <img src="logo.png" alt="HMCyberAcademy Logo" class="logo">
+        <div>
+          <h1>HMCyberAcademy</h1>
+          <p class="tagline">India's #1 VAPT & SOC Training</p>
+        </div>
+      </div>
+      <nav aria-label="Main navigation">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/learners.html">For Learners</a></li>
+          <li><a href="/companies.html" aria-current="page">For Companies</a></li>
+          <li><a href="/free-resources.html">Free Resources</a></li>
+        </ul>
+      </nav>
+      <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="maincontent">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="kicker">Pre-Vetted • Job-Ready • Cost-Effective</p>
+          <h2>Hire Top Cybersecurity Talent, Faster</h2>
+          <p class="lead">
+            Access a pipeline of highly skilled VAPT and SOC L1 professionals trained on real-world projects, certified (CEH, OSCP, Security+), and ready to contribute from day one. Reduce recruitment time by 70% and get talent that aligns with your enterprise security needs.
+          </p>
+          <div class="hero-ctas">
+            <a class="btn primary" href="#hire-form">Request Candidates</a>
+            <a class="btn ghost" href="#benefits">Why Hire From Us</a>
+          </div>
+        </div>
+        <aside class="hero-stats">
+          <div class="stat-card">
+            <div class="stat-number">100+</div>
+            <p class="stat-label">Graduates Placed</p>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">7-14</div>
+            <p class="stat-label">Days to Hire</p>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">95%</div>
+            <p class="stat-label">Retention Rate</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="benefits" id="benefits">
+      <div class="container">
+        <h2 class="section-title">Why Partner With HMCyberAcademy?</h2>
+        <div class="benefits-grid">
+          <article class="benefit-card">
+            <div class="card-icon" aria-hidden="true"><i class="fas fa-check-circle"></i></div>
+            <h3>Pre-Vetted Talent</h3>
+            <p>Our graduates complete hands-on projects and CTF challenges, ensuring they're battle-tested for your security operations.</p>
+          </article>
+          <article class="benefit-card">
+            <div class="card-icon" aria-hidden="true"><i class="fas fa-certificate"></i></div>
+            <h3>Certification-Backed</h3>
+            <p>CEH, OSCP, Security+ certified professionals who hit the ground running without extensive onboarding.</p>
+          </article>
+          <article class="benefit-card">
+            <div class="card-icon" aria-hidden="true"><i class="fas fa-clock"></i></div>
+            <h3>Fast Recruitment</h3>
+            <p>Submit role specs and receive vetted candidates within 7-14 days—bypass months of traditional hiring.</p>
+          </article>
+          <article class="benefit-card">
+            <div class="card-icon" aria-hidden="true"><i class="fas fa-users"></i></div>
+            <h3>Custom Upskilling</h3>
+            <p>Tailor training modules to your tech stack for seamless integration into your SOC or VAPT teams.</p>
+          </article>
+          <article class="benefit-card">
+            <div class="card-icon" aria-hidden="true"><i class="fas fa-handshake"></i></div>
+            <h3>Flexible Models</h3>
+            <p>Direct hire, contract-to-hire, or cohort training—choose what fits your hiring needs.</p>
+          </article>
+          <article class="benefit-card">
+            <div class="card-icon" aria-hidden="true"><i class="fas fa-chart-line"></i></div>
+            <h3>Proven ROI</h3>
+            <p>95% placement success, reduced turnover, and immediate productivity from our job-ready graduates.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="hire-form" id="hire-form">
+      <div class="container">
+        <h2 class="section-title">Ready to Hire? Let's Connect</h2>
+        <p class="lead">Fill out the form below, and our HR team will respond within 24 hours with qualified candidates for your roles.</p>
+        <form class="form-grid" id="hireForm">
+          <input type="hidden" id="csrfToken" name="_csrf" value="">
+          <div class="form-group">
+            <label for="company-name">Company Name *</label>
+            <input type="text" id="company-name" name="companyName" placeholder="e.g., TechCorp Inc." required maxlength="100" pattern="[A-Za-z0-9\s&.,-]{2,100}" title="Company name must be 2-100 characters (letters, numbers, spaces, &.,- allowed).">
+          </div>
+          <div class="form-group">
+            <label for="contact-email">Contact Email *</label>
+            <input type="email" id="contact-email" name="email" placeholder="hr@techcorp.com" required maxlength="100" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Enter a valid email address.">
+          </div>
+          <div class="form-group">
+            <label for="roles">Roles Needed *</label>
+            <input type="text" id="roles" name="roles" placeholder="e.g., SOC Analyst, VAPT Engineer" required maxlength="200" pattern="[A-Za-z0-9\s,.-]{5,200}" title="Roles must be 5-200 characters (letters, numbers, spaces, commas, .,- allowed).">
+          </div>
+          <div class="form-group full-width">
+            <label for="message">Additional Details</label>
+            <textarea id="message" name="message" placeholder="Any specific skills or tech stack requirements?" rows="4" maxlength="1000" pattern="[\s\S]{0,1000}" title="Message up to 1000 characters."></textarea>
+          </div>
+          <button type="submit" class="btn primary full-width">Submit Request</button>
+        </form>
+        <div id="formMessage" style="margin-top: 1rem; color: var(--muted); display: none;"></div>
+      </div>
+    </section>
+
+    <section class="testimonials">
+      <div class="container">
+        <h2 class="section-title">What Our Partners Say</h2>
+        <div class="testimonials-grid">
+          <div class="testimonial-card">
+            <p>"HMCyberAcademy delivered SOC analysts who were productive from week one. Their hands-on training saved us months of onboarding."</p>
+            <div class="testimonial-author">
+              <strong>SecureTech Inc.</strong>
+              <span>HR Director</span>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <p>"The VAPT engineers from HMCA aced our certification challenges and brought fresh perspectives to our red team exercises."</p>
+            <div class="testimonial-author">
+              <strong>CyberGuard Solutions</strong>
+              <span>Security Lead</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p><strong>HMCyberAcademy</strong> — Practical cybersecurity training & internships.</p>
+      <p class="muted">Email: <a href="mailto:support@hmcyberacademy.com">support@hmcyberacademy.com</a></p>
+      <div class="social-icons">
+        <a href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="YouTube" class="social-link"><i class="fab fa-youtube"></i></a>
+        <a href="https://x.com/" target="_blank" rel="noopener" aria-label="Twitter/X" class="social-link"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://github.com/" target="_blank" rel="noopener" aria-label="GitHub" class="social-link"><i class="fab fa-github"></i></a>
+      </div>
+      <p class="muted">© 2025 HMCyberAcademy — All rights reserved</p>
+    </div>
+  </footer>
+
+  <script src="companies.js"></script>
+</body>
+</html>

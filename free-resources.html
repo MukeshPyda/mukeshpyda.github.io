@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="HMCyberAcademy — Free cybersecurity resources, including YouTube tutorials, blog guides, and hands-on labs for VAPT and SOC training.">
+  <title>HMCyberAcademy — Free Resources</title>
+  <link rel="icon" type="image/x-icon" href="favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="free-resources.css">
+</head>
+<body>
+  <header role="banner">
+    <div class="container header-inner">
+      <div class="brand">
+        <img src="logo.png" alt="HMCyberAcademy Logo" class="logo">
+        <div>
+          <h1>HMCyberAcademy</h1>
+          <p class="tagline">India’s #1 VAPT & SOC Training</p>
+        </div>
+      </div>
+      <nav aria-label="Main navigation">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/learners.html">For Learners</a></li>
+          <li><a href="/companies.html">For Companies</a></li>
+          <li><a href="/free-resources.html" aria-current="page">Free Resources</a></li>
+        </ul>
+      </nav>
+      <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="maincontent">
+    <section class="resources">
+      <div class="container">
+        <h2 class="section-title">Our Commitment to Free Education</h2>
+        <p class="lead">
+          At HMCyberAcademy, we believe cybersecurity education should be accessible to those who cannot afford it. Your <a href="#support-section">support</a> helps us create high-quality, free content to help learners worldwide master VAPT and SOC skills, regardless of their financial background.
+        </p>
+        <div class="resources-grid">
+          <article class="resource-card">
+            <div class="card-icon" aria-hidden="true"><i class="fab fa-youtube"></i></div>
+            <h3>YouTube Channel</h3>
+            <p>Our YouTube channel offers free tutorials, CTF walkthroughs, penetration testing labs, and SOC training videos. From beginner to advanced, our content is designed to help you learn by doing.</p>
+            <a class="btn primary" href="https://www.youtube.com/" style="margin-right: 15px;" target="_blank" rel="noopener">English</a>
+            <a class="btn primary" href="https://www.youtube.com/" target="_blank" rel="noopener">Telugu</a>
+          </article>
+          <article class="resource-card">
+            <div class="card-icon" aria-hidden="true">📝</div>
+            <h3>Blog</h3>
+            <p>Our blog provides detailed written guides, ethical hacking tips, and step-by-step solutions for real-world cybersecurity challenges. Perfect for learners who prefer reading or revisiting concepts.</p>
+            <a class="btn primary" href="#search-section">Read the Blog</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="search-section" id="search-section">
+      <div class="container">
+        <h2 class="section-title">Search Our Blog</h2>
+        <div class="search-bar">
+          <input id="search" type="text" placeholder="Search tutorials, walkthroughs, and guides..." aria-label="Search blog posts and resources">
+        </div>
+        <div id="resultCount" aria-live="polite"></div>
+        <table id="videoTable" style="display: none;">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody id="videoTableBody"></tbody>
+        </table>
+        <div class="pagination" id="pagination"></div>
+      </div>
+    </section>
+
+    <section class="support" id="support-section">
+      <div class="container">
+        <h2 class="section-title">Support Our Mission</h2>
+        <p class="lead">
+          Your support helps us keep our resources free for everyone. Every contribution fuels more tutorials, labs, and scholarships for aspiring cybersecurity professionals.
+        </p>
+        <div class="support-ctas">
+          <a class="btn primary" href="https://paytm.com/" target="_blank" rel="noopener">Support via Paytm</a>
+          <a class="btn primary" href="https://www.buymeacoffee.com/" target="_blank" rel="noopener">Buy Me a Coffee</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p><strong>HMCyberAcademy</strong> — Practical cybersecurity training & internships.</p>
+      <p class="muted">Email: <a href="mailto:support@hmcyberacademy.com">support@hmcyberacademy.com</a></p>
+      <div class="social-icons">
+        <a href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="YouTube" class="social-link"><i class="fab fa-youtube"></i></a>
+        <a href="https://x.com/" target="_blank" rel="noopener" aria-label="Twitter/X" class="social-link"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://github.com/" target="_blank" rel="noopener" aria-label="GitHub" class="social-link"><i class="fab fa-github"></i></a>
+      </div>
+      <p class="muted">© 2025 HMCyberAcademy — All rights reserved</p>
+    </div>
+  </footer>
+
+  <script src="free-resources.js"></script>
+</body>
+</html>

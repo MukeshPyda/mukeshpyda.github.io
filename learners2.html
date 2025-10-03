@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>HMCyberAcademy — For Learners</title>
+  <meta name="description" content="HMCyberAcademy — 1-to-1 Online Cybersecurity Courses. Transform your career with job-ready skills, certifications, and expert mentorship.">
+  <link rel="icon" href="favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    /* ---------- Theme / Base (inspired by companies.css) ---------- */
+    :root{
+      --accent:#00ffcc;
+      --bg-1:#0f2027;
+      --bg-2:#203a43;
+      --bg-3:#2c5364;
+      --glass: rgba(255,255,255,0.04);
+      --glass-2: rgba(255,255,255,0.06);
+      --text:#e8f8f5;
+      --muted:#cbd5d6;
+      --shadow: 0 6px 24px rgba(0,0,0,0.35);
+      --radius:10px;
+      --header-h:64px;
+      --container:1200px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;color:var(--text);background:linear-gradient(135deg,var(--bg-1),var(--bg-2),var(--bg-3));background-attachment:fixed; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:var(--container);margin:0 auto;padding:0 18px}
+    header{position:fixed;left:0;right:0;top:0;height:var(--header-h);display:flex;align-items:center;backdrop-filter:blur(8px);background:linear-gradient(180deg, rgba(0,0,0,0.5), rgba(0,0,0,0.28));padding:10px 18px;z-index:1000;border-bottom:1px solid rgba(255,255,255,0.03);box-shadow:var(--shadow)}
+    .header-inner{display:flex;align-items:center;justify-content:space-between;width:100%}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#2DFFA6);display:flex;align-items:center;justify-content:center;color:#031018;font-weight:800;font-family:monospace}
+    header h1{font-size:16px;margin:0}
+    .tagline{font-size:12px;color:var(--muted);margin:2px 0 0}
+    nav{display:none}
+    nav ul{list-style:none;display:flex;gap:18px;align-items:center;margin:0;padding:0}
+    nav a{font-weight:600;padding:8px;border-radius:8px}
+    .menu-toggle{display:block;background:none;border:0;width:36px;height:28px;cursor:pointer}
+    .menu-toggle span{display:block;height:2px;background:var(--text);margin:5px 0;transition:transform .25s,opacity .25s}
+
+/* ---------- Layout ---------- */
+    body{padding-top:var(--header-h)}
+    main{padding-bottom:60px}
+    .hero{padding:72px 0 32px}
+    .hero-grid{display:flex;flex-direction:column;gap:20px}
+    .kicker{font-weight:700;color:var(--accent);font-size:13px;margin:0 0 8px}
+    .hero-copy h2{font-size:32px;margin:0 0 10px}
+    .lead{color:var(--muted);font-size:15px;line-height:1.6;margin:0 0 14px}
+    .hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{display:inline-block;padding:12px 16px;border-radius:10px;font-weight:700;cursor:pointer;text-decoration:none}
+    .primary{background:var(--accent);color:#041818;box-shadow:0 8px 30px rgba(0,0,0,0.35)}
+    .ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--text)}
+    .hero-stats{display:flex;gap:12px;flex-wrap:wrap}
+
+    .stat-card{background:var(--glass);padding:14px;border-radius:10px;border:1px solid var(--glass-2);text-align:center;min-width:120px}
+    .stat-number{font-weight:800;color:var(--accent);font-size:20px;margin-bottom:6px}
+    .stat-label{color:var(--muted);font-size:13px}
+
+/* ---------- Sections ---------- */
+    section{padding:28px 0}
+    .benefits-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:16px}
+    .benefit-card{background:var(--glass);padding:18px;border-radius:10px;border:1px solid var(--glass-2);text-align:left;box-shadow:var(--shadow)}
+    .card-icon{font-size:22px;color:var(--accent);margin-bottom:8px}
+
+/* ---------- Form ---------- */
+    .form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:16px;align-items:start}
+    .form-group{display:flex;flex-direction:column}
+    label{font-weight:600;margin-bottom:6px}
+    input[type="text"], input[type="email"], input[type="tel"], select, textarea{background:var(--glass);border:1px solid var(--glass-2);color:var(--text);padding:10px;border-radius:8px;font-size:14px}
+    textarea{resize:vertical}
+    .full-width{grid-column:1/-1}
+    .course-details{background:var(--glass);border:1px solid var(--glass-2);padding:14px;border-radius:8px;margin-top:8px;text-align:left}
+    .course-details em{font-style:italic;color:var(--muted);margin-right:12px}
+    .course-details .next-batch{margin-top:8px;color:var(--accent);font-weight:700}
+    .course-details ol{margin:8px 0 0 18px;color:var(--muted)}
+
+/* ---------- Testimonials & Footer ---------- */
+    .testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:16px}
+    .testimonial-card{background:var(--glass);padding:16px;border-radius:10px;border:1px solid var(--glass-2)}
+    footer{padding:28px 0;text-align:center;color:var(--muted);border-top:1px solid rgba(255,255,255,0.03);margin-top:24px}
+
+/* ---------- Responsive ---------- */
+    @media(min-width:900px){
+      .hero-grid{flex-direction:row;align-items:center;justify-content:space-between}
+      .hero-copy{flex:1;margin-right:24px}
+      .hero-stats{flex:0 0 360px;display:flex;flex-direction:column;gap:12px}
+      .form-grid{grid-template-columns:repeat(2,1fr)}
+      .full-width{grid-column:1/-1}
+    }
+    @media(max-width:899px){
+      nav{display:none}
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container header-inner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">HM</div>
+        <div>
+          <h1>HMCyberAcademy</h1>
+          <div class="tagline">1-to-1 Cybersecurity Mentorship</div>
+        </div>
+      </div>
+
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/learners.html" aria-current="page">For Learners</a></li>
+          <li><a href="/companies.html">For Companies</a></li>
+          <li><a href="/free-resources.html">Free Resources</a></li>
+        </ul>
+      </nav>
+
+      <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="kicker">Career • Certification • Confidence</p>
+          <h2>Cybersecurity Training That Transforms Your Future</h2>
+          <p class="lead">Live 1-to-1 sessions, practical labs and mentorship focused on the single outcome you care about: faster hiring, higher pay, and a career you can be proud of.</p>
+          <div class="hero-ctas">
+            <a class="btn primary" href="#course-form" onclick="document.querySelector('#fullname').focus()">Claim My Spot</a>
+            <a class="btn ghost" href="#benefits">Why Choose Us</a>
+          </div>
+        </div>
+
+        <aside class="hero-stats" aria-hidden="false">
+          <div class="stat-card">
+            <div class="stat-number">92%</div>
+            <div class="stat-label">Hired within 6 months</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">40+</div>
+            <div class="stat-label">Certifications guided</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">1:1</div>
+            <div class="stat-label">Personal mentorship</div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- BENEFITS -->
+    <section class="benefits" id="benefits">
+      <div class="container">
+        <h3 style="color:var(--accent);margin:0 0 10px">Why learners join</h3>
+        <div class="benefits-grid">
+          <div class="benefit-card">
+            <i class="fas fa-briefcase card-icon"></i>
+            <h4>Get hired faster</h4>
+            <p>We teach exactly what employers test for — live projects, interview prep and placement support.</p>
+          </div>
+          <div class="benefit-card">
+            <i class="fas fa-certificate card-icon"></i>
+            <h4>Certify with confidence</h4>
+            <p>Exam-focused labs, mock tests and mentor reviews until you pass.</p>
+          </div>
+          <div class="benefit-card">
+            <i class="fas fa-chalkboard-teacher card-icon"></i>
+            <h4>1-to-1 mentorship</h4>
+            <p>Your coach adapts lessons to your level and career goal — no one-size-fits-all.</p>
+          </div>
+          <div class="benefit-card">
+            <i class="fas fa-rocket card-icon"></i>
+            <h4>Real transformation</h4>
+            <p>Alumni double salaries, switch to global roles and get promoted faster.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FORM -->
+    <section class="course-form" id="course-form">
+      <div class="container">
+        <h3 style="color:var(--accent);margin:0 0 10px">Reserve your seat — start your transformation</h3>
+        <p class="lead">Fill your details and choose a path. We'll email you next steps and batch details.</p>
+
+        <form id="learnerForm" class="form-grid" onsubmit="return false;">
+          <input type="hidden" id="csrfToken" name="_csrf" value="">
+
+          <div class="form-group">
+            <label for="fullname">Full Name *</label>
+            <input id="fullname" name="fullname" type="text" required maxlength="100" placeholder="Your full name">
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input id="email" name="email" type="email" required maxlength="100" placeholder="you@domain.com">
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone Number *</label>
+            <input id="phone" name="phone" type="tel" required maxlength="15" placeholder="+91 9XXXXXXXXX">
+          </div>
+
+          <div class="form-group">
+            <label for="courseType">Select Type of Course *</label>
+            <select id="courseType" name="courseType" required>
+              <option value="">-- Choose --</option>
+              <option value="job">Job Oriented</option>
+              <option value="cert">Certification</option>
+              <option value="private">Private</option>
+            </select>
+          </div>
+
+          <div class="form-group" id="courseContainer" style="display:none;">
+            <label for="course">Select Course *</label>
+            <select id="course" name="course"></select>
+          </div>
+
+          <div class="form-group" id="packageContainer" style="display:none;">
+            <label for="package">Select Package *</label>
+            <select id="package" name="package"></select>
+          </div>
+
+          <div class="full-width" id="courseDetails" style="display:none;"></div>
+
+          <div class="form-group full-width">
+            <button id="submitBtn" class="btn primary full-width" type="submit">Start My Transformation</button>
+          </div>
+        </form>
+
+        <div id="formMessage" style="margin-top:12px; display:none; color:var(--muted)"></div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials">
+      <div class="container">
+        <h3 style="color:var(--accent);margin:0 0 10px">Success stories</h3>
+        <div class="testimonials-grid">
+          <div class="testimonial-card">
+            <p>"The 1-to-1 mentorship and project work helped me land a SOC role in 3 months."</p>
+            <div style="text-align:right"><strong>Arjun P.</strong><br><small class="muted">SOC Analyst</small></div>
+          </div>
+          <div class="testimonial-card">
+            <p>"I cleared OSCP after focused labs and mentor support — my offer came 2 months later."</p>
+            <div style="text-align:right"><strong>Nisha R.</strong><br><small class="muted">Pen Tester</small></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div style="margin-bottom:8px"><strong>HMCyberAcademy</strong> — Practical cybersecurity training & mentorship.</div>
+      <div class="muted">Email: <a href="mailto:support@hmcyberacademy.com" style="color:var(--accent)">support@hmcyberacademy.com</a></div>
+      <div style="margin-top:10px" class="social-icons">
+        <a href="https://www.youtube.com/" target="_blank" rel="noopener"><i class="fab fa-youtube"></i></a>
+        <a href="https://x.com/" target="_blank" rel="noopener"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.linkedin.com/" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://github.com/" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
+      </div>
+      <div style="margin-top:10px" class="muted">© 2025 HMCyberAcademy — All rights reserved</div>
+    </div>
+  </footer>
+
+  <!-- ---------- Script: courses + UI + EmailJS ---------- -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script>
+    /**********************
+     * COURSE DATA (editable)
+     *
+     * Edit values here to change course names, packages, durations, prices,
+     * index (sections) and nextBatch (ISO date).
+     *
+     * Keys:
+     *  - top-level groups: job | cert | private
+     *  - each course -> packages -> { duration, price, index:[], nextBatch }
+     **********************/
+    const COURSES = {
+      job: {
+        "VAPT": {
+          "Only Training": { duration: "2 Months", price: "₹3,999", index: ["Recon & Footprinting","Scanning & Enumeration","Exploitation","Web App Testing","Reporting"], nextBatch: "2025-10-15" },
+          "Training + Job Assistance": { duration: "4 Months", price: "₹34,999", index: ["All Only-Training modules","Real-World Projects","Resume & Interview Prep","Placement Support"], nextBatch: "2025-11-01" },
+          "Internship": { duration: "2 Months", price: "₹2,499", index: ["Shadowing Projects","Mentor Feedback","Report Submission"], nextBatch: "2025-10-25" }
+        },
+        "SOC L1": {
+          "Only Training": { duration: "2 Months", price: "₹3,499", index: ["Log Basics","SIEM Intro","Alert Triage","Incident Escalation"], nextBatch: "2025-10-20" },
+          "Training + Job Assistance": { duration: "4 Months", price: "₹29,999", index: ["SOC Playbooks","Live SOC Labs","Shift Simulations","Placement Support"], nextBatch: "2025-11-05" },
+          "Internship": { duration: "2 Months", price: "₹1,999", index: ["On-Shift Shadowing","Ticketing & Reporting"], nextBatch: "2025-11-15" }
+        },
+        "SOC L2": {
+          "Only Training": { duration: "3 Months", price: "₹6,999", index: ["Advanced Detection","Threat Hunting","Forensics Basics","Scripting for SOC"], nextBatch: "2025-11-10" },
+          "Training + Job Assistance": { duration: "5 Months", price: "₹49,999", index: ["Advanced Labs","Threat Hunting Projects","Interview Prep","Placement Support"], nextBatch: "2025-12-01" }
+        }
+      },
+
+      cert: {
+        "CompTIA Security+": {
+          "Only Training": { duration: "6 Weeks", price: "₹4,499", index: ["Security Fundamentals","Network Security","Threats & Vulns","Access Control"], nextBatch: "2025-10-12" },
+          "End-To-End Service": { duration: "3 Months", price: "₹24,999", index: ["Training","Practice Tests","Exam Guidance","Pass Support"], nextBatch: "2025-11-01" }
+        },
+        "CISSP": {
+          "Only Training": { duration: "3 Months", price: "₹19,999", index: ["CBK Domains Overview","Risk Management","Security Architecture","Practice Tests"], nextBatch: "2025-11-05" },
+          "End-To-End Service": { duration: "6 Months", price: "₹59,999", index: ["Deep Domain Coaching","Exam Strategy","Mock Exams","Post-pass Career Guidance"], nextBatch: "2026-01-10" }
+        },
+        "CEH Theory": {
+          "Only Training": { duration: "8 Weeks", price: "₹5,499", index: ["Ethical Hacking Basics","Attack Vectors","Security Controls"], nextBatch: "2025-10-25" },
+          "End-To-End Service": { duration: "4 Months", price: "₹29,999", index: ["Theory + Labs","Exam Voucher Support","Mentor Sessions"], nextBatch: "2025-11-20" }
+        },
+        "CEH Practical": {
+          "Only Training": { duration: "8 Weeks", price: "₹7,499", index: ["Hands-on Exploits","Lab-based Tasks","Report Writing"], nextBatch: "2025-11-02" },
+          "End-To-End Service": { duration: "5 Months", price: "₹39,999", index: ["Practice Labs","Exam Guidance","Mentor Support"], nextBatch: "2025-12-05" }
+        },
+        "CEH Master": {
+          "Only Training": { duration: "4 Months", price: "₹49,999", index: ["Mastery Labs","Advanced Exploits","Red Team Projects"], nextBatch: "2026-01-15" },
+          "End-To-End Service": { duration: "6 Months", price: "₹79,999", index: ["Mentorship","Live Projects","Career Support"], nextBatch: "2026-02-01" }
+        },
+        "CISM": {
+          "Only Training": { duration: "10 Weeks", price: "₹24,999", index: ["Governance","Risk Management","Incident Management"], nextBatch: "2025-11-20" },
+          "End-To-End Service": { duration: "5 Months", price: "₹59,999", index: ["Deep Coaching","Exam Support","Professional Guidance"], nextBatch: "2026-01-05" }
+        },
+        "OSCP+": {
+          "Only Training": { duration: "3 Months", price: "₹19,999", index: ["Buffer Overflows","Web Exploits","Privilege Escalation"], nextBatch: "2025-10-30" },
+          "End-To-End Service": { duration: "6 Months", price: "₹99,999", index: ["Labs Access","Mentor Pairing","Exam Mentorship","Pass Support"], nextBatch: "2026-01-20" }
+        }
+      },
+
+      private: {
+        "Bug Bounty": {
+          "Only Training": { duration: "2 Months", price: "₹6,499", index: ["Recon Tools","OWASP Top10","Automation","Payout Strategy"], nextBatch: "2025-10-18" },
+          "Training + Mentorship for 1 year": { duration: "12 Months", price: "₹119,999", index: ["Live Hunting","Mentor Program","Earning Roadmap"], nextBatch: "2025-11-10" }
+        },
+        "Dark Web": {
+          "Only Training": { duration: "6 Weeks", price: "₹5,999", index: ["Darknet Basics","OSINT","Safety & Ethics"], nextBatch: "2025-11-03" },
+          "Training + Mentorship for 1 year": { duration: "12 Months", price: "₹99,999", index: ["Deep Research","Mentorship","Red Team Use Cases"], nextBatch: "2025-12-01" }
+        },
+        "Data Recovery": {
+          "Only Training": { duration: "6 Weeks", price: "₹4,999", index: ["Forensic Imaging","Recovery Tools","File Systems"], nextBatch: "2025-11-15" },
+          "Training + Mentorship for 1 year": { duration: "12 Months", price: "₹89,999", index: ["Advanced Forensics","Case Studies","Mentorship"], nextBatch: "2026-01-10" }
+        }
+      }
+    };
+
+    /* ---------- UI References ---------- */
+    const courseTypeEl = document.getElementById('courseType');
+    const courseContainer = document.getElementById('courseContainer');
+    const courseEl = document.getElementById('course');
+    const packageContainer = document.getElementById('packageContainer');
+    const packageEl = document.getElementById('package');
+    const courseDetails = document.getElementById('courseDetails');
+    const form = document.getElementById('learnerForm');
+    const formMessage = document.getElementById('formMessage');
+    const submitBtn = document.getElementById('submitBtn');
+
+    /* ---------- Helper: format date readable ---------- */
+    function formatDateISO(iso){
+      try {
+        const d = new Date(iso + 'T00:00:00');
+        const opts = { year:'numeric', month:'short', day:'numeric' };
+        return d.toLocaleDateString(undefined, opts);
+      } catch(e){
+        return iso;
+      }
+    }
+
+    /* ---------- Populate Course Dropdown when Course Type changes ---------- */
+    courseTypeEl.addEventListener('change', () => {
+      const type = courseTypeEl.value;
+      courseEl.innerHTML = '';
+      packageEl.innerHTML = '';
+      courseDetails.style.display = 'none';
+      packageContainer.style.display = 'none';
+      courseContainer.style.display = 'none';
+
+      if (!type || !COURSES[type]) return;
+
+      // show courses for chosen type
+      courseContainer.style.display = 'block';
+      const placeholder = document.createElement('option');
+      placeholder.value = '';
+      placeholder.textContent = '-- Choose course --';
+      courseEl.appendChild(placeholder);
+
+      Object.keys(COURSES[type]).forEach(cname => {
+        const opt = document.createElement('option');
+        opt.value = cname;
+        opt.textContent = cname;
+        courseEl.appendChild(opt);
+      });
+    });
+
+    /* ---------- Populate Package when Course changes ---------- */
+    courseEl.addEventListener('change', () => {
+      const type = courseTypeEl.value;
+      const cname = courseEl.value;
+      packageEl.innerHTML = '';
+      courseDetails.style.display = 'none';
+      packageContainer.style.display = 'none';
+
+      if (!type || !cname) return;
+      const packs = COURSES[type][cname];
+      if (!packs) return;
+
+      packageContainer.style.display = 'block';
+      const placeholder = document.createElement('option');
+      placeholder.value = '';
+      placeholder.textContent = '-- Choose package --';
+      packageEl.appendChild(placeholder);
+
+      Object.keys(packs).forEach(pname => {
+        const opt = document.createElement('option');
+        opt.value = pname;
+        opt.textContent = pname;
+        packageEl.appendChild(opt);
+      });
+    });
+
+    /* ---------- Show Course Details when Package selected ---------- */
+    packageEl.addEventListener('change', () => {
+      const type = courseTypeEl.value;
+      const cname = courseEl.value;
+      const pname = packageEl.value;
+      courseDetails.style.display = 'none';
+      courseDetails.innerHTML = '';
+      if (!type || !cname || !pname) return;
+
+      const info = COURSES[type][cname][pname];
+      if (!info) return;
+
+      // Duration & Price as italic side-by-side
+      const dSpan = document.createElement('span');
+      dSpan.innerHTML = `<em>Duration: ${info.duration}</em>`;
+      const pSpan = document.createElement('span');
+      pSpan.innerHTML = `<em>Price: ${info.price}</em>`;
+      pSpan.style.marginLeft = '16px';
+
+      // Next batch
+      const nb = document.createElement('div');
+      nb.className = 'next-batch';
+      nb.innerHTML = `Next batch starts at ${formatDateISO(info.nextBatch)}`;
+
+      // Index list
+      const idxTitle = document.createElement('div');
+      idxTitle.style.marginTop = '8px';
+      idxTitle.style.fontWeight = '700';
+      idxTitle.textContent = 'Course index';
+
+      const ol = document.createElement('ol');
+      (info.index || []).forEach(it => {
+        const li = document.createElement('li');
+        li.textContent = it;
+        ol.appendChild(li);
+      });
+
+      // Render
+      courseDetails.appendChild(dSpan);
+      courseDetails.appendChild(pSpan);
+      courseDetails.appendChild(nb);
+      courseDetails.appendChild(idxTitle);
+      courseDetails.appendChild(ol);
+      courseDetails.style.display = 'block';
+    });
+
+    /* ---------- CSRF helpers ---------- */
+    function generateCsrfToken(){
+      if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+      // fallback
+      const arr = new Uint8Array(32);
+      crypto.getRandomValues(arr);
+      return btoa(String.fromCharCode(...arr)).slice(0,32);
+    }
+    function initCsrf(){
+      const token = generateCsrfToken();
+      document.getElementById('csrfToken').value = token;
+      localStorage.setItem('csrfToken', token);
+    }
+    initCsrf();
+
+    /* ---------- EmailJS / Submit logic ---------- */
+    // Replace with your own EmailJS user/service/template if needed.
+    const EMAILJS_USER = 'ib2jXc-2AVJd-YXHu';          // editable
+    const EMAILJS_SERVICE = 'service_zw74d0v';         // editable
+    const EMAILJS_TEMPLATE = 'template_vvds27b';      // editable
+
+    // initialize emailjs (safe to call multiple times)
+    try{ emailjs.init(EMAILJS_USER); } catch(e){ /* ignore */ }
+
+    function sanitize(str){
+      if (!str) return '';
+      return String(str).replace(/<[^>]*>?/gm, '').trim();
+    }
+
+    async function handleSubmit(){
+      formMessage.style.display = 'block';
+      formMessage.style.color = 'var(--muted)';
+      formMessage.textContent = 'Submitting...';
+
+      const fd = new FormData(form);
+      const data = Object.fromEntries(fd.entries());
+
+      // Basic validation
+      if (!data.fullname || !data.email || !data.phone || !data.courseType || !data.course || !data.package){
+        formMessage.style.color = 'var(--accent)';
+        formMessage.textContent = 'Please fill all required fields.';
+        return;
+      }
+
+      // CSRF check
+      const stored = localStorage.getItem('csrfToken');
+      if (!stored || stored !== data._csrf){
+        // allow local http for dev; require match for https
+        if (location.protocol !== 'http:') {
+          formMessage.style.color = 'var(--accent)';
+          formMessage.textContent = 'Security token mismatch — please refresh and try again.';
+          return;
+        }
+      }
+
+      // Attach course summary to the message
+      const chosen = COURSES[data.courseType] && COURSES[data.courseType][data.course] && COURSES[data.courseType][data.course][data.package];
+      const courseSummary = chosen ? `Course: ${data.course} — ${data.package}\nDuration: ${chosen.duration}\nPrice: ${chosen.price}\nNext batch: ${formatDateISO(chosen.nextBatch)}\n\nIndex:\n- ${chosen.index.join('\n- ')}` : 'Course details not found';
+
+      // Prepare template params (template must map to these keys)
+      const templateParams = {
+        fullname: sanitize(data.fullname),
+        email: sanitize(data.email),
+        phone: sanitize(data.phone),
+        courseType: sanitize(data.courseType),
+        course: sanitize(data.course),
+        package: sanitize(data.package),
+        courseSummary: courseSummary,
+        notes: sanitize(data.notes || '')
+      };
+
+      // send via EmailJS
+      try {
+        await emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, templateParams);
+        formMessage.style.color = 'var(--text)';
+        formMessage.textContent = 'Thanks — your request has been sent. We will contact you within 24 hours.';
+        form.reset();
+        initCsrf();
+        localStorage.removeItem('csrfToken');
+        courseContainer.style.display = 'none';
+        packageContainer.style.display = 'none';
+        courseDetails.style.display = 'none';
+      } catch (err) {
+        console.error('EmailJS send failed', err);
+        formMessage.style.color = 'var(--accent)';
+        formMessage.textContent = 'Submission failed — please try again later.';
+      }
+    }
+
+    // Hook submit
+    submitBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      handleSubmit();
+    });
+
+    /* ---------- Mobile menu toggle ---------- */
+    const menuToggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('nav');
+    menuToggle && menuToggle.addEventListener('click', function(){
+      const expanded = this.getAttribute('aria-expanded') === 'true';
+      this.setAttribute('aria-expanded', String(!expanded));
+      if (nav) nav.classList.toggle('show');
+    });
+
+    // Close nav on outside click (mobile)
+    document.addEventListener('click', (ev) => {
+      if (!nav) return;
+      if (!nav.contains(ev.target) && !menuToggle.contains(ev.target) && nav.classList.contains('show')) {
+        nav.classList.remove('show');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    /* ---------- Accessibility: keyboard toggle ---------- */
+    menuToggle && menuToggle.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+        menuToggle.setAttribute('aria-expanded', String(!expanded));
+        nav.classList.toggle('show');
+      }
+    });
+  </script>
+</body>
+</html>

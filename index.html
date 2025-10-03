@@ -1,98 +1,124 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="google-adsense-account" content="ca-pub-2705697986190507">
-  <meta name="description" content="TORHAT - Explore cybersecurity walkthroughs, hacking tutorials, and CTF solutions. Learn ethical hacking with HM Cyber Academy.">
-  <title>TORHAT - Cybersecurity Walkthroughs & CTF Tutorials</title>
-  
-  <link rel="canonical" href="https://mukeshpyda.github.io/" />
-  <link rel="icon" type="image/x-icon" href="favicon.png" />
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
-  <!-- Open Graph (for Facebook, LinkedIn, etc.) -->
-  <meta property="og:title" content="TORHAT - Cybersecurity Walkthroughs & CTF Tutorials">
-  <meta property="og:description" content="Explore CTF solutions, hacking guides, and ethical hacking labs.">
-  <meta property="og:image" content="https://mukeshpyda.github.io/favicon.png">
-  <meta property="og:url" content="https://mukeshpyda.github.io/">
-  <meta property="og:type" content="website">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="TORHAT - Cybersecurity Walkthroughs & CTF Tutorials">
-  <meta name="twitter:description" content="Explore CTF solutions, hacking guides, and ethical hacking labs.">
-  <meta name="twitter:image" content="https://mukeshpyda.github.io/favicon.png">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="HMCyberAcademy — India's leading training academy for VAPT and SOC L1, offering internships, certifications, and free resources.">
+  <title>HMCyberAcademy — VAPT & SOC Training (India)</title>
+  <link rel="icon" type="image/x-icon" href="favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-  <!-- Header -->
-  <header>
-    <h1>💻TORHAT</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="whoami.html">WhoAmI?</a>
-      <a href="https://hmcyberacademy.com/" target="_blank">HMCA</a>
-    </nav>
+  <header role="banner">
+    <div class="container header-inner">
+      <div class="brand">
+        <img src="logo.png" alt="HMCyberAcademy Logo" class="logo">
+        <div>
+          <h1>HMCyberAcademy</h1>
+          <p class="tagline">India’s #1 VAPT & SOC Training</p>
+        </div>
+      </div>
+      <nav aria-label="Main navigation">
+        <ul>
+          <li><a href="/" aria-current="page">Home</a></li>
+          <li><a href="/learners.html">For Learners</a></li>
+          <li><a href="/companies.html">For Companies</a></li>
+          <li><a href="/free-resources.html">Free Resources</a></li>
+        </ul>
+      </nav>
+      <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </header>
 
-  <!-- Intro SEO Content -->
-  <section style="text-align: center; margin-top: 2rem; font-size: 1rem; max-width: 800px; margin-left: auto; margin-right: auto;">
-    <h2>Learn Cybersecurity, One Lab at a Time</h2>
-    <p>
-      TORHAT provides hands-on cybersecurity labs, Capture the Flag (CTF) walkthroughs, penetration testing tutorials, and ethical hacking guides for FREE. 
-      Whether you're a beginner or a seasoned hacker, sharpen your skills with curated content designed to help you grow in the infosec field.
-    </p>
-  </section>
+  <main id="maincontent">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="kicker">Global • Practical • Career-Focused</p>
+          <h2>Career-Ready Cybersecurity Training That Employers Trust</h2>
+          <p class="lead">
+            HMCyberAcademy offers industry-aligned <strong>Vulnerability Assessment and Penetration Testing (VAPT)</strong> and <strong>Security Operations Center (SOC) Level 1</strong> training. Our programs include hands-on internships, certification preparation (CEH, Security+, OSCP), and specialized workshops (Bug Bounty, Dark Web). We emphasize real projects, mentor-guided labs, and placement-ready deliverables, complemented by free resources and scholarships for accessibility.
+          </p>
+          <div class="hero-ctas">
+            <a class="btn primary" href="/learners.html">Explore Courses</a>
+            <a class="btn ghost" href="https://www.youtube.com/" target="_blank" rel="noopener">Free YouTube Resources</a>
+          </div>
+        </div>
+        <aside class="hero-cards" aria-hidden="false">
+          <div class="card">
+            <div class="card-icon" aria-hidden="true">📁</div>
+            <h3>Internships & Live Projects</h3>
+            <p class="muted">Project-based internships with real deliverables (VAPT reports, SIEM playbooks) and mentor feedback.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon" aria-hidden="true">🎓</div>
+            <h3>Certification Preparation</h3>
+            <p class="muted">Structured paths for CEH, Security+, OSCP, and employer-valued certifications with practice labs.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon" aria-hidden="true">🔍</div>
+            <h3>Job-Ready Training</h3>
+            <p class="muted">Operational SOC training: log triage, alerts, ticketing, playbooks, and shift-ready skills.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
 
-  <!-- Search Input -->
-  <div style="text-align: center; margin-top: 2rem;">
-    <input id="search" type="text" placeholder="Search Walkthroughs..." style="padding: 1rem; width: 400px; font-family: monospace;">
-  </div>
+    <section class="summary">
+      <div class="container">
+        <h2 class="section-title">What We Do — At a Glance</h2>
+        <div class="summary-grid">
+          <article class="summary-card">
+            <h3>Hands-On Learning</h3>
+            <p>Emphasis on labs, capture-the-flag, and live-target (consented) VAPT exercises to build demonstrable artifacts.</p>
+          </article>
+          <article class="summary-card">
+            <h3>Mentorship & Assessments</h3>
+            <p>Small-group mentoring, code & report reviews, and practical assessments that mirror hiring tasks.</p>
+          </article>
+          <article class="summary-card">
+            <h3>Certification Tracks</h3>
+            <p>Guided preparation for vendor-neutral and vendor-specific certifications with study plans, mock exams, and labs.</p>
+          </article>
+          <article class="summary-card">
+            <h3>Accessible Resources</h3>
+            <p>Free YouTube lessons, written walkthroughs, and scholarships for learners who can’t afford paid tracks.</p>
+          </article>
+          <article class="summary-card">
+            <h3>Industry Partnerships</h3>
+            <p>Collaborations with companies to design role-specific upskilling and fast-track hiring for trained cohorts.</p>
+          </article>
+          <article class="summary-card">
+            <h3>Placement Support</h3>
+            <p>Resume review, interview prep, curated job-ready projects, and candidate recommendations for hiring partners.</p>
+          </article>
+        </div>
+        <div class="cta-row">
+          <a class="btn primary" href="/learners.html">See Full Course Catalogue</a>
+          <a class="btn ghost" href="/companies.html">Hire Our Graduates</a>
+        </div>
+      </div>
+    </section>
+  </main>
 
-  <!-- Result Count -->
-  <div id="resultCount"></div>
-
-  <!-- Video Table -->
-  <table id="videoTable" style="display:none;">
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody id="videoTableBody"></tbody>
-  </table>
-
-  <!-- Pagination -->
-  <div class="pagination" id="pagination"></div>
-
-  <!-- Footer -->
   <footer>
-    <p>Contact me:</p>
-    <a href="https://twitter.com/@TOR_HAT" target="_blank"><i class="fab fa-twitter"></i></a>
-    <a href="https://www.linkedin.com/in/mukesh-pyda/" target="_blank"><i class="fab fa-linkedin"></i></a>
-    <a href="mailto:support@hmcyberacademy.com"><i class="fas fa-envelope"></i></a>
-    <p>&copy; 2025 HMCyberAcademy</p>
+    <div class="container">
+      <p><strong>HMCyberAcademy</strong> — Practical cybersecurity training & internships.</p>
+      <p class="muted">Email: <a href="mailto:support@hmcyberacademy.com">support@hmcyberacademy.com</a></p>
+      <div class="social-icons">
+        <a href="https://www.youtube.com/@hmcyberacademy" target="_blank" rel="noopener" aria-label="YouTube" class="social-link"><i class="fab fa-youtube"></i></a>
+        <a href="https://x.com/hmcyberacademy" target="_blank" rel="noopener" aria-label="Twitter/X" class="social-link"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.linkedin.com/company/hmcyberacademy" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://t.me/+a9nwT9mdgeJhMDA1" target="_blank" rel="noopener" aria-label="GitHub" class="social-link"><i class="fab fa-telegram"></i></a>
+      </div>
+      <p class="muted">© 2025 HMCyberAcademy — All rights reserved</p>
+    </div>
   </footer>
 
-  <!-- Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "TORHAT",
-    "url": "https://mukeshpyda.github.io/",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://mukeshpyda.github.io/?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
-  }
-  </script>
-
-  <!-- External JavaScript -->
-  <script src="script.js" defer></script>
+  <script src="scripts.js"></script>
 </body>
 </html>
