@@ -65,7 +65,7 @@ function validateForm(formData) {
 const form = document.querySelector('#hireForm');
 if (form) {
   // Initialize EmailJS
-  emailjs.init('ib2jXc-2AVJd-YXHu');
+  emailjs.init('y2UjvQWL1EVEg66Eo');
   
   // Initialize CSRF on load
   initCsrf();
@@ -92,7 +92,7 @@ if (form) {
     
     // Send email via EmailJS
     try {
-      await emailjs.send('service_zw74d0v', 'template_vvds27b', validation.sanitizedData);
+      await emailjs.send('service_jpuzwsp', 'template_61bcocj', validation.sanitizedData);
       messageEl.textContent = 'Thank you! Our HR team will contact you within 24 hours.';
       messageEl.style.color = 'var(--text)';
       form.reset();

@@ -11,17 +11,17 @@
 const COURSES = {
   job: {
     "VAPT": {
-      "Only Training": { duration: "2 Months", price: "₹3,999", index: ["Recon & Footprinting","Scanning & Enumeration","Exploitation","Web App Testing","Reporting"], nextBatch: "2025-10-15" },
+      "Only Training": { duration: "2 Months", price: "₹4,999", index: ["Recon & Footprinting","Scanning & Enumeration","Exploitation","Web App Testing","Reporting"], nextBatch: "2025-10-15" },
       "Training + Job Assistance": { duration: "4 Months", price: "₹34,999", index: ["All Only-Training modules","Real-World Projects","Resume & Interview Prep","Placement Support"], nextBatch: "2025-11-01" },
       "Internship": { duration: "2 Months", price: "₹2,499", index: ["Shadowing Projects","Mentor Feedback","Report Submission"], nextBatch: "2025-10-25" }
     },
     "SOC L1": {
-      "Only Training": { duration: "2 Months", price: "₹3,499", index: ["Log Basics","SIEM Intro","Alert Triage","Incident Escalation"], nextBatch: "2025-10-20" },
+      "Only Training": { duration: "2 Months", price: "₹4,499", index: ["Log Basics","SIEM Intro","Alert Triage","Incident Escalation"], nextBatch: "2025-10-20" },
       "Training + Job Assistance": { duration: "4 Months", price: "₹29,999", index: ["SOC Playbooks","Live SOC Labs","Shift Simulations","Placement Support"], nextBatch: "2025-11-05" },
       "Internship": { duration: "2 Months", price: "₹1,999", index: ["On-Shift Shadowing","Ticketing & Reporting"], nextBatch: "2025-11-15" }
     },
     "SOC L2": {
-      "Only Training": { duration: "3 Months", price: "₹6,999", index: ["Advanced Detection","Threat Hunting","Forensics Basics","Scripting for SOC"], nextBatch: "2025-11-10" },
+      "Only Training": { duration: "3 Months", price: "₹8,999", index: ["Advanced Detection","Threat Hunting","Forensics Basics","Scripting for SOC"], nextBatch: "2025-11-10" },
       "Training + Job Assistance": { duration: "5 Months", price: "₹49,999", index: ["Advanced Labs","Threat Hunting Projects","Interview Prep","Placement Support"], nextBatch: "2025-12-01" }
     }
   },
@@ -265,7 +265,7 @@ packageEl.addEventListener('change', () => {
 // Form submission handler
 if (form) {
   // Initialize EmailJS
-  emailjs.init('ib2jXc-2AVJd-YXHu');
+  emailjs.init('y2UjvQWL1EVEg66Eo');
   
   // Initialize CSRF on load
   initCsrf();
@@ -307,7 +307,7 @@ if (form) {
     
     // Send email via EmailJS
     try {
-      await emailjs.send('service_zw74d0v', 'template_vvds27b', templateParams);
+      await emailjs.send('service_jpuzwsp', 'template_61bcocj', templateParams);
       messageEl.textContent = 'Thanks — your request has been sent. We will contact you within 24 hours.';
       messageEl.style.color = 'var(--text)';
       form.reset();
