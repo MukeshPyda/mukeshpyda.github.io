@@ -128,3 +128,37 @@ document.querySelector('.menu-toggle').addEventListener('keydown', (e) => {
     document.querySelector('nav').classList.toggle('show');
   }
 });
+
+// paytm popup
+// Paytm Modal Logic
+const paytmBtn = document.querySelector('a[href*="paytm.com"]');
+const modal = document.getElementById('paytmModal');
+const closeBtn = document.querySelector('.close-modal');
+
+// Open modal
+if (paytmBtn) {
+  paytmBtn.addEventListener('click', function (e) {
+    e.preventDefault(); // prevent redirect
+    modal.style.display = 'block';
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden'; // prevent background scroll
+  });
+}
+
+// Close modal
+if (closeBtn) {
+  closeBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = ''; // restore scroll
+  });
+}
+
+// Close modal on outside click
+window.addEventListener('click', (e) => {
+  if (e.target === modal) {
+    modal.style.display = 'none';
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+});
