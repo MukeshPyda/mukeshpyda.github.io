@@ -307,7 +307,7 @@ if (form) {
     
     // Send email via EmailJS
     try {
-      await emailjs.send('service_jpuzwsp', 'template_61bcocj', templateParams);
+      await emailjs.send('service_jpuzwsp', 'template_qsmgluf', templateParams);
       messageEl.textContent = 'Thanks — your request has been sent. We will contact you within 24 hours.';
       messageEl.style.color = 'var(--text)';
       form.reset();
