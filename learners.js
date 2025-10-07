@@ -11,17 +11,18 @@
 const COURSES = {
   job: {
     "VAPT": {
-      "Only Training": { duration: "2 Months", price: "₹4,999", index: ["Recon & Footprinting","Scanning & Enumeration","Exploitation","Web App Testing","Reporting"], nextBatch: "2025-10-15" },
-      "Training + Job Assistance": { duration: "4 Months", price: "₹34,999", index: ["All Only-Training modules","Real-World Projects","Resume & Interview Prep","Placement Support"], nextBatch: "2025-11-01" },
-      "Internship": { duration: "2 Months", price: "₹2,499", index: ["Shadowing Projects","Mentor Feedback","Report Submission"], nextBatch: "2025-10-25" }
+      "Only Training": { duration: "2 Months", price: "₹4,999", index: ["Linux (33 Labs)", "Web Recon (10 Labs)","Web application attacks (100+ Labs)\
+      ","Practical LLM Attacks","Professional Reporting","Live VAPT Project"], nextBatch: "2025-11-01" },
+      "Training + Job Assistance": { duration: "4 Months", price: "₹34,999", index: ["All Only-Training modules","Real-World Projects","Resume Creation","Interview Preparation","Placement Support"], nextBatch: "2025-10-15" },
+      "Internship": { duration: "6 weeks", price: "₹2,499", index: ["Shadowing Projects","Mentor Feedback","Report Submission","Completion Certificate"], nextBatch: "2025-10-25" }
     },
     "SOC L1": {
-      "Only Training": { duration: "2 Months", price: "₹4,499", index: ["Log Basics","SIEM Intro","Alert Triage","Incident Escalation"], nextBatch: "2025-10-20" },
+      "Only Training": { duration: "2 Months", price: "₹4,499", index: ["Log Analysis","SIEM Tools and Techniques","Splunk","Wireshark","Wazug","Alert Triage","Incident Escalation"], nextBatch: "2025-10-20" },
       "Training + Job Assistance": { duration: "4 Months", price: "₹29,999", index: ["SOC Playbooks","Live SOC Labs","Shift Simulations","Placement Support"], nextBatch: "2025-11-05" },
       "Internship": { duration: "2 Months", price: "₹1,999", index: ["On-Shift Shadowing","Ticketing & Reporting"], nextBatch: "2025-11-15" }
     },
     "SOC L2": {
-      "Only Training": { duration: "3 Months", price: "₹8,999", index: ["Advanced Detection","Threat Hunting","Forensics Basics","Scripting for SOC"], nextBatch: "2025-11-10" },
+      "Only Training": { duration: "3 Months", price: "₹8,999", index: ["Advanced Detection","Threat Hunting","Forensics","Scripting for SOC"], nextBatch: "2025-11-10" },
       "Training + Job Assistance": { duration: "5 Months", price: "₹49,999", index: ["Advanced Labs","Threat Hunting Projects","Interview Prep","Placement Support"], nextBatch: "2025-12-01" }
     }
   },
@@ -29,45 +30,45 @@ const COURSES = {
   cert: {
     "CompTIA Security+": {
       "Only Training": { duration: "6 Weeks", price: "₹4,499", index: ["Security Fundamentals","Network Security","Threats & Vulns","Access Control"], nextBatch: "2025-10-12" },
-      "End-To-End Service": { duration: "3 Months", price: "₹24,999", index: ["Training","Practice Tests","Exam Guidance","Pass Support"], nextBatch: "2025-11-01" }
+      "End-To-End Service": { duration: "3 Months", price: "₹24,999", index: ["Training","Practice Tests","Exam Guidance","Support","Post-pass Career Guidance"], nextBatch: "2025-11-01" }
     },
     "CISSP": {
-      "Only Training": { duration: "3 Months", price: "₹19,999", index: ["CBK Domains Overview","Risk Management","Security Architecture","Practice Tests"], nextBatch: "2025-11-05" },
-      "End-To-End Service": { duration: "6 Months", price: "₹59,999", index: ["Deep Domain Coaching","Exam Strategy","Mock Exams","Post-pass Career Guidance"], nextBatch: "2026-01-10" }
+      "Only Training": { duration: "3 Months", price: "₹9,999", index: ["CBK Domains Overview","Risk Management","Security Architecture","Practice Tests"], nextBatch: "2025-11-05" },
+      "End-To-End Service": { duration: "2 Months", price: "₹39,999", index: ["Deep Domain Coaching","Exam Strategy","Mock Exams","Support","Post-pass Career Guidance"], nextBatch: "2026-01-10" }
     },
     "CEH Theory": {
-      "Only Training": { duration: "8 Weeks", price: "₹5,499", index: ["Ethical Hacking Basics","Attack Vectors","Security Controls"], nextBatch: "2025-10-25" },
-      "End-To-End Service": { duration: "4 Months", price: "₹29,999", index: ["Theory + Labs","Exam Voucher Support","Mentor Sessions"], nextBatch: "2025-11-20" }
+      "Only Training": { duration: "4 Weeks", price: "₹3,499", index: ["Ethical Hacking Basics","Attack Vectors","Security Controls"], nextBatch: "2025-10-25" },
+      "End-To-End Service": { duration: "2 Months", price: "₹11,999", index: ["Theory + Labs","Mentor Sessions","Support","Post-pass Career Guidance"], nextBatch: "2025-11-20" }
     },
     "CEH Practical": {
-      "Only Training": { duration: "8 Weeks", price: "₹7,499", index: ["Hands-on Exploits","Lab-based Tasks","Report Writing"], nextBatch: "2025-11-02" },
-      "End-To-End Service": { duration: "5 Months", price: "₹39,999", index: ["Practice Labs","Exam Guidance","Mentor Support"], nextBatch: "2025-12-05" }
+      "Only Training": { duration: "4 Weeks", price: "₹7,499", index: ["Hands-on Exploits","Lab-based Tasks","Report Writing"], nextBatch: "2025-11-02" },
+      "End-To-End Service": { duration: "2 Months", price: "₹17,999", index: ["Practice Labs","Exam Guidance","Mentor Sessions","Support","Post-pass Career Guidance"], nextBatch: "2025-12-05" }
     },
     "CEH Master": {
-      "Only Training": { duration: "4 Months", price: "₹49,999", index: ["Mastery Labs","Advanced Exploits","Red Team Projects"], nextBatch: "2026-01-15" },
-      "End-To-End Service": { duration: "6 Months", price: "₹79,999", index: ["Mentorship","Live Projects","Career Support"], nextBatch: "2026-02-01" }
+      "Only Training": { duration: "2 Months", price: "₹9,999", index: ["Mastery Labs","Advanced Exploits","Red Team Projects"], nextBatch: "2026-01-15" },
+      "End-To-End Service": { duration: "2 Months", price: "₹25,999", index: ["Mentorship","Live Projects","Practical Labs","Support","Post-pass Career Guidance"], nextBatch: "2026-02-01" }
     },
     "CISM": {
-      "Only Training": { duration: "10 Weeks", price: "₹24,999", index: ["Governance","Risk Management","Incident Management"], nextBatch: "2025-11-20" },
-      "End-To-End Service": { duration: "5 Months", price: "₹59,999", index: ["Deep Coaching","Exam Support","Professional Guidance"], nextBatch: "2026-01-05" }
+      "Only Training": { duration: "4 Weeks", price: "₹9,999", index: ["Governance","Risk Management","Incident Management"], nextBatch: "2025-11-20" },
+      "End-To-End Service": { duration: "2 Months", price: "₹29,999", index: ["Deep Coaching","Practical Labs","Professional Guidance","Support","Post-pass Career Guidance"], nextBatch: "2026-01-05" }
     },
     "OSCP+": {
-      "Only Training": { duration: "3 Months", price: "₹19,999", index: ["Buffer Overflows","Web Exploits","Privilege Escalation"], nextBatch: "2025-10-30" },
-      "End-To-End Service": { duration: "6 Months", price: "₹99,999", index: ["Labs Access","Mentor Pairing","Exam Mentorship","Pass Support"], nextBatch: "2026-01-20" }
+      "Only Training": { duration: "2 Months", price: "₹19,999", index: ["Buffer Overflows","Web Exploits","Privilege Escalation"], nextBatch: "2025-10-30" },
+      "End-To-End Service": { duration: "3 Months", price: "₹49,999", index: ["Deep Coaching","Labs Access","Mentor Pairing","Support","Post-pass Career Guidance"], nextBatch: "2026-01-20" }
     }
   },
 
   private: {
     "Bug Bounty": {
-      "Only Training": { duration: "2 Months", price: "₹6,499", index: ["Recon Tools","OWASP Top10","Automation","Payout Strategy"], nextBatch: "2025-10-18" },
-      "Training + Mentorship for 1 year": { duration: "12 Months", price: "₹119,999", index: ["Live Hunting","Mentor Program","Earning Roadmap"], nextBatch: "2025-11-10" }
+      "Only Training": { duration: "2 Months", price: "₹36,499", index: ["Recon Tools","Exploitation Techniques","Automation","Payout Strategy"], nextBatch: "2025-10-18" },
+      "Training + Mentorship for 1 year": { duration: "12 Months", price: "₹119,999", index: ["Live Hunting","Mentor Program","Collab","Earning Roadmap"], nextBatch: "2025-11-10" }
     },
     "Dark Web": {
-      "Only Training": { duration: "6 Weeks", price: "₹5,999", index: ["Darknet Basics","OSINT","Safety & Ethics"], nextBatch: "2025-11-03" },
-      "Training + Mentorship for 1 year": { duration: "12 Months", price: "₹99,999", index: ["Deep Research","Mentorship","Red Team Use Cases"], nextBatch: "2025-12-01" }
+      "Only Training": { duration: "6 Weeks", price: "₹35,999", index: ["Darknet Basics","Darkweb Tools","Safety & Ethics","Server hosting","Operational Security","System hardening","Escrow System","Cryptocurrencies"], nextBatch: "2025-11-03" },
+      "Training + Mentorship for 1 year": { duration: "12 Months", price: "₹199,999", index: ["Deep Research","Mentorship","Darknet Basics","Darkweb Tools","Safety & Ethics","Server hosting","Operational Security","System hardening","Escrow System","Cryptocurrencies","Red Team Use Cases"], nextBatch: "2025-12-01" }
     },
     "Data Recovery": {
-      "Only Training": { duration: "6 Weeks", price: "₹4,999", index: ["Forensic Imaging","Recovery Tools","File Systems"], nextBatch: "2025-11-15" },
+      "Only Training": { duration: "6 Weeks", price: "₹34,999", index: ["Forensic Imaging","Recovery Tools","File Systems"], nextBatch: "2025-11-15" },
       "Training + Mentorship for 1 year": { duration: "12 Months", price: "₹89,999", index: ["Advanced Forensics","Case Studies","Mentorship"], nextBatch: "2026-01-10" }
     }
   }
