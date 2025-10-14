@@ -29,32 +29,32 @@ const COURSES = {
 
   cert: {
     "CompTIA Security+": {
-      "Only Training": { duration: "6 Weeks", price: "₹4,499", index: ["Security Fundamentals","Network Security","Threats & Vulns","Access Control"], nextBatch: "2025-10-12" },
-      "End-To-End Service": { duration: "3 Months", price: "₹24,999", index: ["Training","Practice Tests","Exam Guidance","Support","Post-pass Career Guidance"], nextBatch: "2025-11-01" }
+      "Only Training": { duration: "4 Weeks", price: "₹4,499", index: ["Security Fundamentals","Network Security","Threats & Vulns","Access Control"], nextBatch: "2025-10-12" },
+      "100% Guarenteed Certificate": { duration: "2 Months", price: "₹24,999", index: ["Training","Practice Tests","Exam Guidance","Support","Post-pass Career Guidance"], nextBatch: "2025-11-01" }
     },
     "CISSP": {
-      "Only Training": { duration: "3 Months", price: "₹9,999", index: ["CBK Domains Overview","Risk Management","Security Architecture","Practice Tests"], nextBatch: "2025-11-05" },
-      "End-To-End Service": { duration: "2 Months", price: "₹39,999", index: ["Deep Domain Coaching","Exam Strategy","Mock Exams","Support","Post-pass Career Guidance"], nextBatch: "2026-01-10" }
+      "Only Training": { duration: "2 Months", price: "₹9,999", index: ["CBK Domains Overview","Risk Management","Security Architecture","Practice Tests"], nextBatch: "2025-11-05" },
+      "100% Guarenteed Certificate": { duration: "2 Months", price: "₹39,999", index: ["Deep Domain Coaching","Exam Strategy","Mock Exams","Support","Post-pass Career Guidance"], nextBatch: "2026-01-10" }
     },
     "CEH Theory": {
       "Only Training": { duration: "4 Weeks", price: "₹3,499", index: ["Ethical Hacking Basics","Attack Vectors","Security Controls"], nextBatch: "2025-10-25" },
-      "End-To-End Service": { duration: "2 Months", price: "₹11,999", index: ["Theory + Labs","Mentor Sessions","Support","Post-pass Career Guidance"], nextBatch: "2025-11-20" }
+      "100% Guarenteed Certificate": { duration: "2 Months", price: "₹11,999", index: ["Theory + Labs","Mentor Sessions","Support","Post-pass Career Guidance"], nextBatch: "2025-11-20" }
     },
     "CEH Practical": {
       "Only Training": { duration: "4 Weeks", price: "₹7,499", index: ["Hands-on Exploits","Lab-based Tasks","Report Writing"], nextBatch: "2025-11-02" },
-      "End-To-End Service": { duration: "2 Months", price: "₹17,999", index: ["Practice Labs","Exam Guidance","Mentor Sessions","Support","Post-pass Career Guidance"], nextBatch: "2025-12-05" }
+      "100% Guarenteed Certificate": { duration: "2 Months", price: "₹17,999", index: ["Practice Labs","Exam Guidance","Mentor Sessions","Support","Post-pass Career Guidance"], nextBatch: "2025-12-05" }
     },
     "CEH Master": {
       "Only Training": { duration: "2 Months", price: "₹9,999", index: ["Mastery Labs","Advanced Exploits","Red Team Projects"], nextBatch: "2026-01-15" },
-      "End-To-End Service": { duration: "2 Months", price: "₹25,999", index: ["Mentorship","Live Projects","Practical Labs","Support","Post-pass Career Guidance"], nextBatch: "2026-02-01" }
+      "100% Guarenteed Certificate": { duration: "2 Months", price: "₹25,999", index: ["Mentorship","Live Projects","Practical Labs","Support","Post-pass Career Guidance"], nextBatch: "2026-02-01" }
     },
     "CISM": {
       "Only Training": { duration: "4 Weeks", price: "₹9,999", index: ["Governance","Risk Management","Incident Management"], nextBatch: "2025-11-20" },
-      "End-To-End Service": { duration: "2 Months", price: "₹29,999", index: ["Deep Coaching","Practical Labs","Professional Guidance","Support","Post-pass Career Guidance"], nextBatch: "2026-01-05" }
+      "100% Guarenteed Certificate": { duration: "2 Months", price: "₹29,999", index: ["Deep Coaching","Practical Labs","Professional Guidance","Support","Post-pass Career Guidance"], nextBatch: "2026-01-05" }
     },
     "OSCP+": {
       "Only Training": { duration: "2 Months", price: "₹19,999", index: ["Buffer Overflows","Web Exploits","Privilege Escalation"], nextBatch: "2025-10-30" },
-      "End-To-End Service": { duration: "3 Months", price: "₹49,999", index: ["Deep Coaching","Labs Access","Mentor Pairing","Support","Post-pass Career Guidance"], nextBatch: "2026-01-20" }
+      "100% Guarenteed Certificate": { duration: "3 Months", price: "₹49,999", index: ["Deep Coaching","Labs Access","Mentor Pairing","Support","Post-pass Career Guidance"], nextBatch: "2026-01-20" }
     }
   },
 
