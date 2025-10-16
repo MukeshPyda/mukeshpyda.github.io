@@ -239,7 +239,7 @@ packageEl.addEventListener('change', () => {
   // Next batch
   const nb = document.createElement('div');
   nb.className = 'next-batch';
-  nb.innerHTML = `Next batch starts at ${formatDateISO(info.nextBatch)}`;
+  nb.innerHTML = `Only 22 Spots left. Next batch starts at ${formatDateISO(info.nextBatch)}`;
 
   // Index list
   const idxTitle = document.createElement('div');
