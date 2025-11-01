@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bandit 0->1</title>
+  <link rel="icon" type="image/x-icon" href="favicon.png"/>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+<!-- Header -->
+<header>
+  <h1>💻 TORHAT</h1>
+  <nav>
+    <a href="/index.html">Home</a>
+    <a href="/whoami.html">About</a>
+  </nav>
+</header>
+
+<!-- Blog Container -->
+<div class="blog-container">
+
+  <h1 class="blog-title">Tmux sessions. Run programs even when terminal closed</h1>
+
+  <div class="blog-section">
+    <!-- <div class="video-wrapper">
+      <iframe 
+        class="vid-center" 
+        src="https://www.youtube.com/embed/-HwLALmQdqg?si=nLU2m1-3UxwDih36" 
+        title="YouTube video player" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        referrerpolicy="strict-origin-when-cross-origin" 
+        allowfullscreen>
+      </iframe>
+    </div> -->
+
+    <h2 class="blog-subtitle first-subtitle">Install Tmux</h2>
+    <p class="blog-text">
+      I used Ubuntu (Debian based) to install this.      
+    </p>
+    <div class="blog-code">
+      <pre><code>sudo apt update</code></pre>
+      <pre><code>sudo apt install tmux -y</code></pre>
+    </div>
+    <!-- <img src="images/nmap-output.jpg" alt="Nmap Scan" class="blog-image"> -->
+  </div>
+
+  <div class="blog-section">
+    <h2 class="blog-subtitle">Start a New single tmux Session</h2>
+    <p class="blog-text">
+      If only single session needed, then:
+    </p>
+    <div class="blog-code">
+      <pre><code>tmux</code></pre>
+      <pre><code>python3 oneway.py</code></pre>
+      <pre><code>Ctrl + b, then release both keys and press d (Detach)</code></pre>
+      <pre><code>exit and exit from the system</code></pre>
+      <pre><code>ssh root@ip          (connecting system again)</code></pre>
+      <pre><code>tmux attach          (attaches to recently detached session)</code></pre>
+    </div>
+
+  <div class="blog-section">
+    <h2 class="blog-subtitle">Checking tmux Sessions and connecting</h2>
+    <p class="blog-text">
+      Check existing list of tmux sessions
+    </p>
+    <div class="blog-code">
+<pre><code>tmux ls</code></pre>
+    </div>
+    <p class="blog-text">
+      When no names were given to tmux sessions. The result shows session index start from 0,1,2 etc.. <br>
+      To attach to one of the sessions (Session 2):
+    </p>
+    <div class="blog-code">
+      <pre><code>tmux attach        (attaches to recently detached session)</code></pre>
+      <pre><code>tmux attach -t 2   (attaches to Session 2)</code></pre>
+    </div>
+  </div>
+
+  <div class="blog-section">
+    <h2 class="blog-subtitle">Creating and running multiple tmux Sessions</h2>
+    <p class="blog-text">
+      This is used when you want to keep programs organized into multiple sessions for easy access. <br>
+      To create a session with name (MyFirstSession):
+    </p>
+    <div class="blog-code">
+      <pre><code>tmux new -s MyFirstSession</code></pre>
+      <pre><code>python3 oneway.py</code></pre>
+      <pre><code>Ctrl + b, then release both keys and press d (Detach)</code></pre>
+      <pre><code>tmux attach -t MyFirstSession</code></pre>
+    </div>
+    <p class="blog-text">
+      You can create multiple sessions like this with appropriate names.
+    </p>
+  </div>
+
+
+  <div class="blog-section">
+    <h2 class="blog-subtitle">That's it Folks! Easy, isn't it?</h2>
+    <p class="blog-text">
+        Help us do more: <a class="nav-button" target="_blank" href="https://buymeacoffee.com/torhat">Buy Me A Coffee</a>
+    </p>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <p>Contact me:</p>
+  <a href="https://twitter.com/@TOR_HAT" target="_blank"><i class="fab fa-twitter"></i></a>
+  <a href="https://www.linkedin.com/in/mukesh-pyda/" target="_blank"><i class="fab fa-linkedin"></i></a>
+  <a href="mailto:support@hmcyberacademy.com"><i class="fas fa-envelope"></i></a>
+  <p>&copy; 2025 HMCyberAcademy</p>
+</footer>
+
+</body>
+</html>
