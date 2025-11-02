@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TORHAT Blog</title>
+  <link rel="icon" type="image/x-icon" href="favicon.png"/>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+<!-- Header -->
+<header>
+  <h1>💻 TORHAT</h1>
+  <nav>
+    <a href="/index.html">Home</a>
+    <a href="/whoami.html">About</a>
+  </nav>
+</header>
+
+<!-- Blog Container -->
+<div class="blog-container">
+
+  <h1 class="blog-title">Information disclosure in debug page</h1>
+
+  <div class="blog-section">
+    <div class="video-wrapper">
+      <iframe 
+        class="vid-center" 
+        src="https://www.youtube.com/embed/__Gyoog4NTw?si=nLU2m1-3UxwDih36" 
+        title="YouTube video player" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        referrerpolicy="strict-origin-when-cross-origin" 
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <h2 class="blog-subtitle first-subtitle">Steps to solve</h2>
+    <p class="blog-text">
+      1. Right click home page (/) -> Engagement Tools -> Discover content -> Click on Session is not running.<br>
+
+      2. Go to Target -> Site map <br>
+      
+      3. Select url -> cgi-bin -> phpinfo.php <br>
+      
+      4. Right click that request to phpinfo.php file and copy url <br>
+      
+      5. Open new tab and paste it. <br>
+      
+      6. Ctrl+F and type SECRET_KEY. <br>
+
+      7. Copy the value of SECRET_KEY variable and paste it as solution.
+    </p>
+    <!-- <div class="blog-code">
+      <pre><code>sudo apt update</code></pre>
+    </div> -->
+    <!-- <img src="images/nmap-output.jpg" alt="Nmap Scan" class="blog-image"> -->
+  </div>
+
+
+  <div class="blog-section">
+    <h2 class="blog-subtitle">That's it Folks! Easy, isn't it?</h2>
+    <p class="blog-text">
+        Help us do more: <a class="nav-button" target="_blank" href="https://buymeacoffee.com/torhat">Buy Me A Coffee</a>
+    </p>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <p>Contact me:</p>
+  <a href="https://twitter.com/@TOR_HAT" target="_blank"><i class="fab fa-twitter"></i></a>
+  <a href="https://www.linkedin.com/in/mukesh-pyda/" target="_blank"><i class="fab fa-linkedin"></i></a>
+  <a href="mailto:support@hmcyberacademy.com"><i class="fas fa-envelope"></i></a>
+  <p>&copy; 2025 HMCyberAcademy</p>
+</footer>
+
+</body>
+</html>

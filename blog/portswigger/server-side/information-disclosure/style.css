@@ -1,0 +1,183 @@
+body {
+    background-color: #0f0f0f;
+    color: #00ff00;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.2rem;
+    margin: 0;
+    padding: 2rem;
+  }
+
+  .blog-title {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    color: #00ff00;
+  }
+
+  .blog-section {
+    margin-bottom: 2rem;
+  }
+
+  .blog-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid #00ff00;
+    padding-bottom: 0.3rem;
+  }
+
+  .first-subtitle {
+    margin-top: 5rem;
+  }
+
+  .blog-text {
+    margin-bottom: 1rem;
+    line-height: 1.7;
+  }
+
+  .blog-code {
+    background-color: #111;
+    color: #00ff00;
+    padding: 1rem;
+    border-left: 4px solid #00ff00;
+    border-radius: 5px;
+    overflow-x: auto;
+    font-family: monospace;
+  }
+
+  .blog-image,
+  .vid-center {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border: 2px solid #00ff00;
+    border-radius: 6px;
+    margin: 1rem auto;
+  }
+
+  .video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: visible;
+    margin: 1rem 0;
+  }
+
+  .video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  footer {
+    text-align: center;
+    padding: 2rem;
+    background-color: #0a0a0a;
+    border-top: 2px solid #00ff00;
+    color: #00ff00;
+    font-family: monospace;
+  }
+
+  footer a i {
+  font-size: 1.5rem; /* ✅ Make them smaller */
+  margin: 0 10px;
+  color: #00ff00;
+  transition: color 0.3s ease;
+}
+
+footer a i:hover {
+  color: #00dd00;
+}
+footer {
+  margin-top: 4rem;
+  font-size: 1.5rem;
+}
+
+footer i {
+  margin: 0 0.5rem;
+  font-size: 1.2rem;
+}
+
+  .blog-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  header {
+    background-color: #000;
+    padding: 1rem;
+    border-bottom: 2px solid #00ff00;
+    text-align: center;
+    font-family: monospace;
+  }
+
+  header h1 {
+    color: #00ff00;
+    margin: 0;
+  }
+
+  nav {
+    margin-top: 1rem;
+  }
+
+  nav a {
+    color: #00ff00;
+    margin: 0 15px;
+    text-decoration: none;
+    font-size: 1.2rem;
+  }
+
+  nav a:hover {
+    color: #00dd00;
+    text-decoration: underline;
+  }
+
+  /* Vertical Ads */
+  .vertical-ad {
+    position: fixed;
+    top: 150px;
+    width: 160px;
+    height: 600px;
+    z-index: 999;
+  }
+
+  .left-ad {
+    left: 10px;
+  }
+
+  .right-ad {
+    right: 10px;
+  }
+
+  /* Horizontal Ads */
+  .horizontal-ad {
+    margin: 2rem 0;
+    text-align: center;
+  }
+
+   /* Previous and Next links */
+  .blog-navigation {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 40px 0;
+  }
+  
+  .nav-button {
+    background-color: #192919;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .nav-button:hover {
+    background-color: #00dd00;
+    transform: translateY(-2px);
+  }
+  

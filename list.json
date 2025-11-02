@@ -772,17 +772,17 @@
   {
     "title": "Information disclosure in error messages",
     "url": "/blog/portswigger/server-side/information-disclosure/information-disclosure-in-error-messages.html",
-    "description": "Connect to ssh and cat the readme file."
+    "description": "Error messages can reveal sensitive data."
   },
   {
     "title": "Information disclosure on debug page",
     "url": "/blog/portswigger/server-side/information-disclosure/information-disclosure-on-debug-page.html",
-    "description": "Connect to ssh and cat the readme file."
+    "description": "Debug page is a gold mine for hackers."
   },
   {
     "title": "Source code disclosure via backup files",
     "url": "/blog/portswigger/server-side/information-disclosure/source-code-disclosure-via-backup-files.html",
-    "description": "Connect to ssh and cat the readme file."
+    "description": "Backups in same directory? Bad idea dude."
   },
   {
     "title": "Authentication bypass via information disclosure",
