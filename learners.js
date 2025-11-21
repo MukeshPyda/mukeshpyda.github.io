@@ -11,65 +11,62 @@
 const COURSES = {
   job: {
     "VAPT": {
-      "Only Training": { duration: "2 Months", price: "Free", index: ["Linux (33 Labs)", "Web Recon (10 Labs)","Web application attacks (100+ Labs)\
-      ","Practical LLM Attacks","Professional Reporting","Live VAPT Project"], nextBatch: "2025-11-01" },
-      "Training + Job Assistance": { duration: "4 Months", price: "Free", index: ["All Only-Training modules","Real-World Projects","Resume Creation","Interview Preparation","Placement Support"], nextBatch: "2025-10-15" },
+      "Training + Job Assistance": { duration: "6 Months", price: "₹ 1,60,000", index: ["All Web Vulnerability modules","Pick 2 Global certifications (CEH Practical, Pentest+, eJPT, BSCP, PT1 or Others) ", "Real-World Attacks","Resume Creation","Interview Preparation","Placement Support"], nextBatch: "2025-10-15" },
       "Internship": { duration: "6 weeks", price: "Contact us", index: ["Shadowing Projects","Mentor Feedback","Report Submission","Completion Certificate"], nextBatch: "2025-10-25" }
     },
     "SOC L1": {
-      "Only Training": { duration: "2 Months", price: "Free", index: ["Log Analysis","SIEM Tools and Techniques","Splunk","Wireshark","Wazug","Alert Triage","Incident Escalation"], nextBatch: "2025-10-20" },
-      "Training + Job Assistance": { duration: "4 Months", price: "Free", index: ["SOC Playbooks","Live SOC Labs","Shift Simulations","Placement Support"], nextBatch: "2025-11-05" },
+      "Training + Job Assistance": { duration: "6 Months", price: "1,60,000", index: ["SOC Playbooks","Live SOC Labs","Shift Simulations","Placement Support"], nextBatch: "2025-11-05" },
       "Internship": { duration: "2 Months", price: "Contact us", index: ["On-Shift Shadowing","Ticketing & Reporting"], nextBatch: "2025-11-15" }
     },
     "SOC L2": {
-      "Only Training": { duration: "3 Months", price: "Free", index: ["Advanced Detection","Threat Hunting","Forensics","Scripting for SOC"], nextBatch: "2025-11-10" },
-      "Training + Job Assistance": { duration: "5 Months", price: "Free", index: ["Advanced Labs","Threat Hunting Projects","Interview Prep","Placement Support"], nextBatch: "2025-12-01" }
+      "Only Training": { duration: "3 Months", price: "1,60,000", index: ["Advanced Detection","Threat Hunting","Forensics","Scripting for SOC"], nextBatch: "2025-11-10" },
+      "Training + Job Assistance": { duration: "5 Months", price: "1,60,000", index: ["Advanced Labs","Threat Hunting Projects","Interview Prep","Placement Support"], nextBatch: "2025-12-01" }
     }
   },
 
   cert: {
     "CompTIA Security+": {
-      "Only Training": { duration: "4 Weeks", price: "Free", index: ["Security Fundamentals","Network Security","Threats & Vulns","Access Control"], nextBatch: "2025-10-12" },
-      "100% Guarenteed Certificate": { duration: "2 Months", price: "Free", index: ["Training","Practice Tests","Exam Guidance","Support","Post-pass Career Guidance"], nextBatch: "2025-11-01" }
+      "Only Training": { duration: "4 Weeks", price: "1,60,000", index: ["Security Fundamentals","Network Security","Threats & Vulns","Access Control"], nextBatch: "2025-10-12" },
+      "100% Guarenteed Certificate": { duration: "2 Months", price: "1,60,000", index: ["Training","Practice Tests","Exam Guidance","Support","Post-pass Career Guidance"], nextBatch: "2025-11-01" }
     },
     "CISSP": {
-      "Only Training": { duration: "2 Months", price: "Free", index: ["CBK Domains Overview","Risk Management","Security Architecture","Practice Tests"], nextBatch: "2025-11-05" },
-      "100% Guarenteed Certificate": { duration: "2 Months", price: "Free", index: ["Deep Domain Coaching","Exam Strategy","Mock Exams","Support","Post-pass Career Guidance"], nextBatch: "2026-01-10" }
+      "Only Training": { duration: "2 Months", price: "1,60,000", index: ["CBK Domains Overview","Risk Management","Security Architecture","Practice Tests"], nextBatch: "2025-11-05" },
+      "100% Guarenteed Certificate": { duration: "2 Months", price: "1,60,000", index: ["Deep Domain Coaching","Exam Strategy","Mock Exams","Support","Post-pass Career Guidance"], nextBatch: "2026-01-10" }
     },
     "CEH Theory": {
-      "Only Training": { duration: "4 Weeks", price: "Free", index: ["Ethical Hacking Basics","Attack Vectors","Security Controls"], nextBatch: "2025-10-25" },
-      "100% Guarenteed Certificate": { duration: "2 Months", price: "Free", index: ["Theory + Labs","Mentor Sessions","Support","Post-pass Career Guidance"], nextBatch: "2025-11-20" }
+      "Only Training": { duration: "4 Weeks", price: "1,60,000", index: ["Ethical Hacking Basics","Attack Vectors","Security Controls"], nextBatch: "2025-10-25" },
+      "100% Guarenteed Certificate": { duration: "2 Months", price: "1,60,000", index: ["Theory + Labs","Mentor Sessions","Support","Post-pass Career Guidance"], nextBatch: "2025-11-20" }
     },
     "CEH Practical": {
-      "Only Training": { duration: "4 Weeks", price: "Free", index: ["Hands-on Exploits","Lab-based Tasks","Report Writing"], nextBatch: "2025-11-02" },
-      "100% Guarenteed Certificate": { duration: "2 Months", price: "Free", index: ["Practice Labs","Exam Guidance","Mentor Sessions","Support","Post-pass Career Guidance"], nextBatch: "2025-12-05" }
+      "Only Training": { duration: "4 Weeks", price: "1,60,000", index: ["Hands-on Exploits","Lab-based Tasks","Report Writing"], nextBatch: "2025-11-02" },
+      "100% Guarenteed Certificate": { duration: "2 Months", price: "1,60,000", index: ["Practice Labs","Exam Guidance","Mentor Sessions","Support","Post-pass Career Guidance"], nextBatch: "2025-12-05" }
     },
     "CEH Master": {
-      "Only Training": { duration: "2 Months", price: "Free", index: ["Mastery Labs","Advanced Exploits","Red Team Projects"], nextBatch: "2026-01-15" },
-      "100% Guarenteed Certificate": { duration: "2 Months", price: "Free", index: ["Mentorship","Live Projects","Practical Labs","Support","Post-pass Career Guidance"], nextBatch: "2026-02-01" }
+      "Only Training": { duration: "2 Months", price: "1,60,000", index: ["Mastery Labs","Advanced Exploits","Red Team Projects"], nextBatch: "2026-01-15" },
+      "100% Guarenteed Certificate": { duration: "2 Months", price: "1,60,000", index: ["Mentorship","Live Projects","Practical Labs","Support","Post-pass Career Guidance"], nextBatch: "2026-02-01" }
     },
     "CISM": {
-      "Only Training": { duration: "4 Weeks", price: "Free", index: ["Governance","Risk Management","Incident Management"], nextBatch: "2025-11-20" },
-      "100% Guarenteed Certificate": { duration: "2 Months", price: "Free", index: ["Deep Coaching","Practical Labs","Professional Guidance","Support","Post-pass Career Guidance"], nextBatch: "2026-01-05" }
+      "Only Training": { duration: "4 Weeks", price: "1,60,000", index: ["Governance","Risk Management","Incident Management"], nextBatch: "2025-11-20" },
+      "100% Guarenteed Certificate": { duration: "2 Months", price: "1,60,000", index: ["Deep Coaching","Practical Labs","Professional Guidance","Support","Post-pass Career Guidance"], nextBatch: "2026-01-05" }
     },
     "OSCP+": {
-      "Only Training": { duration: "2 Months", price: "Free", index: ["Buffer Overflows","Web Exploits","Privilege Escalation","Active Directory Attacks"], nextBatch: "2025-10-30" },
-      "100% Guarenteed Certificate": { duration: "3 Months", price: "Free", index: ["Deep Coaching","Labs Access","Mentor Pairing","Support","Post-pass Career Guidance"], nextBatch: "2026-01-20" }
+      "Only Training": { duration: "2 Months", price: "1,60,000", index: ["Buffer Overflows","Web Exploits","Privilege Escalation","Active Directory Attacks"], nextBatch: "2025-10-30" },
+      "100% Guarenteed Certificate": { duration: "3 Months", price: "1,60,000", index: ["Deep Coaching","Labs Access","Mentor Pairing","Support","Post-pass Career Guidance"], nextBatch: "2026-01-20" }
     }
   },
 
   private: {
     "Bug Bounty": {
-      "Only Training": { duration: "2 Months", price: "Free", index: ["Recon Tools","Exploitation Techniques","Automation","Payout Strategy"], nextBatch: "2025-10-18" },
-      "Training + Mentorship for 1 year": { duration: "12 Months", price: "Free", index: ["Live Hunting","Mentor Program","Collab","Earning Roadmap"], nextBatch: "2025-11-10" }
+      "Only Training": { duration: "2 Months", price: "1,60,000", index: ["Recon Tools","Exploitation Techniques","Automation","Payout Strategy"], nextBatch: "2025-10-18" },
+      "Training + Mentorship for 1 year": { duration: "12 Months", price: "1,60,000", index: ["Live Hunting","Mentor Program","Collab","Earning Roadmap"], nextBatch: "2025-11-10" }
     },
     "Dark Web": {
-      "Only Training": { duration: "6 Weeks", price: "Free", index: ["Darknet Basics","Darkweb Tools","Safety & Ethics","Server hosting","Operational Security","System hardening","Escrow System","Cryptocurrencies"], nextBatch: "2025-11-03" },
-      "Training + Mentorship for 1 year": { duration: "12 Months", price: "Free", index: ["Deep Research","Mentorship","Darknet Basics","Darkweb Tools","Safety & Ethics","Server hosting","Operational Security","System hardening","Escrow System","Cryptocurrencies","Red Team Use Cases"], nextBatch: "2025-12-01" }
+      "Only Training": { duration: "6 Weeks", price: "1,60,000", index: ["Darknet Basics","Darkweb Tools","Safety & Ethics","Server hosting","Operational Security","System hardening","Escrow System","Cryptocurrencies"], nextBatch: "2025-11-03" },
+      "Training + Mentorship for 1 year": { duration: "12 Months", price: "1,60,000", index: ["Deep Research","Mentorship","Darknet Basics","Darkweb Tools","Safety & Ethics","Server hosting","Operational Security","System hardening","Escrow System","Cryptocurrencies","Red Team Use Cases"], nextBatch: "2025-12-01" }
     },
     "Data Recovery": {
-      "Only Training": { duration: "6 Weeks", price: "Free", index: ["Forensic Imaging","Recovery Tools","File Systems"], nextBatch: "2025-11-15" },
-      "Training + Mentorship for 1 year": { duration: "12 Months", price: "Free", index: ["Advanced Forensics","Case Studies","Mentorship"], nextBatch: "2026-01-10" }
+      "Only Training": { duration: "6 Weeks", price: "1,60,000", index: ["Forensic Imaging","Recovery Tools","File Systems"], nextBatch: "2025-11-15" },
+      "Training + Mentorship for 1 year": { duration: "12 Months", price: "1,60,000", index: ["Advanced Forensics","Case Studies","Mentorship"], nextBatch: "2026-01-10" }
     }
   }
 };
@@ -126,7 +123,9 @@ function validateForm(formData) {
   if (!formData.package) {
     errors.push('Please select package.');
   }
-  
+  if (formData.message && formData.message.length > 1000) {
+    errors.push('Message must be under 1000 characters.');
+  }
   // CSRF check (compare localStorage to form token)
   const storedToken = localStorage.getItem('csrfToken');
   const formToken = formData._csrf;
