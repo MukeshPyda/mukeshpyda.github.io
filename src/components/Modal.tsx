@@ -41,31 +41,31 @@ export default function Modal({ event, onClose }: { event: TimelineEvent, onClos
           </button>
         </div>
 
-        <div className="flex flex-col lg:flex-row h-full max-h-[95vh] lg:max-h-[90vh]">
+        <div className="flex flex-col lg:flex-row h-full max-h-[95vh] lg:max-h-[90vh] overflow-y-auto lg:overflow-hidden">
           {/* Subject Matter Description */}
-          <div className="lg:w-[35%] p-8 lg:p-12 pt-24 lg:pt-28 border-b lg:border-b-0 lg:border-r border-green-500/10 overflow-y-auto bg-black/40">
-            <span className="text-[10px] text-green-800 font-mono mb-4 block tracking-[0.4em] font-black uppercase">{event.date}</span>
-            <h2 className="text-4xl font-black mb-10 text-white tracking-tighter uppercase leading-[0.9] italic border-l-4 border-green-500 pl-6">
+          <div className="w-full lg:w-[35%] p-6 lg:p-12 pt-20 lg:pt-28 border-b lg:border-b-0 lg:border-r border-green-500/10 bg-black/40">
+            <span className="text-[10px] text-green-500/60 font-mono mb-4 block tracking-[0.4em] font-black uppercase">{event.date}</span>
+            <h2 className="text-3xl lg:text-4xl font-black mb-6 lg:mb-10 text-white tracking-tighter uppercase leading-[0.9] italic border-l-4 border-green-500 pl-4 lg:pl-6">
               {event.title}
             </h2>
             <div className="prose prose-invert prose-green max-w-none">
-              <p className="text-green-400/70 leading-relaxed text-lg whitespace-pre-line font-mono selection:bg-green-500 selection:text-black">
+              <p className="text-green-400/80 leading-relaxed text-base lg:text-lg whitespace-pre-line font-mono selection:bg-green-500 selection:text-black">
                 {event.description}
               </p>
             </div>
           </div>
 
           {/* Evidence Stream (Vertical Landscape Gallery) */}
-          <div className="lg:w-[65%] p-4 lg:p-12 pt-24 lg:pt-28 bg-black/60 flex flex-col relative">
+          <div className="w-full lg:w-[65%] p-6 lg:p-12 pt-10 lg:pt-28 bg-black/60 flex flex-col relative">
             <div className="flex items-center justify-between mb-8 border-b border-green-500/10 pb-4">
-              <h3 className="text-xs font-black text-green-900 font-mono uppercase tracking-[0.5em] flex items-center gap-2">
+              <h3 className="text-xs font-black text-green-500 font-mono uppercase tracking-[0.5em] flex items-center gap-2">
                 Evidence Stream <ChevronDown size={14} className="animate-bounce" />
               </h3>
-              <span className="text-[10px] text-green-900 font-mono uppercase">Total Artifacts: {event.collage.length + (event.mainImage ? 1 : 0)}</span>
+              <span className="text-[10px] text-green-500/40 font-mono uppercase">Total Artifacts: {event.collage.length + (event.mainImage ? 1 : 0)}</span>
             </div>
             
             {/* Vertical Scroll Area */}
-            <div className="flex-1 overflow-y-auto pr-2 space-y-8 custom-modal-scroll">
+            <div className="flex-1 space-y-8 custom-modal-scroll lg:overflow-y-auto lg:pr-2">
               {event.mainImage && (
                 <motion.div 
                   key={`modal-main-${event.id}`}
