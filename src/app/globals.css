@@ -1,0 +1,54 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-background: #0f0f0f;
+  --color-foreground: #00ff00;
+  --color-primary: #00ff00;
+  --color-accent: #008800;
+}
+
+:root {
+  --background: #0f0f0f;
+  --foreground: #00ff00;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Courier New', Courier, monospace;
+}
+
+/* Custom Global Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #111;
+}
+::-webkit-scrollbar-thumb {
+  background: #00ff00;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00aa00;
+}
+
+/* Modal-Specific Evidence Stream Scrollbar */
+.custom-modal-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-modal-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-modal-scroll::-webkit-scrollbar-track-piece:end {
+  background: transparent;
+  margin-bottom: 2rem; 
+}
+.custom-modal-scroll::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 0, 0.1);
+  border-radius: 10px;
+}
+.custom-modal-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 255, 0, 0.3);
+}
