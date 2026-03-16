@@ -26,45 +26,33 @@ To architect and maintain a "Fortress-Level" secure, high-impact, and aesthetica
 1.  **Compact Power Hero:** High-impact, tightened vertical layout for immediate SME authority.
 2.  **Dynamic Timeline:** Vertical animated timeline with alternating layouts (Desktop) and "Storybook Stack" (Mobile).
 3.  **Intel Dossier (Modal):** Immersive full-screen view with a vertical-scroll Landscape Evidence Stream.
-4.  **Ghost Terminal (Admin):** Obfuscated admin panel at `/terminal-x-92` for secure data injection.
+4.  **Hybrid Terminal (Admin):** 
+    - **Local Dev Mode:** Automatically creates physical folders in `public/images/events/` and updates `src/lib/data.ts` on disk.
+    - **Cloud Mode:** Reverts to secure `localStorage` for temporary previews.
 5.  **Secure Access Gate:** Hashed password protection using `nimukesh` (SHA-256).
 6.  **Operations Command (Admin Tools):** 
-    - Batch multi-image upload with Base64 encoding.
-    - Record Editor (Modify existing timeline events).
+    - Batch multi-image upload with Base64-to-Physical conversion.
+    - Record Editor (Modify existing timeline events with disk sync).
     - Visual Pre-Flight (Preview and delete images before saving).
-    - Data Export (Download `data.ts` for permanent GitHub commits).
+    - Data Export (Download `data.ts` for secondary backup).
 7.  **Future-Ready Navbar:** Minimalist navigation with placeholders for Blogs and Intelligence tracks.
 
 ---
 
 ## 🚀 Deployment & GitHub Workflow
 
-### Only Files Required for GitHub
-The following directories/files are the **source of truth** and should be committed:
-- `src/` (All components, app routes, and logic)
-- `public/` (Static assets)
-- `package.json` & `package-lock.json`
-- `next.config.ts` (Configured for `output: export`)
-- `tailwind.config.ts` (If used) or `src/app/globals.css`
-- `tsconfig.json`
-- `GEMINI.md`
-
-### How to Upload from Linux Terminal
-1.  **Initialize Git:**
-    ```bash
-    git init
-    git remote add origin https://github.com/mukeshpyda/mukeshpyda.github.io.git
-    ```
-2.  **Commit Changes:**
+### The Hybrid Workflow (Local to Global)
+1.  **Inject Data Locally:** Run `npm run dev` and navigate to `/terminal-x-92`.
+2.  **Physical Sync:** When you hit "Inject/Sync," the system:
+    - Saves images to `public/images/events/[id]/`.
+    - Rewrites `src/lib/data.ts` with the new file paths.
+3.  **Push to GitHub:** 
     ```bash
     git add .
-    git commit -m "feat: implement compact power layout and ghost terminal"
+    git commit -m "data: sync new operational evidence"
+    git push origin main
     ```
-3.  **Push to GitHub:**
-    ```bash
-    git branch -M main
-    git push -u origin main
-    ```
+4.  **GitHub Actions:** Automatically builds the site. Since the images are now physical files in `public/` and `data.ts` points to them, the site remains a "Pure Frontend" on GitHub Pages.
 
 ### GitHub Pages Configuration
 - Set **Settings > Pages > Build and deployment > Source** to **GitHub Actions**.

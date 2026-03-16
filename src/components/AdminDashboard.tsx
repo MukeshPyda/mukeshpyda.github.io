@@ -1,13 +1,14 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, Download, LogOut, Trash2, Image as ImageIcon, FileImage, Edit3, Save, X } from 'lucide-react';
+import { Plus, Download, LogOut, Trash2, Image as ImageIcon, FileImage, Edit3, Save, X, RefreshCw } from 'lucide-react';
 import { TimelineEvent } from '@/lib/data';
 import { usePersistence } from '@/lib/persistence';
 
 export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
   const { data: events, saveData } = usePersistence();
   const [editingId, setEditingId] = useState<number | null>(null);
+  const [isSyncing, setIsSyncing] = useState(false);
   const [newEvent, setNewEvent] = useState<Partial<TimelineEvent>>({
     title: '',
     date: '',
@@ -37,26 +38,15 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
         reader.readAsDataURL(file);
       });
     }
-    // Clear input so same file can be selected again if needed
     e.target.value = '';
   };
 
-  const removeCollageImage = (index: number) => {
-    setNewEvent(prev => ({
-      ...prev,
-      collage: prev.collage?.filter((_, i) => i !== index)
-    }));
-  };
-
-  const clearMainImage = () => {
-    setNewEvent(prev => ({ ...prev, mainImage: '' }));
-  };
-
-  const handleSaveEvent = (e: React.FormEvent) => {
+  const handleSaveEvent = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newEvent.title || !newEvent.date) return;
-    
-    const event: TimelineEvent = {
+    setIsSyncing(true);
+
+    const eventToSave: TimelineEvent = {
       id: editingId || Date.now(),
       title: newEvent.title!,
       date: newEvent.date!,
@@ -66,15 +56,39 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
       collage: newEvent.collage || []
     };
 
-    let updatedEvents;
-    if (editingId) {
-      updatedEvents = events.map(e => e.id === editingId ? event : e);
-    } else {
-      updatedEvents = [event, ...events];
+    // --- HYBRID PERSISTENCE LOGIC ---
+    // If local, try to sync to the physical file system
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      try {
+        const response = await fetch('/api/save-event', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ event: eventToSave, allEvents: events })
+        });
+        
+        if (response.ok) {
+          console.log('Local File System Sync: SUCCESS');
+          const result = await response.json();
+          const updatedEvents = events.map(e => e.id === eventToSave.id ? result.updatedEvent : e);
+          if (!events.find(e => e.id === eventToSave.id)) updatedEvents.unshift(result.updatedEvent);
+          saveData(updatedEvents);
+          resetForm();
+          setIsSyncing(false);
+          return;
+        }
+      } catch (err) {
+        console.warn('Local API failed, falling back to browser storage only.');
+      }
     }
+
+    // Fallback/Cloud Behavior (localStorage)
+    const updatedEvents = editingId 
+      ? events.map(e => e.id === editingId ? eventToSave : e)
+      : [eventToSave, ...events];
 
     saveData(updatedEvents);
     resetForm();
+    setIsSyncing(false);
   };
 
   const startEdit = (event: TimelineEvent) => {
@@ -103,14 +117,14 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
       <div className="max-w-7xl mx-auto">
         <header className="flex flex-col md:flex-row justify-between items-center mb-12 border-b border-green-500/20 pb-8">
           <div>
-            <h1 className="text-3xl font-bold uppercase tracking-tighter text-white">Expert Operations Terminal</h1>
-            <p className="text-green-900/80 tracking-widest text-xs mt-2">Authenticated: Mukesh Pyda | SME-Cybersecurity</p>
+            <h1 className="text-3xl font-bold uppercase tracking-tighter text-white">Hybrid Terminal</h1>
+            <p className="text-green-900/80 tracking-widest text-xs mt-2 uppercase">Local Sync Active: {window.location.hostname === 'localhost' ? 'YES' : 'NO'}</p>
           </div>
           <div className="flex gap-4 mt-6 md:mt-0">
-            <button onClick={handleExport} className="flex items-center gap-2 bg-green-900/20 border border-green-500/50 hover:bg-green-500 hover:text-black px-6 py-2 rounded-lg transition-all font-bold text-xs uppercase">
+            <button type="button" onClick={handleExport} className="flex items-center gap-2 bg-green-900/20 border border-green-500/50 hover:bg-green-500 hover:text-black px-6 py-2 rounded-lg transition-all font-bold text-xs uppercase">
               <Download size={16} /> Export Dossier
             </button>
-            <button onClick={() => { localStorage.removeItem('admin_auth'); onLogout(); }} className="flex items-center gap-2 bg-red-900/20 border border-red-500/50 hover:bg-red-500 hover:text-black px-6 py-2 rounded-lg transition-all font-bold text-xs uppercase">
+            <button type="button" onClick={() => { localStorage.removeItem('admin_auth'); onLogout(); }} className="flex items-center gap-2 bg-red-900/20 border border-red-500/50 hover:bg-red-500 hover:text-black px-6 py-2 rounded-lg transition-all font-bold text-xs uppercase">
               <LogOut size={16} /> Terminate
             </button>
           </div>
@@ -124,7 +138,7 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
                 {editingId ? <><Edit3 size={20}/> Modify Record</> : <><Plus size={20}/> New Operation</>}
               </h3>
               {editingId && (
-                <button onClick={resetForm} className="text-xs text-red-500 hover:text-white flex items-center gap-1 uppercase">
+                <button type="button" onClick={resetForm} className="text-xs text-red-500 hover:text-white flex items-center gap-1 uppercase">
                   <X size={14}/> Cancel Edit
                 </button>
               )}
@@ -150,11 +164,7 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
                     {newEvent.mainImage && (
                       <div className="relative w-24 h-24 group">
                         <img src={newEvent.mainImage} className="w-full h-full object-cover rounded-lg border border-green-500/30" alt="" />
-                        <button 
-                          type="button"
-                          onClick={clearMainImage} 
-                          className="absolute -top-2 -right-2 bg-red-600 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-                        >
+                        <button type="button" onClick={() => setNewEvent({...newEvent, mainImage: ''})} className="absolute -top-2 -right-2 bg-red-600 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
                           <X size={12} />
                         </button>
                       </div>
@@ -173,7 +183,7 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
                     <AnimatePresence mode="popLayout">
                       {newEvent.collage?.map((img, idx) => (
                         <motion.div 
-                          key={`preflight-${idx}-${img.slice(-20)}`} 
+                          key={`pre-${idx}`} 
                           initial={{ opacity: 0, scale: 0.8 }} 
                           animate={{ opacity: 1, scale: 1 }} 
                           exit={{ opacity: 0, scale: 0.8 }}
@@ -181,11 +191,7 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
                           className="relative w-24 h-24 group"
                         >
                           <img src={img} className="w-full h-full object-cover rounded-lg border border-green-500/20" alt="" />
-                          <button 
-                            type="button"
-                            onClick={() => removeCollageImage(idx)} 
-                            className="absolute -top-2 -right-2 bg-red-600 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-lg z-10"
-                          >
+                          <button type="button" onClick={() => setNewEvent({...newEvent, collage: newEvent.collage?.filter((_, i) => i !== idx)})} className="absolute -top-2 -right-2 bg-red-600 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-lg z-10">
                             <X size={12} />
                           </button>
                         </motion.div>
@@ -195,8 +201,8 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
                 </div>
               </div>
 
-              <button type="submit" className="w-full bg-green-600 text-black font-black py-5 rounded-lg hover:bg-green-500 transition-all shadow-[0_0_30px_rgba(0,255,0,0.2)] uppercase tracking-widest flex items-center justify-center gap-2">
-                {editingId ? <><Save size={20}/> Sync Record</> : <><Plus size={20}/> Inject Operation</>}
+              <button disabled={isSyncing} type="submit" className="w-full bg-green-600 text-black font-black py-5 rounded-lg hover:bg-green-500 transition-all shadow-[0_0_30px_rgba(0,255,0,0.2)] uppercase tracking-widest flex items-center justify-center gap-2 disabled:opacity-50">
+                {isSyncing ? <RefreshCw className="animate-spin" /> : editingId ? <><Save size={20}/> Sync Record</> : <><Plus size={20}/> Inject Operation</>}
               </button>
             </form>
           </div>
@@ -213,10 +219,10 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
                     <p className="text-green-900 text-[10px] tracking-[0.3em] font-black">{event.date}</p>
                   </div>
                   <div className="flex gap-2">
-                    <button onClick={() => startEdit(event)} className="p-3 text-blue-500 hover:bg-blue-500/10 rounded-lg transition-all" title="Edit Record">
+                    <button type="button" onClick={() => startEdit(event)} className="p-3 text-blue-500 hover:bg-blue-500/10 rounded-lg transition-all" title="Edit Record">
                       <Edit3 size={18} />
                     </button>
-                    <button onClick={() => saveData(events.filter(e => e.id !== event.id))} className="p-3 text-red-500 hover:bg-red-500/10 rounded-lg transition-all" title="Delete Record">
+                    <button type="button" onClick={() => saveData(events.filter(e => e.id !== event.id))} className="p-3 text-red-500 hover:bg-red-500/10 rounded-lg transition-all" title="Delete Record">
                       <Trash2 size={18} />
                     </button>
                   </div>

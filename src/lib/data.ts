@@ -10,13 +10,30 @@ export interface TimelineEvent {
 
 export const initialTimelineData: TimelineEvent[] = [
   {
-    id: 1,
-    title: "Global VAPT Operation",
-    date: "January 2025",
-    summary: "Mukesh Pyda led a comprehensive security audit for a Fortune 500 firm.",
-    description: "In this high-stakes engagement, Mukesh demonstrated expert-level mastery of offensive security, identifying critical zero-day vulnerabilities and architecting a zero-trust recovery plan.",
-    mainImage: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b",
-    collage: []
+    "id": 1773649679116,
+    "title": "asdf",
+    "date": "march 2024",
+    "summary": "rtbvev",
+    "description": "wef24wcvver",
+    "mainImage": "/images/events/1773649679116/main.jpg",
+    "collage": [
+      "/images/events/1773649679116/collage-0.jpg",
+      "/images/events/1773649679116/collage-1.jpg"
+    ]
+  },
+  {
+    "id": 1,
+    "title": "Global VAPT Operation",
+    "date": "January 2025",
+    "summary": "Mukesh Pyda led a comprehensive security audit for a Fortune 500 firm.",
+    "description": "In this high-stakes engagement, Mukesh demonstrated expert-level mastery of offensive security, identifying critical zero-day vulnerabilities and architecting a zero-trust recovery plan.",
+    "mainImage": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b",
+    "collage": [
+      "/images/events/1/collage-0.jpg",
+      "/images/events/1/collage-1.jpg",
+      "/images/events/1/collage-2.jpg",
+      "/images/events/1/collage-3.jpg"
+    ]
   }
 ];
 
