@@ -14,9 +14,6 @@ export default function TimelineItem({ event, index, onClick }: { event: Timelin
       onClick={onClick}
       className={`relative flex flex-col lg:flex-row items-start lg:items-center justify-between w-full mb-12 lg:mb-24 cursor-pointer group`}
     >
-      {/* Mobile-Only Timeline Line (Vertical on the left) */}
-      <div className="absolute left-4 top-0 bottom-0 w-[1px] bg-green-500/20 lg:hidden" />
-
       {/* Content Area */}
       <div className={`w-full lg:w-[42%] pl-10 lg:pl-0 ${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
         <div className="relative overflow-hidden rounded-xl border border-green-500/10 bg-black/40 backdrop-blur-md p-4 lg:p-6 transition-all duration-300 group-hover:border-green-500/60 group-hover:shadow-[0_0_30px_rgba(0,255,0,0.15)]">

@@ -57,7 +57,6 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
     };
 
     // --- HYBRID PERSISTENCE LOGIC ---
-    // If local, try to sync to the physical file system
     if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
       try {
         const response = await fetch('/api/save-event', {
@@ -67,11 +66,8 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
         });
         
         if (response.ok) {
-          console.log('Local File System Sync: SUCCESS');
           const result = await response.json();
-          const updatedEvents = events.map(e => e.id === eventToSave.id ? result.updatedEvent : e);
-          if (!events.find(e => e.id === eventToSave.id)) updatedEvents.unshift(result.updatedEvent);
-          saveData(updatedEvents);
+          saveData(result.allEvents);
           resetForm();
           setIsSyncing(false);
           return;
@@ -81,13 +77,40 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
       }
     }
 
-    // Fallback/Cloud Behavior (localStorage)
     const updatedEvents = editingId 
       ? events.map(e => e.id === editingId ? eventToSave : e)
       : [eventToSave, ...events];
 
     saveData(updatedEvents);
     resetForm();
+    setIsSyncing(false);
+  };
+
+  const handleDelete = async (id: number) => {
+    if (!confirm('PERMANENTLY DELETE THIS RECORD?')) return;
+    setIsSyncing(true);
+
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      try {
+        const response = await fetch('/api/save-event', {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id, allEvents: events })
+        });
+        
+        if (response.ok) {
+          const result = await response.json();
+          saveData(result.allEvents);
+          setIsSyncing(false);
+          return;
+        }
+      } catch (err) {
+        console.error('Delete sync failed:', err);
+      }
+    }
+
+    const updatedEvents = events.filter(e => e.id !== id);
+    saveData(updatedEvents);
     setIsSyncing(false);
   };
 
@@ -103,7 +126,7 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
   };
 
   const handleExport = () => {
-    const dataString = `import { TimelineEvent } from './data';\n\nexport const initialTimelineData: TimelineEvent[] = ${JSON.stringify(events, null, 2)};\n\nexport const siteConfig = {\n  name: "Mukesh Pyda",\n  role: "Subject Matter Expert in Cybersecurity",\n  bio: "A visionary Subject Matter Expert in Cybersecurity.",\n  adminHash: "83e57f12c140c83a73c15381a179374092b37267f5c78663b652758f1f54d19b"\n};`;
+    const dataString = `import { TimelineEvent } from './data';\n\nexport const initialTimelineData: TimelineEvent[] = ${JSON.stringify(events, null, 2)};\n\nexport const siteConfig = {\n  name: "Mukesh Pyda",\n  role: "Subject Matter Expert in Cybersecurity",\n  bio: "A visionary Subject Matter Expert in Cybersecurity.",\n  adminHash: "338a4805c297641ce81f27dd7d3a983159f5a18552a268e625999210ba5f4e19"\n};`;
     const blob = new Blob([dataString], { type: 'text/typescript' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -222,7 +245,7 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
                     <button type="button" onClick={() => startEdit(event)} className="p-3 text-blue-500 hover:bg-blue-500/10 rounded-lg transition-all" title="Edit Record">
                       <Edit3 size={18} />
                     </button>
-                    <button type="button" onClick={() => saveData(events.filter(e => e.id !== event.id))} className="p-3 text-red-500 hover:bg-red-500/10 rounded-lg transition-all" title="Delete Record">
+                    <button type="button" onClick={() => handleDelete(event.id)} className="p-3 text-red-500 hover:bg-red-500/10 rounded-lg transition-all" title="Delete Record">
                       <Trash2 size={18} />
                     </button>
                   </div>

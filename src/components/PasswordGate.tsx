@@ -11,13 +11,6 @@ export default function PasswordGate({ onAuthenticated }: { onAuthenticated: () 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      // Direct comparison for local simplicity, hash for fortress security
-      if (password === 'admin123') {
-        localStorage.setItem('admin_auth', 'true');
-        onAuthenticated();
-        return;
-      }
-
       const encoder = new TextEncoder();
       const data = encoder.encode(password);
       const hashBuffer = await crypto.subtle.digest('SHA-256', data);
@@ -32,13 +25,7 @@ export default function PasswordGate({ onAuthenticated }: { onAuthenticated: () 
         setTimeout(() => setError(false), 2000);
       }
     } catch (err) {
-      // Final fallback
-      if (password === 'admin123') {
-        localStorage.setItem('admin_auth', 'true');
-        onAuthenticated();
-      } else {
-        setError(true);
-      }
+      setError(true);
     }
   };
 
