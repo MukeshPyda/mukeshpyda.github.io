@@ -1,7 +1,7 @@
 # GEMINI.md - Elite Expert Portfolio System
 
 **Project Name:** Mukesh Pyda | Subject Matter Expert Portfolio
-**Status:** Operational (v2.2 - Unified Tactical Timeline Update)
+**Status:** Operational (v2.5 - SME Title Designation Update)
 **Base Path:** `/home/torhat/Desktop/website/portfolio-website`
 
 ---
@@ -37,6 +37,9 @@ To architect and maintain a "Fortress-Level" secure, high-impact, and aesthetica
     - Data Export (Download `data.ts` for secondary backup).
 7.  **Future-Ready Navbar:** Minimalist navigation with placeholders for Blogs and Intelligence tracks.
 8.  **Unified Tactical Timeline (Mobile):** Re-engineered vertical axis with a continuous, scroll-reactive glowing line for a seamless mobile experience.
+9.  **Asset Injection Protocol:** Standardized procedures for binary asset replacement (Favicons, Icons) via direct path targeting.
+10. **Tactical Briefing Refinement:** High-impact Hero summary distilled to reflect direct, hands-on SME authority.
+11. **SME Title Designation:** Refined the primary role title to "SECURITY SPECIALIST & MASTER INSTRUCTOR" for a dual focus on hands-on expertise and elite mentorship.
 
 ---
 
