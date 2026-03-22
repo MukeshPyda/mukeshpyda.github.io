@@ -99,11 +99,11 @@ export default function IntelligencePage() {
                 className="group relative overflow-hidden rounded-xl border border-green-500/5 bg-black/40 backdrop-blur-md p-5 transition-all duration-300 hover:border-green-500/40 hover:shadow-[0_0_40px_rgba(0,255,0,0.1)] cursor-pointer"
               >
                 <div className="aspect-[16/10] w-full overflow-hidden rounded-lg mb-5 relative">
-                  <div className="absolute inset-0 bg-green-500/10 group-hover:bg-transparent transition-colors z-10" />
+                  <div className="absolute inset-0 bg-green-500/5 group-hover:bg-transparent transition-colors z-10" />
                   <img 
                     src={blog.mainImage} 
                     alt={blog.title} 
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100" 
+                    className="w-full h-full object-cover transition-all duration-700 scale-105 group-hover:scale-100" 
                   />
                 </div>
                 <div className="space-y-3">
