@@ -1,0 +1,13 @@
+{
+  "id": 8,
+  "title": "Automating the SOC with Python",
+  "date": "August 2025",
+  "summary": "Building custom toolsets for threat hunting, log analysis, and automated incident response.",
+  "content": "Full guide on SOC automation...",
+  "mainImage": "/images/events/1/main.jpg",
+  "tags": [
+    "Automation",
+    "Python",
+    "SOC"
+  ]
+}

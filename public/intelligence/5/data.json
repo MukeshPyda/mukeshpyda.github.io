@@ -1,0 +1,13 @@
+{
+  "id": 5,
+  "title": "Binary Exploitation in Modern Systems",
+  "date": "November 2025",
+  "summary": "Analyzing common memory corruption vulnerabilities and modern bypasses for ASLR and DEP.",
+  "content": "Full report on binary exploitation...",
+  "mainImage": "/images/events/1774081102289/main.jpg",
+  "tags": [
+    "Exploitation",
+    "Binary",
+    "Low-Level"
+  ]
+}

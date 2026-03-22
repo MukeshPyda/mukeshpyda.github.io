@@ -1,0 +1,13 @@
+{
+  "id": 15,
+  "title": "Designing for Resilience",
+  "date": "January 2025",
+  "summary": "Architectural principles for building systems that can survive and recover from catastrophic security failures.",
+  "content": "Full guide on resilient design...",
+  "mainImage": "/images/events/1774080072088/collage-1.jpg",
+  "tags": [
+    "Resilience",
+    "Architecture",
+    "Design"
+  ]
+}

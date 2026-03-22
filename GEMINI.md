@@ -42,6 +42,7 @@ To architect and maintain a "Fortress-Level" secure, high-impact, and aesthetica
 11. **SME Title Designation:** Refined the primary role title to "SECURITY SPECIALIST & MASTER INSTRUCTOR" for a dual focus on hands-on expertise and elite mentorship.
 12. **Intelligence Track (Blog):** Full-featured tactical archive with dynamic client-side search, a 3x4 responsive grid, and paginated navigation for high-density intelligence sharing. Centered header and search bar with unified home-page aesthetic.
 13. **Mobile Tactical Navigation:** Re-engineered navbar with a functional animated hamburger menu for seamless mobile access.
+14. **Intelligence Physical Archive:** Automated structural mirroring of blog assets in `public/blog/` for organized, per-post metadata and image management.
 
 ---
 

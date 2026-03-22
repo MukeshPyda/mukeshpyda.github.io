@@ -1,0 +1,13 @@
+{
+  "id": 7,
+  "title": "Race Conditions: The Silent Threat",
+  "date": "September 2025",
+  "summary": "Understanding the mechanics of race conditions in web applications and how to remediate them at scale.",
+  "content": "Full report on race conditions...",
+  "mainImage": "/images/events/1774080072088/main.jpg",
+  "tags": [
+    "Vulnerabilities",
+    "Web",
+    "Research"
+  ]
+}
