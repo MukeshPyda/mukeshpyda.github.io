@@ -16,8 +16,8 @@ export default function Navbar() {
         
         {/* Placeholder for future links */}
         <div className="hidden md:flex gap-8 items-center text-xs font-mono text-green-700 uppercase tracking-widest">
-          <a href="#" className="hover:text-green-500 transition-colors">Operations</a>
-          <a href="#" className="opacity-30 cursor-not-allowed">Intelligence</a>
+          <a href="/" className="hover:text-green-500 transition-colors">Operations</a>
+          <a href="/intelligence" className="hover:text-green-500 transition-colors">Intelligence</a>
           <a href="#" className="opacity-30 cursor-not-allowed">Directives</a>
         </div>
 
