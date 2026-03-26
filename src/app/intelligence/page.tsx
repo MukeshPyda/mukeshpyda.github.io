@@ -63,7 +63,7 @@ export default function IntelligencePage() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-green-700 font-mono text-xs md:text-sm max-w-2xl leading-relaxed uppercase tracking-wider"
+            className="text-white/80 font-mono text-xs md:text-sm max-w-2xl leading-relaxed uppercase tracking-wider"
           >
             A comprehensive repository of security research, and SME-level technical briefings and tutorials.
           </motion.p>
@@ -90,7 +90,7 @@ export default function IntelligencePage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           <AnimatePresence mode="popLayout">
             {currentBlogs.map((blog, index) => (
-              <Link href={`/intelligence/${blog.id}`} key={blog.id} className="h-full">
+              <Link href={`/intelligence/${blog.slug}`} key={blog.id} className="h-full">
                 <motion.div
                   layout
                   initial={{ opacity: 0, y: 20 }}
@@ -108,7 +108,7 @@ export default function IntelligencePage() {
                     />
                   </div>
                   <div className="space-y-3">
-                    <div className="flex justify-between items-center text-[10px] font-mono uppercase tracking-[0.2em] text-green-500/40 font-bold">
+                    <div className="flex justify-between items-center text-[10px] font-mono uppercase tracking-[0.2em] text-green-400/60 font-bold">
                       <span>{blog.date}</span>
                       <div className="flex gap-2">
                         {blog.tags.slice(0, 2).map(tag => (
@@ -119,7 +119,7 @@ export default function IntelligencePage() {
                     <h3 className="text-xl font-black text-white group-hover:text-green-400 transition-colors leading-tight uppercase italic tracking-tight">
                       {blog.title}
                     </h3>
-                    <p className="text-green-700/60 text-[11px] leading-relaxed line-clamp-2 italic font-mono uppercase tracking-tighter">
+                    <p className="text-white/60 text-[11px] leading-relaxed line-clamp-2 italic font-mono uppercase tracking-tighter">
                       {blog.summary}
                     </p>
                   </div>

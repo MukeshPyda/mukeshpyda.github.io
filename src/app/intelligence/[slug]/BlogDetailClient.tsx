@@ -11,8 +11,8 @@ export default function BlogDetailClient({
   nextBlog 
 }: { 
   blog: BlogPost, 
-  prevBlog?: { id: number, title: string }, 
-  nextBlog?: { id: number, title: string } 
+  prevBlog?: { slug: string, title: string }, 
+  nextBlog?: { slug: string, title: string } 
 }) {
   // Convert watch URL to embed URL
   const getEmbedUrl = (url?: string) => {
@@ -179,7 +179,7 @@ export default function BlogDetailClient({
         {/* Footer Navigation */}
         <div className="mt-32 pt-12 border-t border-green-500/10 grid grid-cols-2 gap-8 font-mono">
           {prevBlog ? (
-            <Link href={`/intelligence/${prevBlog.id}`} className="group space-y-2 text-left">
+            <Link href={`/intelligence/${prevBlog.slug}`} className="group space-y-2 text-left">
               <span className="text-green-500/40 text-[10px] uppercase tracking-[0.2em]">Previous Briefing</span>
               <div className="flex items-center gap-2 text-green-400 group-hover:text-green-300 transition-colors">
                 <ChevronLeft size={16} />
@@ -189,7 +189,7 @@ export default function BlogDetailClient({
           ) : <div />}
 
           {nextBlog ? (
-            <Link href={`/intelligence/${nextBlog.id}`} className="group space-y-2 text-right">
+            <Link href={`/intelligence/${nextBlog.slug}`} className="group space-y-2 text-right">
               <span className="text-green-500/40 text-[10px] uppercase tracking-[0.2em]">Next Briefing</span>
               <div className="flex items-center gap-2 text-green-400 group-hover:text-green-300 transition-colors justify-end">
                 <span className="text-xs uppercase font-bold truncate">{nextBlog.title}</span>
@@ -199,6 +199,7 @@ export default function BlogDetailClient({
           ) : <div />}
         </div>
 
+        {/* Home Navigation */}
         <div className="mt-20 flex justify-center">
           <Link 
             href="/intelligence" 

@@ -48,6 +48,9 @@ To architect and maintain a "Fortress-Level" secure, high-impact, and aesthetica
 16. **Static Export Optimization:** Resolved GitHub build failures by implementing `generateStaticParams` and architecting a server/client component split for dynamic intelligence routes.
 17. **High-Visibility Briefing UI:** Re-engineered the Intelligence briefing pages with high-contrast text (Whites/Bright Greens) for maximum readability against dark backgrounds.
 18. **Autonomous Mission Containment:** Expanded the Intelligence archive with self-contained directory structures, ensuring each briefing's assets and metadata are stored within its own secure sector.
+19. **Semantic URL Routing:** Migrated the Intelligence track from ID-based endpoints to descriptive, title-based slugs (e.g., `/intelligence/The-Future-of-AI-in-Offensive-Security`), improving SEO and UX.
+20. **High-Visibility Technical Instruction:** Elevated text visibility in lab walkthroughs using high-contrast color palettes (Bright Green/White) against the tactical black background.
+21. **Semantic Asset Archiving:** Synchronized physical directory names in `public/intelligence/` with semantic slugs, ensuring each briefing is a fully self-contained, descriptive mission sector.
 
 18. **CI/CD Modernization:** Upgraded the GitHub Actions workflow to Node.js 24 and enforced its use for all JS-based actions, resolving deprecation warnings and future-proofing the deployment pipeline.
 
