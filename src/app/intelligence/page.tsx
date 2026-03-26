@@ -2,8 +2,9 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, ChevronLeft, ChevronRight, Terminal } from 'lucide-react';
-import { initialBlogData, BlogPost } from '@/lib/data';
+import { initialBlogData } from './data';
 import Navbar from '@/components/Navbar';
+import Link from 'next/link';
 
 export default function IntelligencePage() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -31,7 +32,7 @@ export default function IntelligencePage() {
     <main className="min-h-screen bg-[#0a0a0a] text-white pt-20 pb-12 px-6 overflow-hidden">
       <Navbar />
       
-      {/* Background Grid Decoration (Consistent with Home) */}
+      {/* Background Grid Decoration */}
       <div className="fixed inset-0 z-0 opacity-10 pointer-events-none" 
            style={{ backgroundImage: 'radial-gradient(#00ff00 0.5px, transparent 0.5px)', backgroundSize: '30px 30px' }} />
 
@@ -89,40 +90,41 @@ export default function IntelligencePage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           <AnimatePresence mode="popLayout">
             {currentBlogs.map((blog, index) => (
-              <motion.div
-                key={blog.id}
-                layout
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.4, delay: index * 0.05 }}
-                className="group relative overflow-hidden rounded-xl border border-green-500/5 bg-black/40 backdrop-blur-md p-5 transition-all duration-300 hover:border-green-500/40 hover:shadow-[0_0_40px_rgba(0,255,0,0.1)] cursor-pointer"
-              >
-                <div className="aspect-[16/10] w-full overflow-hidden rounded-lg mb-5 relative">
-                  <div className="absolute inset-0 bg-green-500/5 group-hover:bg-transparent transition-colors z-10" />
-                  <img 
-                    src={blog.mainImage} 
-                    alt={blog.title} 
-                    className="w-full h-full object-cover transition-all duration-700 scale-105 group-hover:scale-100" 
-                  />
-                </div>
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center text-[10px] font-mono uppercase tracking-[0.2em] text-green-500/40 font-bold">
-                    <span>{blog.date}</span>
-                    <div className="flex gap-2">
-                      {blog.tags.slice(0, 2).map(tag => (
-                        <span key={tag} className="px-1.5 py-0.5 border border-green-500/10 rounded">#{tag}</span>
-                      ))}
-                    </div>
+              <Link href={`/intelligence/${blog.id}`} key={blog.id} className="h-full">
+                <motion.div
+                  layout
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.4, delay: index * 0.05 }}
+                  className="group relative overflow-hidden rounded-xl border border-green-500/5 bg-black/40 backdrop-blur-md p-5 transition-all duration-300 hover:border-green-500/40 hover:shadow-[0_0_40px_rgba(0,255,0,0.1)] cursor-pointer h-full"
+                >
+                  <div className="aspect-[16/10] w-full overflow-hidden rounded-lg mb-5 relative">
+                    <div className="absolute inset-0 bg-green-500/5 group-hover:bg-transparent transition-colors z-10" />
+                    <img 
+                      src={blog.mainImage} 
+                      alt={blog.title} 
+                      className="w-full h-full object-cover transition-all duration-700 scale-105 group-hover:scale-100" 
+                    />
                   </div>
-                  <h3 className="text-xl font-black text-white group-hover:text-green-400 transition-colors leading-tight uppercase italic tracking-tight">
-                    {blog.title}
-                  </h3>
-                  <p className="text-green-700/60 text-[11px] leading-relaxed line-clamp-2 italic font-mono uppercase tracking-tighter">
-                    {blog.summary}
-                  </p>
-                </div>
-              </motion.div>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center text-[10px] font-mono uppercase tracking-[0.2em] text-green-500/40 font-bold">
+                      <span>{blog.date}</span>
+                      <div className="flex gap-2">
+                        {blog.tags.slice(0, 2).map(tag => (
+                          <span key={tag} className="px-1.5 py-0.5 border border-green-500/10 rounded">#{tag}</span>
+                        ))}
+                      </div>
+                    </div>
+                    <h3 className="text-xl font-black text-white group-hover:text-green-400 transition-colors leading-tight uppercase italic tracking-tight">
+                      {blog.title}
+                    </h3>
+                    <p className="text-green-700/60 text-[11px] leading-relaxed line-clamp-2 italic font-mono uppercase tracking-tighter">
+                      {blog.summary}
+                    </p>
+                  </div>
+                </motion.div>
+              </Link>
             ))}
           </AnimatePresence>
         </div>

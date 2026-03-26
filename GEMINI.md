@@ -1,7 +1,7 @@
 # GEMINI.md - Elite Expert Portfolio System
 
 **Project Name:** Mukesh Pyda | Subject Matter Expert Portfolio
-**Status:** Operational (v2.6 - Intelligence Hub Deployment)
+**Status:** Operational (v2.14 - Intelligence Deep-Dive Update)
 **Base Path:** `/home/torhat/Desktop/website/portfolio-website`
 
 ---
@@ -42,7 +42,11 @@ To architect and maintain a "Fortress-Level" secure, high-impact, and aesthetica
 11. **SME Title Designation:** Refined the primary role title to "SECURITY SPECIALIST & MASTER INSTRUCTOR" for a dual focus on hands-on expertise and elite mentorship.
 12. **Intelligence Track (Blog):** Full-featured tactical archive with dynamic client-side search, a 3x4 responsive grid, and paginated navigation for high-density intelligence sharing. Centered header and search bar with unified home-page aesthetic.
 13. **Mobile Tactical Navigation:** Re-engineered navbar with a functional animated hamburger menu for seamless mobile access.
-14. **Intelligence Physical Archive:** Automated structural mirroring of blog assets in `public/blog/` for organized, per-post metadata and image management.
+14. **Intelligence Physical Archive:** Automated structural mirroring of blog assets in `public/intelligence/` for organized, per-post metadata and image management.
+15. **Modular Intel Architecture:** Decentralized intelligence data into `src/app/intelligence/data.ts` and implemented dynamic routing for individual deep-dive briefings.
+16. **Deep-Dive Briefing Format:** Re-architected individual intelligence pages to support YouTube embeds and structured, multi-step lab walkthroughs with code blocks and imagery.
+17. **Static Export Optimization:** Resolved GitHub build failures by implementing `generateStaticParams` and architecting a server/client component split for dynamic intelligence routes.
+18. **CI/CD Modernization:** Upgraded the GitHub Actions workflow to Node.js 24 and enforced its use for all JS-based actions, resolving deprecation warnings and future-proofing the deployment pipeline.
 
 ---
 
