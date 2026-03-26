@@ -36,7 +36,7 @@ export default function BlogDetailClient({
         {/* Navigation Back */}
         <Link 
           href="/intelligence" 
-          className="inline-flex items-center gap-2 text-green-500/60 hover:text-green-500 font-mono text-xs uppercase tracking-widest transition-colors mb-12 group"
+          className="inline-flex items-center gap-2 text-green-400 hover:text-green-300 font-mono text-xs uppercase tracking-widest transition-colors mb-12 group"
         >
           <ChevronLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
           <span>Return to Archive</span>
@@ -66,7 +66,7 @@ export default function BlogDetailClient({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="flex flex-wrap gap-6 text-[10px] font-mono uppercase tracking-widest text-green-500/40"
+            className="flex flex-wrap gap-6 text-[10px] font-mono uppercase tracking-widest text-green-400/60"
           >
             <div className="flex items-center gap-2">
               <Calendar size={14} />
@@ -90,7 +90,7 @@ export default function BlogDetailClient({
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="text-green-700/80 font-mono text-sm md:text-base italic leading-relaxed"
+            className="text-white/90 font-mono text-sm md:text-base italic leading-relaxed"
           >
             {blog.summary}
           </motion.p>
@@ -135,7 +135,7 @@ export default function BlogDetailClient({
               className="space-y-8"
             >
               <div className="flex items-start gap-6">
-                <span className="text-4xl font-black text-green-500/20 font-mono leading-none">
+                <span className="text-4xl font-black text-green-500/30 font-mono leading-none">
                   {(idx + 1).toString().padStart(2, '0')}
                 </span>
                 <div className="space-y-4">
@@ -143,7 +143,7 @@ export default function BlogDetailClient({
                     {step.title}
                   </h3>
                   {step.description && (
-                    <p className="text-green-700/80 font-mono text-sm leading-relaxed">
+                    <p className="text-white/80 font-mono text-sm leading-relaxed">
                       {step.description}
                     </p>
                   )}
@@ -154,7 +154,7 @@ export default function BlogDetailClient({
                 <div className="relative group">
                   <div className="absolute -inset-0.5 bg-gradient-to-r from-green-500/20 to-transparent rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-1000"></div>
                   <div className="relative bg-black/60 border border-green-500/10 rounded-xl p-6 font-mono text-xs md:text-sm text-green-400 overflow-x-auto">
-                    <div className="flex items-center gap-2 mb-4 text-green-900 text-[10px] uppercase tracking-widest border-b border-green-500/5 pb-2">
+                    <div className="flex items-center gap-2 mb-4 text-green-400/60 text-[10px] uppercase tracking-widest border-b border-green-500/5 pb-2">
                       <Code size={12} />
                       <span>Terminal Input / Command</span>
                     </div>
@@ -180,8 +180,8 @@ export default function BlogDetailClient({
         <div className="mt-32 pt-12 border-t border-green-500/10 grid grid-cols-2 gap-8 font-mono">
           {prevBlog ? (
             <Link href={`/intelligence/${prevBlog.id}`} className="group space-y-2 text-left">
-              <span className="text-green-900 text-[10px] uppercase tracking-[0.2em]">Previous Briefing</span>
-              <div className="flex items-center gap-2 text-green-500/60 group-hover:text-green-500 transition-colors">
+              <span className="text-green-500/40 text-[10px] uppercase tracking-[0.2em]">Previous Briefing</span>
+              <div className="flex items-center gap-2 text-green-400 group-hover:text-green-300 transition-colors">
                 <ChevronLeft size={16} />
                 <span className="text-xs uppercase font-bold truncate">{prevBlog.title}</span>
               </div>
@@ -190,8 +190,8 @@ export default function BlogDetailClient({
 
           {nextBlog ? (
             <Link href={`/intelligence/${nextBlog.id}`} className="group space-y-2 text-right">
-              <span className="text-green-900 text-[10px] uppercase tracking-[0.2em]">Next Briefing</span>
-              <div className="flex items-center gap-2 text-green-500/60 group-hover:text-green-500 transition-colors justify-end">
+              <span className="text-green-500/40 text-[10px] uppercase tracking-[0.2em]">Next Briefing</span>
+              <div className="flex items-center gap-2 text-green-400 group-hover:text-green-300 transition-colors justify-end">
                 <span className="text-xs uppercase font-bold truncate">{nextBlog.title}</span>
                 <ChevronRight size={16} />
               </div>
