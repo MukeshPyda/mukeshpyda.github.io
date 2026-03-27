@@ -37,21 +37,21 @@ export default function BlogDetailClient({
         {/* Navigation Back */}
         <Link 
           href="/intelligence" 
-          className="inline-flex items-center gap-2 text-green-400 hover:text-green-300 font-mono text-xs md:text-base uppercase tracking-widest transition-colors mb-12 md:mb-16 group"
+          className="inline-flex items-center gap-2 text-green-400 hover:text-green-300 font-mono text-xs md:text-xl uppercase tracking-widest transition-colors mb-12 md:mb-20 group"
         >
-          <div className="hidden md:block"><ChevronLeft size={20} className="group-hover:-translate-x-1 transition-transform" /></div>
+          <div className="hidden md:block"><ChevronLeft size={24} className="group-hover:-translate-x-1 transition-transform" /></div>
           <div className="md:hidden"><ChevronLeft size={16} className="group-hover:-translate-x-1 transition-transform" /></div>
           <span>Return to Archive</span>
         </Link>
 
         {/* Header Section */}
-        <div className="space-y-6 md:space-y-8 mb-12 md:mb-16">
+        <div className="space-y-6 md:space-y-12 mb-12 md:mb-20">
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex items-center gap-2 text-green-500 font-mono text-sm md:text-lg tracking-[0.3em] uppercase font-bold"
+            className="flex items-center gap-2 text-green-500 font-mono text-sm md:text-xl tracking-[0.3em] uppercase font-bold"
           >
-            <div className="hidden md:block"><Terminal size={24} /></div>
+            <div className="hidden md:block"><Terminal size={28} /></div>
             <div className="md:hidden"><Terminal size={16} /></div>
             <span>Mission Briefing</span>
           </motion.div>
@@ -69,24 +69,24 @@ export default function BlogDetailClient({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="flex flex-wrap gap-4 md:gap-8 text-[10px] md:text-sm font-mono uppercase tracking-widest text-green-400/60"
+            className="flex flex-wrap gap-4 md:gap-10 text-[10px] md:text-lg font-mono uppercase tracking-widest text-green-400/60"
           >
             <div className="flex items-center gap-2">
-              <div className="hidden md:block"><Calendar size={20} /></div>
+              <div className="hidden md:block"><Calendar size={24} /></div>
               <div className="md:hidden"><Calendar size={14} /></div>
               <span>{blog.date}</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="hidden md:block"><Tag size={20} /></div>
+              <div className="hidden md:block"><Tag size={24} /></div>
               <div className="md:hidden"><Tag size={14} /></div>
               <div className="flex gap-2">
                 {blog.tags.map(tag => (
-                  <span key={tag} className="px-2 py-0.5 md:px-3 md:py-1 border border-green-500/10 rounded">#{tag}</span>
+                  <span key={tag} className="px-2 py-0.5 md:px-4 md:py-1 border border-green-500/10 rounded">#{tag}</span>
                 ))}
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <div className="hidden md:block"><Shield size={20} /></div>
+              <div className="hidden md:block"><Shield size={24} /></div>
               <div className="md:hidden"><Shield size={14} /></div>
               <span>SME Classified</span>
             </div>
@@ -96,7 +96,7 @@ export default function BlogDetailClient({
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="text-white/90 font-mono text-sm md:text-lg italic leading-relaxed"
+            className="text-white/90 font-mono text-sm md:text-2xl italic leading-relaxed"
           >
             {blog.summary}
           </motion.p>
@@ -108,11 +108,11 @@ export default function BlogDetailClient({
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.4 }}
-            className="relative aspect-video w-full overflow-hidden rounded-2xl border border-green-500/20 bg-black mb-12 md:mb-20 shadow-[0_0_50px_rgba(0,255,0,0.1)] group"
+            className="relative aspect-video w-full overflow-hidden rounded-2xl border border-green-500/20 bg-black mb-12 md:mb-24 shadow-[0_0_50px_rgba(0,255,0,0.1)] group"
           >
-            <div className="absolute top-4 left-4 md:top-6 md:left-6 z-10 flex items-center gap-2 text-green-500/60 font-mono text-[10px] md:text-base uppercase tracking-widest">
+            <div className="absolute top-4 left-4 md:top-8 md:left-8 z-10 flex items-center gap-2 text-green-500/60 font-mono text-[10px] md:text-xl uppercase tracking-widest">
               <Play size={12} fill="currentColor" className="md:hidden" />
-              <Play size={16} fill="currentColor" className="hidden md:block" />
+              <Play size={20} fill="currentColor" className="hidden md:block" />
               <span>Live Tactical Feed</span>
             </div>
             <iframe 
@@ -126,10 +126,10 @@ export default function BlogDetailClient({
         )}
 
         {/* Lab Walkthrough Steps */}
-        <div className="space-y-16 md:space-y-24">
-          <div className="flex items-center gap-4 mb-12 md:mb-16">
+        <div className="space-y-16 md:space-y-32">
+          <div className="flex items-center gap-4 mb-12 md:mb-20">
             <div className="h-px flex-1 bg-green-500/10" />
-            <h2 className="text-2xl md:text-3xl font-black text-white uppercase italic tracking-tighter">Lab Walkthrough</h2>
+            <h2 className="text-2xl md:text-4xl font-black text-white uppercase italic tracking-tighter">Lab Walkthrough</h2>
             <div className="h-px flex-1 bg-green-500/10" />
           </div>
 
@@ -139,18 +139,18 @@ export default function BlogDetailClient({
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
-              className="space-y-8 md:space-y-10"
+              className="space-y-8 md:space-y-12"
             >
-              <div className="flex items-start gap-6 md:gap-8">
-                <span className="text-4xl md:text-5xl font-black text-green-500/30 font-mono leading-none">
+              <div className="flex items-start gap-6 md:gap-10">
+                <span className="text-4xl md:text-6xl font-black text-green-500/30 font-mono leading-none">
                   {(idx + 1).toString().padStart(2, '0')}
                 </span>
-                <div className="space-y-4 md:space-y-6">
-                  <h3 className="text-2xl md:text-3xl font-black text-white uppercase tracking-tight italic">
+                <div className="space-y-4 md:space-y-8">
+                  <h3 className="text-2xl md:text-4xl font-black text-white uppercase tracking-tight italic">
                     {step.title}
                   </h3>
                   {step.description && (
-                    <p className="text-white/80 font-mono text-sm md:text-lg leading-relaxed">
+                    <p className="text-white/80 font-mono text-sm md:text-xl leading-relaxed">
                       {step.description}
                     </p>
                   )}
@@ -160,10 +160,10 @@ export default function BlogDetailClient({
               {step.code && (
                 <div className="relative group">
                   <div className="absolute -inset-0.5 bg-gradient-to-r from-green-500/20 to-transparent rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-1000"></div>
-                  <div className="relative bg-black/60 border border-green-500/10 rounded-xl p-6 md:p-8 font-mono text-xs md:text-lg text-green-400 overflow-x-auto">
-                    <div className="flex items-center gap-2 mb-4 md:mb-8 text-green-400/60 text-[10px] md:text-base uppercase tracking-widest border-b border-green-500/5 pb-2">
+                  <div className="relative bg-black/60 border border-green-500/10 rounded-xl p-6 md:p-12 font-mono text-xs md:text-xl text-green-400 overflow-x-auto">
+                    <div className="flex items-center gap-2 mb-4 md:mb-10 text-green-400/60 text-[10px] md:text-lg uppercase tracking-widest border-b border-green-500/5 pb-2">
                       <Code size={12} className="md:hidden" />
-                      <Code size={20} className="hidden md:block" />
+                      <Code size={24} className="hidden md:block" />
                       <span>Terminal Input / Command</span>
                     </div>
                     <pre><code>{step.code}</code></pre>
@@ -173,9 +173,9 @@ export default function BlogDetailClient({
 
               {step.images && step.images.map((img, imgIdx) => (
                 <div key={imgIdx} className="relative w-full overflow-hidden rounded-xl border border-green-500/5 bg-black/20 group">
-                  <div className="absolute top-4 left-4 md:top-6 md:left-6 z-10 flex items-center gap-2 text-green-500/40 font-mono text-[10px] md:text-base uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="absolute top-4 left-4 md:top-8 md:left-8 z-10 flex items-center gap-2 text-green-500/40 font-mono text-[10px] md:text-lg uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
                     <ImageIcon size={14} className="md:hidden" />
-                    <ImageIcon size={18} className="hidden md:block" />
+                    <ImageIcon size={24} className="hidden md:block" />
                     <span>Tactical Evidence Asset</span>
                   </div>
                   <Image 
@@ -193,35 +193,35 @@ export default function BlogDetailClient({
         </div>
 
         {/* Footer Navigation */}
-        <div className="mt-24 md:mt-40 pt-12 md:pt-16 border-t border-green-500/10 grid grid-cols-2 gap-6 md:gap-10 font-mono">
+        <div className="mt-24 md:mt-48 pt-12 md:pt-20 border-t border-green-500/10 grid grid-cols-2 gap-6 md:gap-12 font-mono">
           {prevBlog ? (
-            <Link href={`/intelligence/${prevBlog.slug}`} className="group space-y-2 md:space-y-3 text-left">
-              <span className="text-green-500/40 text-[10px] md:text-base uppercase tracking-[0.2em]">Previous Briefing</span>
-              <div className="flex items-center gap-2 md:gap-3 text-green-400 group-hover:text-green-300 transition-colors">
+            <Link href={`/intelligence/${prevBlog.slug}`} className="group space-y-2 md:space-y-4 text-left">
+              <span className="text-green-500/40 text-[10px] md:text-lg uppercase tracking-[0.2em]">Previous Briefing</span>
+              <div className="flex items-center gap-2 md:gap-4 text-green-400 group-hover:text-green-300 transition-colors">
                 <ChevronLeft size={16} className="md:hidden" />
-                <ChevronLeft size={22} className="hidden md:block" />
-                <span className="text-xs md:text-lg uppercase font-bold truncate">{prevBlog.title}</span>
+                <ChevronLeft size={28} className="hidden md:block" />
+                <span className="text-xs md:text-xl uppercase font-bold truncate">{prevBlog.title}</span>
               </div>
             </Link>
           ) : <div />}
 
           {nextBlog ? (
-            <Link href={`/intelligence/${nextBlog.slug}`} className="group space-y-2 md:space-y-3 text-right">
-              <span className="text-green-500/40 text-[10px] md:text-base uppercase tracking-[0.2em]">Next Briefing</span>
-              <div className="flex items-center gap-2 md:gap-3 text-green-400 group-hover:text-green-300 transition-colors justify-end">
-                <span className="text-xs md:text-lg uppercase font-bold truncate">{nextBlog.title}</span>
+            <Link href={`/intelligence/${nextBlog.slug}`} className="group space-y-2 md:space-y-4 text-right">
+              <span className="text-green-500/40 text-[10px] md:text-lg uppercase tracking-[0.2em]">Next Briefing</span>
+              <div className="flex items-center gap-2 md:gap-4 text-green-400 group-hover:text-green-300 transition-colors justify-end">
+                <span className="text-xs md:text-xl uppercase font-bold truncate">{nextBlog.title}</span>
                 <ChevronRight size={16} className="md:hidden" />
-                <ChevronRight size={22} className="hidden md:block" />
+                <ChevronRight size={28} className="hidden md:block" />
               </div>
             </Link>
           ) : <div />}
         </div>
 
         {/* Home Navigation */}
-        <div className="mt-16 md:mt-24 flex justify-center">
+        <div className="mt-16 md:mt-32 flex justify-center">
           <Link 
             href="/intelligence" 
-            className="px-8 py-4 md:px-10 md:py-5 bg-green-500 text-black font-bold uppercase tracking-widest text-sm md:text-base rounded-lg hover:shadow-[0_0_30px_rgba(0,255,0,0.4)] transition-all hover:scale-105"
+            className="px-8 py-4 md:px-12 md:py-6 bg-green-500 text-black font-bold uppercase tracking-widest text-sm md:text-xl rounded-lg hover:shadow-[0_0_30px_rgba(0,255,0,0.4)] transition-all hover:scale-105"
           >
             Archive Home
           </Link>

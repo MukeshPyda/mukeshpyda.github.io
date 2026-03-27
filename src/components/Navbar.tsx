@@ -17,16 +17,16 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0f0f0f]/80 backdrop-blur-lg border-b border-green-500/10">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-        <Link href="/" className="flex items-center gap-2 md:gap-3 group">
-          <Shield className="text-green-500 group-hover:scale-110 transition-transform" size={20} />
-          <div className="hidden md:block"><Shield className="text-green-500 group-hover:scale-110 transition-transform" size={24} /></div>
-          <span className="font-mono font-bold text-white tracking-widest uppercase text-sm md:text-base">
+        <Link href="/" className="flex items-center gap-3 group">
+          <div className="md:hidden"><Shield className="text-green-500 group-hover:scale-110 transition-transform" size={20} /></div>
+          <div className="hidden md:block"><Shield className="text-green-500 group-hover:scale-110 transition-transform" size={32} /></div>
+          <span className="font-mono font-bold text-white tracking-widest uppercase text-sm md:text-2xl">
             {siteConfig.name} <span className="text-green-900 group-hover:text-green-500 transition-colors">| Terminal</span>
           </span>
         </Link>
         
         {/* Desktop Links */}
-        <div className="hidden md:flex gap-10 items-center text-base font-mono text-green-700 uppercase tracking-widest">
+        <div className="hidden md:flex gap-12 items-center text-xl font-mono text-green-700 uppercase tracking-widest">
           {navLinks.map((link) => (
             <Link 
               key={link.name}
@@ -56,7 +56,7 @@ export default function Navbar() {
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden bg-[#0f0f0f] border-b border-green-500/10 overflow-hidden"
           >
-            <div className="flex flex-col p-6 gap-4 font-mono text-xs uppercase tracking-widest">
+            <div className="flex flex-col p-8 gap-6 font-mono text-base uppercase tracking-widest">
               {navLinks.map((link) => (
                 <Link 
                   key={link.name}
