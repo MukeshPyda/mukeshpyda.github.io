@@ -2,6 +2,7 @@
 import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Calendar, Tag, Shield, Terminal, Play, Code, Image as ImageIcon } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import { BlogPost } from '../data';
 
@@ -32,7 +33,7 @@ export default function BlogDetailClient({
       <div className="fixed inset-0 z-0 opacity-10 pointer-events-none" 
            style={{ backgroundImage: 'radial-gradient(#00ff00 0.5px, transparent 0.5px)', backgroundSize: '30px 30px' }} />
 
-      <div className="relative z-10 max-w-4xl mx-auto">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Navigation Back */}
         <Link 
           href="/intelligence" 
@@ -47,9 +48,9 @@ export default function BlogDetailClient({
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex items-center gap-2 text-green-500 font-mono text-sm tracking-[0.3em] uppercase font-bold"
+            className="flex items-center gap-2 text-green-500 font-mono text-base tracking-[0.3em] uppercase font-bold"
           >
-            <Terminal size={16} />
+            <Terminal size={20} />
             <span>Mission Briefing</span>
           </motion.div>
           
@@ -66,14 +67,14 @@ export default function BlogDetailClient({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="flex flex-wrap gap-6 text-[10px] font-mono uppercase tracking-widest text-green-400/60"
+            className="flex flex-wrap gap-6 text-xs font-mono uppercase tracking-widest text-green-400/60"
           >
             <div className="flex items-center gap-2">
-              <Calendar size={14} />
+              <Calendar size={16} />
               <span>{blog.date}</span>
             </div>
             <div className="flex items-center gap-2">
-              <Tag size={14} />
+              <Tag size={16} />
               <div className="flex gap-2">
                 {blog.tags.map(tag => (
                   <span key={tag} className="px-2 py-0.5 border border-green-500/10 rounded">#{tag}</span>
@@ -81,7 +82,7 @@ export default function BlogDetailClient({
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <Shield size={14} />
+              <Shield size={16} />
               <span>SME Classified</span>
             </div>
           </motion.div>
@@ -90,7 +91,7 @@ export default function BlogDetailClient({
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="text-white/90 font-mono text-sm md:text-base italic leading-relaxed"
+            className="text-white/90 font-mono text-base md:text-lg italic leading-relaxed"
           >
             {blog.summary}
           </motion.p>
@@ -104,8 +105,8 @@ export default function BlogDetailClient({
             transition={{ delay: 0.4 }}
             className="relative aspect-video w-full overflow-hidden rounded-2xl border border-green-500/20 bg-black mb-20 shadow-[0_0_50px_rgba(0,255,0,0.1)] group"
           >
-            <div className="absolute top-4 left-4 z-10 flex items-center gap-2 text-green-500/60 font-mono text-[10px] uppercase tracking-widest">
-              <Play size={12} fill="currentColor" />
+            <div className="absolute top-4 left-4 z-10 flex items-center gap-2 text-green-500/60 font-mono text-xs uppercase tracking-widest">
+              <Play size={14} fill="currentColor" />
               <span>Live Tactical Feed</span>
             </div>
             <iframe 
@@ -143,7 +144,7 @@ export default function BlogDetailClient({
                     {step.title}
                   </h3>
                   {step.description && (
-                    <p className="text-white/80 font-mono text-sm leading-relaxed">
+                    <p className="text-white/80 font-mono text-base leading-relaxed">
                       {step.description}
                     </p>
                   )}
@@ -153,9 +154,9 @@ export default function BlogDetailClient({
               {step.code && (
                 <div className="relative group">
                   <div className="absolute -inset-0.5 bg-gradient-to-r from-green-500/20 to-transparent rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-1000"></div>
-                  <div className="relative bg-black/60 border border-green-500/10 rounded-xl p-6 font-mono text-xs md:text-sm text-green-400 overflow-x-auto">
-                    <div className="flex items-center gap-2 mb-4 text-green-400/60 text-[10px] uppercase tracking-widest border-b border-green-500/5 pb-2">
-                      <Code size={12} />
+                  <div className="relative bg-black/60 border border-green-500/10 rounded-xl p-6 font-mono text-base text-green-400 overflow-x-auto">
+                    <div className="flex items-center gap-2 mb-4 text-green-400/60 text-xs uppercase tracking-widest border-b border-green-500/5 pb-2">
+                      <Code size={16} />
                       <span>Terminal Input / Command</span>
                     </div>
                     <pre><code>{step.code}</code></pre>
@@ -164,12 +165,19 @@ export default function BlogDetailClient({
               )}
 
               {step.images && step.images.map((img, imgIdx) => (
-                <div key={imgIdx} className="relative aspect-video w-full overflow-hidden rounded-xl border border-green-500/5 bg-black/20 group">
-                  <div className="absolute top-4 left-4 z-10 flex items-center gap-2 text-green-500/40 font-mono text-[10px] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
-                    <ImageIcon size={12} />
+                <div key={imgIdx} className="relative w-full overflow-hidden rounded-xl border border-green-500/5 bg-black/20 group">
+                  <div className="absolute top-4 left-4 z-10 flex items-center gap-2 text-green-500/40 font-mono text-xs uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+                    <ImageIcon size={14} />
                     <span>Tactical Evidence Asset</span>
                   </div>
-                  <img src={img} alt={`${step.title} asset`} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-all duration-500" />
+                  <Image 
+                    src={img} 
+                    alt={`${step.title} asset`} 
+                    width={1200}
+                    height={800}
+                    className="block opacity-80 group-hover:opacity-100 transition-all duration-500" 
+                    style={{ width: '100%', height: 'auto' }}
+                  />
                 </div>
               ))}
             </motion.div>
@@ -180,20 +188,20 @@ export default function BlogDetailClient({
         <div className="mt-32 pt-12 border-t border-green-500/10 grid grid-cols-2 gap-8 font-mono">
           {prevBlog ? (
             <Link href={`/intelligence/${prevBlog.slug}`} className="group space-y-2 text-left">
-              <span className="text-green-500/40 text-[10px] uppercase tracking-[0.2em]">Previous Briefing</span>
+              <span className="text-green-500/40 text-xs uppercase tracking-[0.2em]">Previous Briefing</span>
               <div className="flex items-center gap-2 text-green-400 group-hover:text-green-300 transition-colors">
-                <ChevronLeft size={16} />
-                <span className="text-xs uppercase font-bold truncate">{prevBlog.title}</span>
+                <ChevronLeft size={18} />
+                <span className="text-sm uppercase font-bold truncate">{prevBlog.title}</span>
               </div>
             </Link>
           ) : <div />}
 
           {nextBlog ? (
             <Link href={`/intelligence/${nextBlog.slug}`} className="group space-y-2 text-right">
-              <span className="text-green-500/40 text-[10px] uppercase tracking-[0.2em]">Next Briefing</span>
+              <span className="text-green-500/40 text-xs uppercase tracking-[0.2em]">Next Briefing</span>
               <div className="flex items-center gap-2 text-green-400 group-hover:text-green-300 transition-colors justify-end">
-                <span className="text-xs uppercase font-bold truncate">{nextBlog.title}</span>
-                <ChevronRight size={16} />
+                <span className="text-sm uppercase font-bold truncate">{nextBlog.title}</span>
+                <ChevronRight size={18} />
               </div>
             </Link>
           ) : <div />}

@@ -1,7 +1,7 @@
 # GEMINI.md - Elite Expert Portfolio System
 
 **Project Name:** Mukesh Pyda | Subject Matter Expert Portfolio
-**Status:** Operational (v2.14 - Intelligence Deep-Dive Update)
+**Status:** Operational (v2.23 - High-Impact Briefing Layout)
 **Base Path:** `/home/torhat/Desktop/website/portfolio-website`
 
 ---
@@ -45,14 +45,15 @@ To architect and maintain a "Fortress-Level" secure, high-impact, and aesthetica
 14. **Intelligence Physical Archive:** Automated structural mirroring of blog assets in `public/intelligence/` for organized, per-post metadata and image management.
 15. **Modular Intel Architecture:** Decentralized intelligence data into `src/app/intelligence/data.ts` and implemented dynamic routing for individual deep-dive briefings.
 16. **Deep-Dive Briefing Format:** Re-architected individual intelligence pages to support YouTube embeds and structured, multi-step lab walkthroughs with code blocks and imagery.
-16. **Static Export Optimization:** Resolved GitHub build failures by implementing `generateStaticParams` and architecting a server/client component split for dynamic intelligence routes.
-17. **High-Visibility Briefing UI:** Re-engineered the Intelligence briefing pages with high-contrast text (Whites/Bright Greens) for maximum readability against dark backgrounds.
-18. **Autonomous Mission Containment:** Expanded the Intelligence archive with self-contained directory structures, ensuring each briefing's assets and metadata are stored within its own secure sector.
-19. **Semantic URL Routing:** Migrated the Intelligence track from ID-based endpoints to descriptive, title-based slugs (e.g., `/intelligence/The-Future-of-AI-in-Offensive-Security`), improving SEO and UX.
-20. **High-Visibility Technical Instruction:** Elevated text visibility in lab walkthroughs using high-contrast color palettes (Bright Green/White) against the tactical black background.
-21. **Semantic Asset Archiving:** Synchronized physical directory names in `public/intelligence/` with semantic slugs, ensuring each briefing is a fully self-contained, descriptive mission sector.
-
-18. **CI/CD Modernization:** Upgraded the GitHub Actions workflow to Node.js 24 and enforced its use for all JS-based actions, resolving deprecation warnings and future-proofing the deployment pipeline.
+17. **Static Export Optimization:** Resolved GitHub build failures by implementing `generateStaticParams` and architecting a server/client component split for dynamic intelligence routes.
+18. **High-Visibility Briefing UI:** Re-engineered the Intelligence briefing pages with high-contrast text (Whites/Bright Greens) for maximum readability against dark backgrounds.
+19. **Autonomous Mission Containment:** Expanded the Intelligence archive with self-contained directory structures, ensuring each briefing's assets and metadata are stored within its own secure sector.
+20. **Semantic URL Routing:** Migrated the Intelligence track from ID-based endpoints to descriptive, title-based slugs (e.g., `/intelligence/The-Future-of-AI-in-Offensive-Security`), improving SEO and UX.
+21. **High-Visibility Technical Instruction:** Elevated text visibility in lab walkthroughs using high-contrast color palettes (Bright Green/White) against the tactical black background.
+22. **Semantic Asset Archiving:** Synchronized physical directory names in `public/intelligence/` with semantic slugs, ensuring each briefing is a fully self-contained, descriptive mission sector.
+23. **CI/CD Modernization:** Upgraded the GitHub Actions workflow to Node.js 24 and enforced its use for all JS-based actions, resolving deprecation warnings and future-proofing the deployment pipeline.
+24. **Step Image Fidelity:** Optimized Intelligence briefing pages to display full tactical images in lab steps, removing aspect-ratio cropping while maintaining a consistent width for maximum technical clarity.
+25. **High-Impact Briefing Layout:** Elevated readability on individual intelligence pages by increasing text sizes and constraining content width to 80% on desktop, enhancing focus and visual clarity.
 
 ---
 
