@@ -54,6 +54,7 @@ To architect and maintain a "Fortress-Level" secure, high-impact, and aesthetica
 23. **CI/CD Modernization:** Upgraded the GitHub Actions workflow to Node.js 24 and enforced its use for all JS-based actions, resolving deprecation warnings and future-proofing the deployment pipeline.
 24. **Step Image Fidelity:** Optimized Intelligence briefing pages to display full tactical images in lab steps, removing aspect-ratio cropping while maintaining a consistent width for maximum technical clarity.
 25. **High-Impact Briefing Layout:** Elevated readability on individual intelligence pages by increasing text sizes and constraining content width to 80% on desktop, enhancing focus and visual clarity.
+26. **Global Text Scale-Up:** Doubled the font size of all non-title text elements across the entire portfolio, including navigation, buttons, dates, and descriptions, for significantly enhanced readability.
 
 ---
 
