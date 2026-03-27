@@ -32,13 +32,13 @@ export const initialBlogData: BlogPost[] = [
         title: "Reconnaissance with Autonomous Agents",
         description: "The first phase involves deploying a specialized LLM agent to map the target infrastructure. Unlike traditional scanners, these agents can understand context and identify non-obvious entry points.",
         code: "python3 ai_recon.py --target 10.10.11.200 --depth 3 --llm gpt-4-security",
-        images: ["/intelligence/The-Future-of-AI-in-Offensive-Security/main.jpg"]
+        images: ["/intelligence/The-Future-of-AI-in-Offensive-Security/1.png"]
       },
       {
         title: "Vulnerability Synthesis",
         description: "Once the reconnaissance data is ingested, the AI synthesizes potential attack vectors by cross-referencing CVE databases with the specific configuration identified.",
         code: "curl -X POST http://ai-engine:8080/analyze -d @recon_report.json",
-        images: ["/intelligence/The-Future-of-AI-in-Offensive-Security/collage-1.jpg"]
+        images: ["/intelligence/The-Future-of-AI-in-Offensive-Security/2.png"]
       },
       {
         title: "Payload Generation & Execution",
@@ -62,13 +62,13 @@ export const initialBlogData: BlogPost[] = [
         title: "Identity and Access Management Audit",
         description: "Initial audit of IAM roles and permissions to identify over-privileged accounts and potential privilege escalation paths.",
         code: "prowler aws --services iam --severity high",
-        images: ["/intelligence/Securing-Cloud-Infrastructures-at-Scale/step1.jpg"]
+        images: ["/intelligence/Securing-Cloud-Infrastructures-at-Scale/3.png"]
       },
       {
         title: "Network Perimeter Hardening",
         description: "Implementing strict security groups and NACLs to enforce the principle of least privilege at the network layer.",
         code: "aws ec2 authorize-security-group-ingress --group-id sg-12345 --protocol tcp --port 443 --cidr 0.0.0.0/0",
-        images: ["/intelligence/Securing-Cloud-Infrastructures-at-Scale/step2.jpg"]
+        images: ["/intelligence/Securing-Cloud-Infrastructures-at-Scale/high.PNG"]
       },
       {
         title: "Automated Compliance Monitoring",
