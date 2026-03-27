@@ -144,7 +144,7 @@ export default function BlogDetailClient({
                     {step.title}
                   </h3>
                   {step.description && (
-                    <p className="text-white/80 font-mono text-base leading-relaxed">
+                    <p className="text-white/80 font-mono text-lg leading-relaxed">
                       {step.description}
                     </p>
                   )}
@@ -154,8 +154,8 @@ export default function BlogDetailClient({
               {step.code && (
                 <div className="relative group">
                   <div className="absolute -inset-0.5 bg-gradient-to-r from-green-500/20 to-transparent rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-1000"></div>
-                  <div className="relative bg-black/60 border border-green-500/10 rounded-xl p-8 font-mono text-base text-green-400 overflow-x-auto">
-                    <div className="flex items-center gap-2 mb-6 text-green-400/60 text-base uppercase tracking-widest border-b border-green-500/5 pb-2">
+                  <div className="relative bg-black/60 border border-green-500/10 rounded-xl p-8 font-mono text-lg text-green-400 overflow-x-auto">
+                    <div className="flex items-center gap-2 mb-8 text-green-400/60 text-base uppercase tracking-widest border-b border-green-500/5 pb-2">
                       <Code size={20} />
                       <span>Terminal Input / Command</span>
                     </div>
