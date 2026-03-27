@@ -55,6 +55,7 @@ To architect and maintain a "Fortress-Level" secure, high-impact, and aesthetica
 24. **Step Image Fidelity:** Optimized Intelligence briefing pages to display full tactical images in lab steps, removing aspect-ratio cropping while maintaining a consistent width for maximum technical clarity.
 25. **High-Impact Briefing Layout:** Elevated readability on individual intelligence pages by increasing text sizes and constraining content width to 80% on desktop, enhancing focus and visual clarity.
 26. **Global Text Scale-Up:** Doubled the font size of all non-title text elements across the entire portfolio, including navigation, buttons, dates, and descriptions, for significantly enhanced readability.
+27. **Responsive Typography Profile:** Implemented adaptive text scaling across all pages, maintaining a 2x size increase for desktop while reverting to original 1x dimensions for mobile to ensure optimal information density.
 27. **Lab Walkthrough Clarity:** Implemented targeted text scaling for all descriptions and code blocks within lab walkthrough steps on individual intelligence pages, ensuring critical instructions are presented with enhanced readability.
 
 ---
