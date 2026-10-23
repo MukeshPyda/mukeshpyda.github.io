@@ -3,13 +3,17 @@ import { useEffect, useState } from 'react';
 import { Check, Inbox, RefreshCw, Search, Trash2, UserPlus, X } from 'lucide-react';
 import {
   approveRequest, dismissRequest, grantAccess, listAllCourses, listEnrollments, listRequests, removeLearner, revokeAccess,
+  syncEnrolledCounts,
 } from '@/lib/courses/api';
+import { seatsLeft } from '@/lib/courses/schedule';
 import { isEmail, normalizeEmail, type AccessRequest, type Course, type Enrollment } from '@/lib/courses/types';
 import { ghostButton, input, label, panel, primaryButton, sectionTitle, type Notice } from './ui';
 import CloudNotReady from './CloudNotReady';
 
+/** Loads everything and refreshes each course's public "seats left" count. */
 async function loadAll() {
-  const [requests, enrollments, courses] = await Promise.all([listRequests(), listEnrollments(), listAllCourses()]);
+  const [requests, enrollments, listed] = await Promise.all([listRequests(), listEnrollments(), listAllCourses()]);
+  const courses = await syncEnrolledCounts(listed, enrollments);
   return { requests, enrollments, courses };
 }
 
@@ -41,6 +45,16 @@ export default function LearnersPanel({ cloudReady }: { cloudReady: boolean }) {
   if (!cloudReady) return <CloudNotReady what="Learners" />;
 
   const title = (id: string) => courses.find((c) => c.id === id)?.title ?? `${id} (deleted)`;
+  const seatNote = (id: string) => {
+    const c = courses.find((x) => x.id === id);
+    const left = c ? seatsLeft(c) : null;
+    return c && left !== null ? `${left} of ${c.seats} seats left` : null;
+  };
+  /** Confirms before going over a course's seat limit. */
+  const roomFor = (ids: string[]) => {
+    const full = courses.filter((c) => ids.includes(c.id) && seatsLeft(c) === 0);
+    return !full.length || confirm(`${full.map((c) => c.title).join(', ')} ${full.length > 1 ? 'are' : 'is'} full. Grant access anyway?`);
+  };
 
   const run = async (action: () => Promise<unknown>, success: string) => {
     setBusy(true);
@@ -59,6 +73,7 @@ export default function LearnersPanel({ cloudReady }: { cloudReady: boolean }) {
     const email = normalizeEmail(newEmail);
     if (!isEmail(email)) return setNotice({ kind: 'error', text: 'Enter a valid email address.' });
     if (!newCourses.length) return setNotice({ kind: 'error', text: 'Pick at least one course.' });
+    if (!roomFor(newCourses)) return;
     run(async () => {
       await grantAccess(email, newCourses);
       setNewEmail('');
@@ -85,10 +100,11 @@ export default function LearnersPanel({ cloudReady }: { cloudReady: boolean }) {
                 <p className="text-white font-bold break-all">{r.email}</p>
                 <p className="text-green-600 text-xs">
                   {r.name && <>{r.name} · </>}{title(r.courseId)}{r.createdAt && <> · {r.createdAt.toLocaleString()}</>}
+                  {seatNote(r.courseId) && <span className="text-yellow-400"> · {seatNote(r.courseId)}</span>}
                 </p>
               </div>
               <div className="flex gap-2">
-                <button type="button" disabled={busy} onClick={() => run(() => approveRequest(r), `${r.email} can now open ${title(r.courseId)}.`)} className={ghostButton}>
+                <button type="button" disabled={busy} onClick={() => roomFor([r.courseId]) && run(() => approveRequest(r), `${r.email} can now open ${title(r.courseId)}.`)} className={ghostButton}>
                   <Check size={14} /> Approve
                 </button>
                 <button type="button" disabled={busy} onClick={() => confirm(`Dismiss the request from ${r.email}?`) && run(() => dismissRequest(r.id), 'Request dismissed.')} className="flex items-center gap-2 border border-red-500/40 text-red-400 hover:bg-red-500 hover:text-black px-4 py-2 rounded-lg transition-all font-bold text-xs uppercase disabled:opacity-40">
@@ -116,7 +132,7 @@ export default function LearnersPanel({ cloudReady }: { cloudReady: boolean }) {
             {courses.map((c) => (
               <label key={c.id} className={`flex items-center gap-2 px-3 py-2 rounded-lg border cursor-pointer text-sm ${newCourses.includes(c.id) ? 'border-green-500 text-green-300' : 'border-green-500/20 text-green-600'}`}>
                 <input type="checkbox" className="accent-green-500" checked={newCourses.includes(c.id)} onChange={(e) => setNewCourses((s) => (e.target.checked ? [...s, c.id] : s.filter((x) => x !== c.id)))} />
-                {c.title}{!c.published && ' (draft)'}
+                {c.title}{!c.published && ' (draft)'}{seatNote(c.id) && <span className="text-green-700"> · {seatNote(c.id)}</span>}
               </label>
             ))}
             {loaded && courses.length === 0 && <p className="text-green-700 text-sm">Create a course first.</p>}

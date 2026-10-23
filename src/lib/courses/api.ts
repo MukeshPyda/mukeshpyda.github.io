@@ -7,7 +7,7 @@ import type { User } from 'firebase/auth';
 import { getFirebase } from '@/lib/firebase/client';
 import {
   DEFAULT_TIER, MAX_PDF_BYTES, PDF_CHUNK_BYTES, formatBytes, newId, normalizeEmail, requestId, syllabusOf,
-  type AccessRequest, type Course, type CourseContent, type Enrollment, type Lesson, type PdfLesson,
+  type AccessRequest, type Course, type CourseContent, type CourseSchedule, type Enrollment, type Lesson, type PdfLesson,
 } from './types';
 
 // All Firestore access for courses. The security rules decide who may read or
@@ -19,8 +19,27 @@ export function isPermissionDenied(err: unknown) {
   return (err as { code?: string })?.code === 'permission-denied';
 }
 
+const str = (v: unknown) => (typeof v === 'string' ? v : '');
+const num = (v: unknown) => (typeof v === 'number' && Number.isFinite(v) ? v : 0);
+
+function toSchedule(d: DocumentData): CourseSchedule {
+  return {
+    format: str(d.format),
+    startDate: str(d.startDate),
+    endDate: str(d.endDate),
+    enrollBy: str(d.enrollBy),
+    classDays: str(d.classDays),
+    classStart: str(d.classStart),
+    classEnd: str(d.classEnd),
+    timeZone: str(d.timeZone),
+    seats: num(d.seats),
+    enrolledCount: num(d.enrolledCount),
+  };
+}
+
 function toCourse(id: string, d: DocumentData): Course {
   return {
+    ...toSchedule(d),
     id,
     title: d.title ?? id,
     description: d.description ?? '',
@@ -140,6 +159,16 @@ export async function saveCourse({ course, content, pendingPdfs, previousContent
   onStatus?.('Saving course…');
   const batch = writeBatch(db());
   batch.set(doc(db(), 'courses', course.id), {
+    format: course.format,
+    startDate: course.startDate,
+    endDate: course.endDate,
+    enrollBy: course.enrollBy,
+    classDays: course.classDays,
+    classStart: course.classStart,
+    classEnd: course.classEnd,
+    timeZone: course.timeZone,
+    seats: course.seats,
+    enrolledCount: course.enrolledCount,
     title: course.title,
     description: course.description,
     priceUsd: course.priceUsd,
@@ -160,6 +189,18 @@ export async function saveCourse({ course, content, pendingPdfs, previousContent
     if (l.type === 'pdf' && l.fileId && !used.has(l.fileId)) await deleteFile(course.id, l.fileId);
   }
   return finalContent;
+}
+
+/** Writes each course's enrolled-learner count, for the public "seats left" display. */
+export async function syncEnrolledCounts(courses: Course[], enrollments: Enrollment[]) {
+  const counts = new Map(courses.map((c) => [c.id, 0]));
+  for (const e of enrollments) for (const id of new Set(e.courses)) if (counts.has(id)) counts.set(id, counts.get(id)! + 1);
+  const stale = courses.filter((c) => counts.get(c.id) !== c.enrolledCount);
+  if (!stale.length) return courses;
+  const batch = writeBatch(db());
+  stale.forEach((c) => batch.set(doc(db(), 'courses', c.id), { enrolledCount: counts.get(c.id) }, { merge: true }));
+  await batch.commit();
+  return courses.map((c) => ({ ...c, enrolledCount: counts.get(c.id) ?? c.enrolledCount }));
 }
 
 export async function setCourseOrder(courses: Course[]) {

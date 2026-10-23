@@ -3,17 +3,20 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import {
-  BookOpen, CheckCircle2, ChevronLeft, ChevronRight, Circle, Download, ExternalLink, FileText, Lock, LogOut, Mail, RefreshCw,
-  Terminal, Video,
+  BookOpen, CalendarDays, CheckCircle2, ChevronLeft, ChevronRight, Circle, Download, ExternalLink, FileText, Lock, LogOut, Mail, Radio,
+  RefreshCw, Terminal,
 } from 'lucide-react';
 import type { User } from 'firebase/auth';
 import Navbar from '@/components/Navbar';
 import PriceTag from '@/components/courses/PriceTag';
+import CohortDetails, { LessonIcon, enrollState } from '@/components/courses/CohortDetails';
+import { classTimes, formatDay, nextSession, sessionStatus } from '@/lib/courses/schedule';
+import { useNow } from '@/lib/useNow';
 import { describeAuthError, signInWithGoogle, signOutUser, useFirebaseUser, verifiedEmail } from '@/lib/firebase/client';
 import {
   downloadPdf, getContent, getCourse, getMyCourses, getProgress, hasPendingRequest, requestAccess, setLessonDone,
 } from '@/lib/courses/api';
-import { allLessons, type Course, type CourseContent, type Lesson } from '@/lib/courses/types';
+import { allLessons, type Course, type CourseContent, type CourseLink, type Lesson } from '@/lib/courses/types';
 import { siteConfig } from '@/lib/data';
 
 const shell = 'min-h-screen bg-[#0a0a0a] text-white pt-20 pb-20 px-4 md:px-6 overflow-hidden';
@@ -106,7 +109,10 @@ function CourseOverview({
 }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
-  const mailto = `mailto:${siteConfig.contactEmail}?subject=${encodeURIComponent(`Enroll: ${course.title}`)}`;
+  const now = useNow();
+  const state = enrollState(course, now);
+  const mailto = `mailto:${siteConfig.contactEmail}?subject=${encodeURIComponent(`${state === 'open' ? 'Enroll' : 'Next batch'}: ${course.title}`)}`;
+  const sessions = course.syllabus.reduce((n, m) => n + m.lessons.filter((l) => l.type === 'session').length, 0);
 
   const signIn = async () => {
     setError('');
@@ -146,7 +152,9 @@ function CourseOverview({
           <div className="flex items-center gap-4">
             <h2 className="text-2xl md:text-4xl font-black text-white uppercase italic tracking-tighter">Syllabus</h2>
             <div className="h-px flex-1 bg-green-500/10" />
-            <span className="text-green-500/60 font-mono text-xs md:text-base">{course.lessonCount} lessons</span>
+            <span className="text-green-500/60 font-mono text-xs md:text-base">
+              {sessions ? `${sessions} live classes${course.lessonCount > sessions ? ` + ${course.lessonCount - sessions} resources` : ''}` : `${course.lessonCount} lessons`}
+            </span>
           </div>
           <div className="space-y-4">
             {course.syllabus.map((m, mi) => (
@@ -157,8 +165,9 @@ function CourseOverview({
                 <ul className="mt-4 space-y-2 font-mono text-sm md:text-lg text-white/70">
                   {m.lessons.map((l, li) => (
                     <li key={li} className="flex items-center gap-3">
-                      {l.type === 'video' ? <Video size={16} className="text-green-500/60 shrink-0" /> : <FileText size={16} className="text-green-500/60 shrink-0" />}
-                      {l.title}
+                      <LessonIcon type={l.type} className="text-green-500/60 shrink-0" />
+                      {l.date && <span className="text-green-500/60 shrink-0 w-24 md:w-32">{formatDay(l.date)}</span>}
+                      <span>{l.title}</span>
                       <Lock size={12} className="text-green-500/30 ml-auto shrink-0" />
                     </li>
                   ))}
@@ -171,9 +180,15 @@ function CourseOverview({
 
       <aside className="lg:sticky lg:top-28 h-fit space-y-6 border border-green-500/20 rounded-2xl bg-black/60 p-6 md:p-8 shadow-[0_0_50px_rgba(0,255,0,0.08)]">
         <PriceTag priceUsd={course.priceUsd} large />
+        <CohortDetails course={course} now={now} />
         <div className="space-y-3">
+          {state !== 'open' && (
+            <p className="text-center text-red-400 font-mono text-sm border border-red-500/30 rounded-lg p-4">
+              {state === 'full' ? 'This batch is full.' : 'Enrollment for this batch is closed.'} Contact us to join the next one.
+            </p>
+          )}
           <a href={mailto} className="flex items-center justify-center gap-2 w-full px-6 py-4 bg-green-500 text-black font-bold uppercase tracking-widest text-sm rounded-lg hover:shadow-[0_0_30px_rgba(0,255,0,0.4)] transition-all">
-            <Mail size={18} /> Contact to enroll
+            <Mail size={18} /> {state === 'open' ? 'Contact to enroll' : 'Contact about the next batch'}
           </a>
           {!user ? (
             <button type="button" onClick={signIn} className="w-full px-6 py-4 border border-green-500/30 hover:border-green-500 text-green-400 font-bold uppercase tracking-widest text-xs rounded-lg transition-all">
@@ -183,7 +198,7 @@ function CourseOverview({
             <p className="text-center text-green-600 font-mono text-xs flex items-center justify-center gap-2"><RefreshCw size={12} className="animate-spin" /> Checking access…</p>
           ) : access?.pending ? (
             <p className="text-center text-yellow-400 font-mono text-sm border border-yellow-500/30 rounded-lg p-4">Request sent. The course unlocks here once it is approved.</p>
-          ) : (
+          ) : state !== 'open' ? null : (
             <button type="button" onClick={request} disabled={busy} className="w-full px-6 py-4 border border-green-500/30 hover:border-green-500 text-green-400 font-bold uppercase tracking-widest text-xs rounded-lg transition-all disabled:opacity-50">
               {busy ? 'Sending…' : 'Request access'}
             </button>
@@ -198,7 +213,7 @@ function CourseOverview({
             <LogOut size={12} /> Sign out
           </button>
         )}
-        <div className="flex items-center gap-2 text-green-500/40 font-mono text-xs"><BookOpen size={14} /> Lifetime access</div>
+        <div className="flex items-center gap-2 text-green-500/40 font-mono text-xs"><BookOpen size={14} /> Lifetime access to materials{sessions ? ' & recordings' : ''}</div>
       </aside>
     </div>
   );
@@ -211,6 +226,7 @@ function Player({ course, uid, email }: { course: Course; uid: string; email: st
   const [pdf, setPdf] = useState<{ lessonId: string; url: string } | null>(null);
   const [pdfState, setPdfState] = useState<{ lessonId: string; status: 'loading' | 'error' } | null>(null);
   const pdfUrl = useRef<string | null>(null);
+  const now = useNow();
 
   useEffect(() => {
     Promise.all([getContent(course.id), getProgress(uid, course.id).catch(() => [] as string[])])
@@ -226,8 +242,12 @@ function Player({ course, uid, email }: { course: Course; uid: string; email: st
   if (!data) return <RefreshCw className="animate-spin text-green-500 mx-auto" />;
 
   const lessons = allLessons(data.content);
+  const upcoming = now ? nextSession(course, lessons, now) : null;
   const current: Lesson | undefined =
-    lessons.find((l) => l.id === selected) ?? lessons.find((l) => !data.done.includes(l.id)) ?? lessons[0];
+    lessons.find((l) => l.id === selected) ??
+    (upcoming ? upcoming.lesson : undefined) ??
+    lessons.find((l) => !data.done.includes(l.id)) ??
+    lessons[0];
   const index = current ? lessons.indexOf(current) : -1;
   const doneCount = lessons.filter((l) => data.done.includes(l.id)).length;
   const isDone = current ? data.done.includes(current.id) : false;
@@ -275,6 +295,10 @@ function Player({ course, uid, email }: { course: Course; uid: string; email: st
         </div>
       </div>
 
+      {upcoming && (
+        <NextClassBanner course={course} lesson={upcoming.lesson} live={now >= upcoming.start} links={data.content.links} onOpen={() => setSelected(upcoming.lesson.id)} />
+      )}
+
       {lessons.length === 0 ? (
         <p className="text-green-700 font-mono py-16 text-center border border-dashed border-green-500/10 rounded-2xl">Lessons are being added. Check back soon.</p>
       ) : (
@@ -286,7 +310,9 @@ function Player({ course, uid, email }: { course: Course; uid: string; email: st
                   <span className="text-green-500/40 font-mono mr-3">{String(index + 1).padStart(2, '0')}</span>
                   {current.title}
                 </h2>
-                {current.type === 'video' ? (
+                {current.type === 'session' ? (
+                  <SessionView course={course} lesson={current} now={now} links={data.content.links} />
+                ) : current.type === 'video' ? (
                   <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-green-500/20 bg-black shadow-[0_0_50px_rgba(0,255,0,0.1)]">
                     <iframe
                       key={current.id}
@@ -298,14 +324,14 @@ function Player({ course, uid, email }: { course: Course; uid: string; email: st
                       allowFullScreen
                     />
                   </div>
-                ) : pdf?.lessonId === current.id ? (
+                ) : pdf?.lessonId === current.id && current.type === 'pdf' ? (
                   <div className="space-y-3">
                     <iframe src={pdf.url} title={current.title} className="w-full h-[75vh] rounded-2xl border border-green-500/20 bg-white" />
                     <a href={pdf.url} download={current.fileName} className="inline-flex items-center gap-2 text-green-400 hover:text-green-300 font-mono text-sm uppercase tracking-widest">
                       <Download size={16} /> Download {current.fileName}
                     </a>
                   </div>
-                ) : (
+                ) : current.type === 'pdf' ? (
                   <div className="flex flex-col items-center justify-center gap-4 aspect-video rounded-2xl border border-dashed border-green-500/20 bg-black/40 p-6 text-center">
                     <FileText size={40} className="text-green-500/60" />
                     <p className="font-mono text-white/70">{current.fileName}</p>
@@ -314,7 +340,7 @@ function Player({ course, uid, email }: { course: Course; uid: string; email: st
                     </button>
                     {pdfState?.lessonId === current.id && pdfState.status === 'error' && <p className="text-red-400 text-sm">Could not load this PDF. Try again.</p>}
                   </div>
-                )}
+                ) : null}
 
                 <div className="flex flex-wrap items-center justify-between gap-4">
                   <button type="button" onClick={() => go(index - 1)} disabled={index <= 0} className="flex items-center gap-2 px-4 py-3 border border-green-500/20 rounded-lg text-green-400 font-mono text-xs uppercase tracking-widest disabled:opacity-20">
@@ -362,7 +388,8 @@ function Player({ course, uid, email }: { course: Course; uid: string; email: st
                           aria-current={active ? 'true' : undefined}
                           className={`w-full flex items-center gap-2 text-left px-3 py-2 rounded-lg font-mono text-sm transition-colors ${active ? 'bg-green-500/15 text-white' : 'text-white/70 hover:bg-green-500/5'}`}
                         >
-                          {done ? <CheckCircle2 size={14} className="text-green-400 shrink-0" /> : l.type === 'video' ? <Video size={14} className="text-green-500/50 shrink-0" /> : <FileText size={14} className="text-green-500/50 shrink-0" />}
+                          {done ? <CheckCircle2 size={14} className="text-green-400 shrink-0" /> : <LessonIcon type={l.type} className="text-green-500/50 shrink-0 w-3.5 h-3.5" />}
+                          {l.type === 'session' && <span className="text-green-500/50 text-xs shrink-0">{formatDay(l.date)}</span>}
                           <span className="truncate">{l.title}</span>
                         </button>
                       </li>
@@ -377,6 +404,89 @@ function Player({ course, uid, email }: { course: Course; uid: string; email: st
           </nav>
         </div>
       )}
+    </div>
+  );
+}
+
+function LinkButtons({ links }: { links: CourseLink[] }) {
+  if (!links.length) return null;
+  return (
+    <div className="flex flex-wrap gap-2">
+      {links.map((l, i) => (
+        <a key={i} href={l.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 border border-green-500/40 hover:bg-green-500 hover:text-black rounded-lg text-green-300 font-mono text-xs uppercase tracking-widest transition-colors">
+          <ExternalLink size={12} /> {l.label}
+        </a>
+      ))}
+    </div>
+  );
+}
+
+function NextClassBanner({
+  course, lesson, live, links, onOpen,
+}: {
+  course: Course;
+  lesson: Extract<Lesson, { type: 'session' }>;
+  live: boolean;
+  links: CourseLink[];
+  onOpen: () => void;
+}) {
+  const times = classTimes(course, lesson.date);
+  return (
+    <section className={`rounded-2xl border p-5 md:p-6 space-y-3 ${live ? 'border-red-500/50 bg-red-500/5' : 'border-green-500/30 bg-green-500/5'}`}>
+      <p className={`flex items-center gap-2 font-mono text-xs uppercase tracking-[0.3em] font-bold ${live ? 'text-red-400' : 'text-green-400'}`}>
+        <Radio size={14} className={live ? 'animate-pulse' : ''} /> {live ? 'Live now' : 'Next class'}
+      </p>
+      <button type="button" onClick={onOpen} className="text-left text-lg md:text-2xl font-black text-white uppercase tracking-tight hover:text-green-300">
+        {lesson.title}
+      </button>
+      <p className="font-mono text-sm text-green-300">
+        {formatDay(lesson.date, true)}
+        {times && <> · {times.course}{times.local && <span className="text-green-500/60"> (= {times.local} your time)</span>}</>}
+      </p>
+      <LinkButtons links={links} />
+    </section>
+  );
+}
+
+function SessionView({
+  course, lesson, now, links,
+}: {
+  course: Course;
+  lesson: Extract<Lesson, { type: 'session' }>;
+  now: number;
+  links: CourseLink[];
+}) {
+  const times = classTimes(course, lesson.date);
+  const status = now ? sessionStatus(course, lesson, now) : 'upcoming';
+  if (lesson.youtubeId) {
+    return (
+      <div className="space-y-3">
+        <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-green-500/20 bg-black shadow-[0_0_50px_rgba(0,255,0,0.1)]">
+          <iframe
+            key={lesson.id}
+            src={`https://www.youtube-nocookie.com/embed/${lesson.youtubeId}?rel=0`}
+            title={`Recording: ${lesson.title}`}
+            className="w-full h-full"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+          />
+        </div>
+        <p className="font-mono text-xs text-green-500/60">Recording of the class on {formatDay(lesson.date, true)}</p>
+      </div>
+    );
+  }
+  return (
+    <div className="flex flex-col items-center justify-center gap-4 aspect-video rounded-2xl border border-dashed border-green-500/20 bg-black/40 p-6 text-center">
+      <CalendarDays size={40} className={status === 'live' ? 'text-red-400' : 'text-green-500/60'} />
+      <p className="font-mono text-white/80">
+        {formatDay(lesson.date, true)}
+        {times && <span className="block text-green-400 mt-1">{times.course}{times.local && <span className="block text-green-500/60">= {times.local} your time</span>}</span>}
+      </p>
+      <p className={`font-mono text-sm ${status === 'live' ? 'text-red-400' : 'text-green-500/70'}`}>
+        {status === 'live' ? 'This class is live now.' : status === 'upcoming' ? 'Upcoming live class.' : 'The recording will be added after the class.'}
+      </p>
+      {status !== 'past' && <LinkButtons links={links} />}
     </div>
   );
 }

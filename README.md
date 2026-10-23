@@ -46,6 +46,21 @@ Day to day, in `/terminal-x-92/` (works from any device once signed in):
 - **Courses**: modules of YouTube videos (set them to *Unlisted*) and PDFs (up to 20 MB, stored in Firestore), price in USD, enrolled-only links, publish toggle.
 - **Learners**: approve "Request access" requests, grant access by email, revoke access.
 
+### Running a live cohort
+
+1. **Courses → New course**: title, price, then the **Live cohort** box: format, start/end dates, **Enroll by**, class days, class times (in the course time zone, default `Asia/Kolkata`) and **Seats**.
+2. **Bulk add modules & lessons**: paste one item per line, e.g.
+   ```
+   # Week 1 · Foundations
+   2026-11-02 | Orientation & setup
+   2026-11-03 | Networking I
+   ```
+   Each dated line becomes a live session. Add PDFs per module with **Add PDF**.
+3. Add the Discord / Telegram invites under **Links for enrolled learners**, save as a draft, check the public page, then publish.
+4. After each class, paste the unlisted YouTube recording into that session's **Recording link** and save.
+
+The course page shows class times in IST and in the visitor's own time zone, "X of N seats left" (updated when you approve or remove learners in **Learners**), and switches to "Enrollment closed" after the enroll-by date (23:59 in the course time zone) or "Batch full" when the seats are taken.
+
 ## Testing against the Firebase emulators
 
 ```bash

@@ -1,20 +1,25 @@
 'use client';
 import { useEffect, useState } from 'react';
 import {
-  ArrowDown, ArrowUp, BookOpen, Edit3, ExternalLink, Eye, EyeOff, FileText, Link2, Plus, RefreshCw, Save, Trash2, Video, X,
+  ArrowDown, ArrowUp, BookOpen, CalendarDays, Edit3, ExternalLink, Eye, EyeOff, FileText, Link2, ListPlus, Plus, RefreshCw, Save,
+  Trash2, Video, X,
 } from 'lucide-react';
 import { getYouTubeId } from '@/app/intelligence/utils';
 import { deleteCourse, getContent, listAllCourses, saveCourse, setCourseOrder } from '@/lib/courses/api';
 import {
-  COURSE_ID_PATTERN, DEFAULT_TIER, MAX_PDF_BYTES, courseIdFromTitle, courseUrl, formatBytes, newId,
-  type Course, type CourseContent, type CourseLink, type Lesson,
+  COURSE_ID_PATTERN, DATE_PATTERN, DEFAULT_TIER, DEFAULT_TIME_ZONE, MAX_PDF_BYTES, TIME_PATTERN, courseIdFromTitle, courseUrl,
+  formatBytes, newId, type Course, type CourseContent, type CourseLink, type Lesson,
 } from '@/lib/courses/types';
+import { formatDay, isValidTimeZone } from '@/lib/courses/schedule';
+import { parseBulkLessons } from './bulkLessons';
 import { dangerButton, ghostButton, iconButton, input, label, panel, primaryButton, sectionTitle, type Notice } from './ui';
 import CloudNotReady from './CloudNotReady';
 
 type EditVideo = { id: string; type: 'video'; title: string; url: string };
 type EditPdf = { id: string; type: 'pdf'; title: string; fileId: string; fileName: string; size: number };
-type EditLesson = EditVideo | EditPdf;
+/** `url` is the optional recording (unlisted YouTube), added after the class. */
+type EditSession = { id: string; type: 'session'; title: string; date: string; url: string };
+type EditLesson = EditVideo | EditPdf | EditSession;
 type EditModule = { title: string; lessons: EditLesson[] };
 
 interface Editor {
@@ -27,20 +32,46 @@ interface Editor {
   tier: string;
   published: boolean;
   order: number;
+  format: string;
+  startDate: string;
+  endDate: string;
+  enrollBy: string;
+  classDays: string;
+  classStart: string;
+  classEnd: string;
+  timeZone: string;
+  seats: string;
+  enrolledCount: number;
   modules: EditModule[];
   links: CourseLink[];
   previous: CourseContent | null;
 }
 
+const watchUrl = (id: string) => `https://www.youtube.com/watch?v=${id}`;
+
 function toEditLesson(l: Lesson): EditLesson {
-  return l.type === 'video'
-    ? { id: l.id, type: 'video', title: l.title, url: `https://www.youtube.com/watch?v=${l.youtubeId}` }
-    : { id: l.id, type: 'pdf', title: l.title, fileId: l.fileId, fileName: l.fileName, size: l.size };
+  if (l.type === 'video') return { id: l.id, type: 'video', title: l.title, url: watchUrl(l.youtubeId) };
+  if (l.type === 'session') return { id: l.id, type: 'session', title: l.title, date: l.date, url: l.youtubeId ? watchUrl(l.youtubeId) : '' };
+  return { id: l.id, type: 'pdf', title: l.title, fileId: l.fileId, fileName: l.fileName, size: l.size };
 }
+
+function toLesson(l: EditLesson): Lesson {
+  if (l.type === 'video') return { id: l.id, type: 'video', title: l.title.trim(), youtubeId: getYouTubeId(l.url.trim())! };
+  if (l.type === 'session') {
+    const youtubeId = l.url.trim() ? getYouTubeId(l.url.trim()) : null;
+    return { id: l.id, type: 'session', title: l.title.trim(), date: l.date, ...(youtubeId ? { youtubeId } : {}) };
+  }
+  return { id: l.id, type: 'pdf', title: l.title.trim(), fileId: l.fileId, fileName: l.fileName, size: l.size };
+}
+
+const lessonIcon = (type: EditLesson['type']) =>
+  type === 'video' ? <Video size={14} /> : type === 'session' ? <CalendarDays size={14} /> : <FileText size={14} />;
 
 function blankEditor(order: number): Editor {
   return {
     isNew: true, idTouched: false, id: '', title: '', description: '', price: '', tier: DEFAULT_TIER, published: false, order,
+    format: '', startDate: '', endDate: '', enrollBy: '', classDays: '', classStart: '', classEnd: '', timeZone: DEFAULT_TIME_ZONE,
+    seats: '', enrolledCount: 0,
     modules: [{ title: 'Module 1', lessons: [] }], links: [], previous: null,
   };
 }
@@ -61,6 +92,9 @@ export default function CoursesPanel({ cloudReady }: { cloudReady: boolean }) {
   const [busy, setBusy] = useState(false);
   const [progress, setProgress] = useState('');
   const [notice, setNotice] = useState<Notice>(null);
+  const [bulkOpen, setBulkOpen] = useState(false);
+  const [bulkText, setBulkText] = useState('');
+  const [bulkErrors, setBulkErrors] = useState<string[]>([]);
 
   const refresh = () =>
     listAllCourses()
@@ -80,7 +114,7 @@ export default function CoursesPanel({ cloudReady }: { cloudReady: boolean }) {
   const patchModules = (fn: (m: EditModule[]) => EditModule[]) => setEditor((e) => (e ? { ...e, modules: fn(e.modules) } : e));
   const patchLessons = (mi: number, fn: (l: EditLesson[]) => EditLesson[]) =>
     patchModules((ms) => ms.map((m, i) => (i === mi ? { ...m, lessons: fn(m.lessons) } : m)));
-  const patchLesson = (mi: number, li: number, p: Partial<EditVideo> | Partial<EditPdf>) =>
+  const patchLesson = (mi: number, li: number, p: Partial<EditVideo> | Partial<EditPdf> | Partial<EditSession>) =>
     patchLessons(mi, (ls) => ls.map((l, i) => (i === li ? ({ ...l, ...p } as EditLesson) : l)));
 
   const startNew = () => {
@@ -97,6 +131,9 @@ export default function CoursesPanel({ cloudReady }: { cloudReady: boolean }) {
       setEditor({
         isNew: false, idTouched: true, id: course.id, title: course.title, description: course.description,
         price: String(course.priceUsd), tier: course.tier, published: course.published, order: course.order,
+        format: course.format, startDate: course.startDate, endDate: course.endDate, enrollBy: course.enrollBy,
+        classDays: course.classDays, classStart: course.classStart, classEnd: course.classEnd,
+        timeZone: course.timeZone || DEFAULT_TIME_ZONE, seats: course.seats ? String(course.seats) : '', enrolledCount: course.enrolledCount,
         modules: content.modules.map((m) => ({ title: m.title, lessons: m.lessons.map(toEditLesson) })),
         links: content.links, previous: content,
       });
@@ -145,6 +182,30 @@ export default function CoursesPanel({ cloudReady }: { cloudReady: boolean }) {
     patchLesson(mi, li, { id, fileId: '', fileName: file.name, size: file.size });
   };
 
+  const applyBulk = () => {
+    const { modules, errors } = parseBulkLessons(bulkText);
+    setBulkErrors(errors);
+    if (errors.length || !modules.length) {
+      if (!errors.length) setBulkErrors(['Nothing to add.']);
+      return;
+    }
+    const toEdit = (l: (typeof modules)[number]['lessons'][number]): EditLesson =>
+      l.type === 'session' ? { id: newId(), ...l } : { id: newId(), ...l };
+    patchModules((ms) => {
+      // Drop empty placeholder modules ("Module 1" etc.) so a pasted outline starts clean.
+      const next = ms.filter((m) => m.lessons.length || !/^Module \d+$/.test(m.title.trim())).map((m) => ({ ...m, lessons: [...m.lessons] }));
+      for (const m of modules) {
+        const lessons = m.lessons.map(toEdit);
+        if (m.title === null && next.length) next[next.length - 1].lessons.push(...lessons);
+        else next.push({ title: m.title ?? `Module ${next.length + 1}`, lessons });
+      }
+      return next;
+    });
+    const newModules = modules.filter((m) => m.title !== null).length;
+    setBulkText('');
+    setNotice({ kind: 'ok', text: `Added ${newModules} module(s) and ${modules.reduce((n, m) => n + m.lessons.length, 0)} lesson(s). Review, then Save course.` });
+  };
+
   const validate = (e: Editor): string[] => {
     const errors: string[] = [];
     if (!e.title.trim()) errors.push('Title is required.');
@@ -152,6 +213,15 @@ export default function CoursesPanel({ cloudReady }: { cloudReady: boolean }) {
     if (e.isNew && courses.some((c) => c.id === e.id)) errors.push(`Course ID "${e.id}" is already used.`);
     const price = Number(e.price);
     if (e.price.trim() === '' || !Number.isFinite(price) || price < 0) errors.push('Price must be a number in USD (0 for free).');
+    for (const [name, value] of [['Start date', e.startDate], ['End date', e.endDate], ['Enroll-by date', e.enrollBy]] as const) {
+      if (value && !DATE_PATTERN.test(value)) errors.push(`${name} must be a date.`);
+    }
+    if (e.startDate && e.endDate && e.endDate < e.startDate) errors.push('End date is before the start date.');
+    if (Boolean(e.classStart) !== Boolean(e.classEnd)) errors.push('Set both class start and end times, or neither.');
+    if (e.classStart && (!TIME_PATTERN.test(e.classStart) || !TIME_PATTERN.test(e.classEnd))) errors.push('Class times must be like 20:00.');
+    if (e.classStart && e.classEnd && e.classEnd <= e.classStart) errors.push('Class end time must be after the start time.');
+    if (!isValidTimeZone(e.timeZone || DEFAULT_TIME_ZONE)) errors.push(`"${e.timeZone}" is not a time zone (e.g. Asia/Kolkata).`);
+    if (e.seats.trim() && !/^\d+$/.test(e.seats.trim())) errors.push('Seats must be a whole number (blank = no limit).');
     if (!e.modules.length) errors.push('Add at least one module.');
     e.modules.forEach((m, mi) => {
       if (!m.title.trim()) errors.push(`Module ${mi + 1} needs a title.`);
@@ -159,6 +229,8 @@ export default function CoursesPanel({ cloudReady }: { cloudReady: boolean }) {
         const where = `Module ${mi + 1}, lesson ${li + 1}`;
         if (!l.title.trim()) errors.push(`${where} needs a title.`);
         if (l.type === 'video' && !getYouTubeId(l.url.trim())) errors.push(`${where}: not a valid YouTube link.`);
+        if (l.type === 'session' && !DATE_PATTERN.test(l.date)) errors.push(`${where}: pick the class date.`);
+        if (l.type === 'session' && l.url.trim() && !getYouTubeId(l.url.trim())) errors.push(`${where}: the recording is not a valid YouTube link.`);
         if (l.type === 'pdf' && !l.fileId && !pendingPdfs.has(l.id)) errors.push(`${where}: choose the PDF again.`);
       });
     });
@@ -181,11 +253,7 @@ export default function CoursesPanel({ cloudReady }: { cloudReady: boolean }) {
       const content: CourseContent = {
         modules: editor.modules.map((m) => ({
           title: m.title.trim(),
-          lessons: m.lessons.map((l): Lesson =>
-            l.type === 'video'
-              ? { id: l.id, type: 'video', title: l.title.trim(), youtubeId: getYouTubeId(l.url.trim())! }
-              : { id: l.id, type: 'pdf', title: l.title.trim(), fileId: l.fileId, fileName: l.fileName, size: l.size }
-          ),
+          lessons: m.lessons.map(toLesson),
         })),
         links: editor.links.map((l) => ({ label: l.label.trim(), url: l.url.trim() })),
       };
@@ -193,6 +261,10 @@ export default function CoursesPanel({ cloudReady }: { cloudReady: boolean }) {
         course: {
           id: editor.id, title: editor.title.trim(), description: editor.description.trim(), priceUsd: Number(editor.price),
           tier: editor.tier.trim() || DEFAULT_TIER, published: editor.published, order: editor.order,
+          format: editor.format.trim(), startDate: editor.startDate, endDate: editor.endDate, enrollBy: editor.enrollBy,
+          classDays: editor.classDays.trim(), classStart: editor.classStart, classEnd: editor.classEnd,
+          timeZone: editor.timeZone.trim() || DEFAULT_TIME_ZONE, seats: editor.seats.trim() ? Number(editor.seats) : 0,
+          enrolledCount: editor.enrolledCount,
         },
         content,
         pendingPdfs,
@@ -300,6 +372,55 @@ export default function CoursesPanel({ cloudReady }: { cloudReady: boolean }) {
                 </div>
               </div>
 
+              {/* Live cohort details (all optional) */}
+              <fieldset className="border border-green-500/15 rounded-xl p-4 lg:p-6 space-y-4">
+                <legend className="px-2 text-white text-sm font-bold uppercase tracking-widest">Live cohort (optional)</legend>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="md:col-span-3">
+                    <label className={label} htmlFor="c-format">Format</label>
+                    <input id="c-format" className={input} value={editor.format} onChange={(e) => patch({ format: e.target.value })} placeholder="e.g. 8-week live intensive on Discord" />
+                  </div>
+                  <div>
+                    <label className={label} htmlFor="c-start">Start date</label>
+                    <input id="c-start" type="date" className={input} value={editor.startDate} onChange={(e) => patch({ startDate: e.target.value })} />
+                  </div>
+                  <div>
+                    <label className={label} htmlFor="c-end">End date</label>
+                    <input id="c-end" type="date" className={input} value={editor.endDate} onChange={(e) => patch({ endDate: e.target.value })} />
+                  </div>
+                  <div>
+                    <label className={label} htmlFor="c-enroll">Enroll by</label>
+                    <input id="c-enroll" type="date" className={input} value={editor.enrollBy} onChange={(e) => patch({ enrollBy: e.target.value })} />
+                  </div>
+                  <div>
+                    <label className={label} htmlFor="c-days">Class days</label>
+                    <input id="c-days" className={input} value={editor.classDays} onChange={(e) => patch({ classDays: e.target.value })} placeholder="Mon–Fri" />
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div>
+                      <label className={label} htmlFor="c-from">Class from</label>
+                      <input id="c-from" type="time" className={input} value={editor.classStart} onChange={(e) => patch({ classStart: e.target.value })} />
+                    </div>
+                    <div>
+                      <label className={label} htmlFor="c-to">To</label>
+                      <input id="c-to" type="time" className={input} value={editor.classEnd} onChange={(e) => patch({ classEnd: e.target.value })} />
+                    </div>
+                  </div>
+                  <div>
+                    <label className={label} htmlFor="c-tz">Time zone</label>
+                    <input id="c-tz" className={`${input} font-mono`} value={editor.timeZone} onChange={(e) => patch({ timeZone: e.target.value })} placeholder={DEFAULT_TIME_ZONE} />
+                  </div>
+                  <div>
+                    <label className={label} htmlFor="c-seats">Seats</label>
+                    <input id="c-seats" inputMode="numeric" className={input} value={editor.seats} onChange={(e) => patch({ seats: e.target.value })} placeholder="blank = no limit" />
+                  </div>
+                  <p className="md:col-span-2 self-end text-xs text-green-700">
+                    {editor.seats.trim() ? `${editor.enrolledCount} enrolled now. Seats left update when you approve or remove learners.` : 'Set seats to show "X of N seats left" and close enrollment when full.'}
+                    {editor.enrollBy && ` Enrollment closes at 23:59 on ${formatDay(editor.enrollBy, true)} (${editor.timeZone || DEFAULT_TIME_ZONE}).`}
+                  </p>
+                </div>
+              </fieldset>
+
               {/* Modules and lessons */}
               <div className="space-y-6">
                 <div className="flex items-center gap-4">
@@ -307,7 +428,32 @@ export default function CoursesPanel({ cloudReady }: { cloudReady: boolean }) {
                   <h4 className="text-lg font-black text-white uppercase italic tracking-tighter">Curriculum</h4>
                   <div className="h-px flex-1 bg-green-500/10" />
                 </div>
-                <p className="text-xs text-green-700">Set YouTube videos to <strong className="text-green-500">Unlisted</strong>. Private videos cannot play on the site.</p>
+                <p className="text-xs text-green-700">Set YouTube videos and recordings to <strong className="text-green-500">Unlisted</strong>. Private videos cannot play on the site.</p>
+
+                <div className="border border-green-500/15 rounded-xl p-4 space-y-3 bg-black/40">
+                  <button type="button" onClick={() => setBulkOpen((o) => !o)} aria-expanded={bulkOpen} className={ghostButton}>
+                    <ListPlus size={14} /> {bulkOpen ? 'Hide bulk add' : 'Bulk add modules & lessons'}
+                  </button>
+                  {bulkOpen && (
+                    <div className="space-y-3">
+                      <p className="text-xs text-green-600 leading-relaxed">
+                        One item per line. <code className="text-green-300"># Week 1 · Foundations</code> starts a module;{' '}
+                        <code className="text-green-300">2026-11-02 | Orientation &amp; setup</code> adds a live session (optionally <code className="text-green-300">| recording link</code>);{' '}
+                        <code className="text-green-300">Title | YouTube link</code> adds a video. Lines before the first # go into the last module. PDFs are still added with &ldquo;Add PDF&rdquo;.
+                      </p>
+                      <textarea aria-label="Bulk add" spellCheck={false} className={`${input} h-48 font-mono text-sm`} value={bulkText} onChange={(e) => setBulkText(e.target.value)} placeholder={'# Week 1 · Foundations\n2026-11-02 | Orientation & setup\n2026-11-03 | Networking I'} />
+                      {bulkErrors.length > 0 && (
+                        <ul className="text-xs text-red-400 space-y-1 font-mono">
+                          {bulkErrors.slice(0, 12).map((err) => <li key={err}>{err}</li>)}
+                          {bulkErrors.length > 12 && <li>…and {bulkErrors.length - 12} more</li>}
+                        </ul>
+                      )}
+                      <button type="button" onClick={applyBulk} disabled={!bulkText.trim()} className={ghostButton}>
+                        <Plus size={14} /> Add to curriculum
+                      </button>
+                    </div>
+                  )}
+                </div>
 
                 {editor.modules.map((m, mi) => (
                   <div key={mi} className="border border-green-500/15 rounded-xl p-4 lg:p-6 space-y-4 bg-black/40">
@@ -323,10 +469,15 @@ export default function CoursesPanel({ cloudReady }: { cloudReady: boolean }) {
                       {m.lessons.map((l, li) => (
                         <div key={l.id} className="flex flex-col md:flex-row md:items-center gap-2 border border-green-500/10 rounded-lg p-3">
                           <span className="flex items-center gap-2 text-green-500/60 text-xs font-mono shrink-0 w-16">
-                            {l.type === 'video' ? <Video size={14} /> : <FileText size={14} />} {String(li + 1).padStart(2, '0')}
+                            {lessonIcon(l.type)} {String(li + 1).padStart(2, '0')}
                           </span>
-                          <input aria-label="Lesson title" className={`${input} py-2 md:flex-1`} value={l.title} onChange={(e) => patchLesson(mi, li, { title: e.target.value })} placeholder="Lesson title *" />
-                          {l.type === 'video' ? (
+                          {l.type === 'session' && (
+                            <input aria-label="Class date" type="date" className={`${input} py-2 md:w-44 ${l.date ? '' : 'border-red-500'}`} value={l.date} onChange={(e) => patchLesson(mi, li, { date: e.target.value })} />
+                          )}
+                          <input aria-label="Lesson title" className={`${input} py-2 md:flex-1`} value={l.title} onChange={(e) => patchLesson(mi, li, { title: e.target.value })} placeholder={l.type === 'session' ? 'Class topic *' : 'Lesson title *'} />
+                          {l.type === 'session' ? (
+                            <input aria-label="Recording link" className={`${input} py-2 md:flex-1 font-mono text-sm ${l.url && !getYouTubeId(l.url) ? 'border-red-500' : ''}`} value={l.url} onChange={(e) => patchLesson(mi, li, { url: e.target.value })} placeholder="Recording link (add after class)" />
+                          ) : l.type === 'video' ? (
                             <input aria-label="YouTube link" className={`${input} py-2 md:flex-1 font-mono text-sm ${l.url && !getYouTubeId(l.url) ? 'border-red-500' : ''}`} value={l.url} onChange={(e) => patchLesson(mi, li, { url: e.target.value })} placeholder="YouTube link" />
                           ) : (
                             <label className="md:flex-1 text-xs text-green-600 font-mono truncate cursor-pointer hover:text-green-300" title="Replace PDF">
@@ -346,6 +497,9 @@ export default function CoursesPanel({ cloudReady }: { cloudReady: boolean }) {
                     </div>
 
                     <div className="flex flex-wrap gap-2">
+                      <button type="button" onClick={() => patchLessons(mi, (ls) => [...ls, { id: newId(), type: 'session', title: '', date: '', url: '' }])} className={ghostButton}>
+                        <CalendarDays size={14} /> Add session
+                      </button>
                       <button type="button" onClick={() => patchLessons(mi, (ls) => [...ls, { id: newId(), type: 'video', title: '', url: '' }])} className={ghostButton}>
                         <Video size={14} /> Add video
                       </button>
