@@ -1,10 +1,11 @@
 'use client';
 import {
-  Bytes, arrayRemove, arrayUnion, collection, deleteDoc, doc, getDoc, getDocs, orderBy, query, serverTimestamp, setDoc,
+  Bytes, arrayRemove, arrayUnion, collection, deleteDoc, doc, getDoc, getDocs, onSnapshot, orderBy, query, serverTimestamp, setDoc,
   where, writeBatch, type DocumentData, type Timestamp,
 } from 'firebase/firestore';
 import type { User } from 'firebase/auth';
 import { getFirebase } from '@/lib/firebase/client';
+import { catalogToCourse, mergeCatalogContent, type CatalogCourse } from './catalog';
 import {
   DEFAULT_TIER, MAX_PDF_BYTES, PDF_CHUNK_BYTES, formatBytes, newId, normalizeEmail, requestId, syllabusOf,
   type AccessRequest, type Course, type CourseContent, type CourseSchedule, type Enrollment, type Lesson, type PdfLesson,
@@ -152,7 +153,7 @@ export async function saveCourse({ course, content, pendingPdfs, previousContent
         lessons.push(lesson);
       }
     }
-    modules.push({ title: m.title, lessons });
+    modules.push({ ...(m.key ? { key: m.key } : {}), title: m.title, lessons });
   }
   const finalContent: CourseContent = { modules, links: content.links };
 
@@ -203,6 +204,61 @@ export async function syncEnrolledCounts(courses: Course[], enrollments: Enrollm
   return courses.map((c) => ({ ...c, enrolledCount: counts.get(c.id) ?? c.enrolledCount }));
 }
 
+/** JSON with sorted object keys, so Firestore's field order doesn't count as a change. */
+function stable(value: unknown): string {
+  if (Array.isArray(value)) return `[${value.map(stable).join(',')}]`;
+  if (value && typeof value === 'object') {
+    return `{${Object.keys(value as object).sort().filter((k) => (value as Record<string, unknown>)[k] !== undefined)
+      .map((k) => `${JSON.stringify(k)}:${stable((value as Record<string, unknown>)[k])}`).join(',')}}`;
+  }
+  return JSON.stringify(value ?? null);
+}
+
+/** Public course fields that the catalog (website code) owns. */
+const CATALOG_FIELDS = [
+  'title', 'description', 'priceUsd', 'tier', 'published', 'order', 'syllabus', 'lessonCount', 'format', 'startDate', 'endDate',
+  'enrollBy', 'classDays', 'classStart', 'classEnd', 'timeZone', 'seats',
+] as const;
+
+/**
+ * Copies website-defined courses into Firestore (admin only), so the rules accept
+ * enrollment requests and the classroom has its sessions. Recordings, PDFs, links
+ * and the enrolled count already in Firestore are kept. Writes only on changes.
+ */
+export async function syncCatalog(entries: CatalogCourse[]): Promise<number> {
+  let writes = 0;
+  for (const entry of entries) {
+    const courseRef = doc(db(), 'courses', entry.slug);
+    const contentRef = doc(db(), 'courses', entry.slug, 'private', 'content');
+    const [courseSnap, contentSnap] = await Promise.all([getDoc(courseRef), getDoc(contentRef)]);
+    const existing = contentSnap.exists()
+      ? { modules: contentSnap.data().modules ?? [], links: contentSnap.data().links ?? [] }
+      : null;
+    const content = mergeCatalogContent(entry, existing);
+    const pub = catalogToCourse(entry);
+    pub.syllabus = syllabusOf(content);
+    pub.lessonCount = content.modules.reduce((n, m) => n + m.lessons.length, 0);
+    const wanted = Object.fromEntries(CATALOG_FIELDS.map((k) => [k, pub[k]]));
+    const current = courseSnap.exists() ? Object.fromEntries(CATALOG_FIELDS.map((k) => [k, courseSnap.data()[k]])) : null;
+
+    const batch = writeBatch(db());
+    let changed = false;
+    if (!current || stable(current) !== stable(wanted)) {
+      batch.set(courseRef, { ...wanted, ...(courseSnap.exists() ? {} : { enrolledCount: 0 }), updatedAt: serverTimestamp() }, { merge: true });
+      changed = true;
+    }
+    if (!existing || stable(existing) !== stable(content)) {
+      batch.set(contentRef, { ...content, updatedAt: serverTimestamp() });
+      changed = true;
+    }
+    if (changed) {
+      await batch.commit();
+      writes++;
+    }
+  }
+  return writes;
+}
+
 export async function setCourseOrder(courses: Course[]) {
   const batch = writeBatch(db());
   courses.forEach((c, i) => batch.set(doc(db(), 'courses', c.id), { order: i }, { merge: true }));
@@ -233,6 +289,15 @@ export async function getMyCourses(email: string): Promise<string[]> {
     if (isPermissionDenied(err)) return [];
     throw err;
   }
+}
+
+/** Live list of the learner's course ids; updates the moment the admin approves. */
+export function watchMyCourses(email: string, onChange: (ids: string[]) => void) {
+  return onSnapshot(
+    doc(db(), 'enrollments', normalizeEmail(email)),
+    (snap) => onChange(snap.exists() && Array.isArray(snap.data().courses) ? snap.data().courses : []),
+    () => onChange([])
+  );
 }
 
 export async function listEnrollments(): Promise<Enrollment[]> {
@@ -298,6 +363,10 @@ export async function approveRequest(req: AccessRequest) {
   batch.set(doc(db(), 'enrollments', normalizeEmail(req.email)), { courses: arrayUnion(req.courseId), updatedAt: serverTimestamp() }, { merge: true });
   batch.delete(doc(db(), 'requests', req.id));
   await batch.commit();
+}
+
+export async function cancelRequest(email: string, courseId: string) {
+  await deleteDoc(doc(db(), 'requests', requestId(email, courseId)));
 }
 
 export async function dismissRequest(id: string) {

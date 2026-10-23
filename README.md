@@ -46,6 +46,12 @@ Day to day, in `/terminal-x-92/` (works from any device once signed in):
 - **Courses**: modules of YouTube videos (set them to *Unlisted*) and PDFs (up to 20 MB, stored in Firestore), price in USD, enrolled-only links, publish toggle.
 - **Learners**: approve "Request access" requests, grant access by email, revoke access.
 
+### Website courses (defined in code)
+
+Courses in `src/lib/courses/catalog.ts` get a static page at `/courses/<slug>/` (cover image in `public/courses/<slug>/cover.png`) and a classroom at `/courses/<slug>/classroom/`. Learners enroll from the page: Google sign-in → `/dashboard/` → **Enroll** (saves a request and opens a ready-to-send email to the contact address) → **Pending approval** → you approve in **Learners** → the dashboard unlocks the classroom live.
+
+Signing in to `/terminal-x-92/` copies these courses into Firestore (needed for enrollment) and keeps recordings, PDFs and links you added. In **Courses**, a website course is locked: you only add recording links, PDFs and the Discord/Telegram links.
+
 ### Running a live cohort
 
 1. **Courses → New course**: title, price, then the **Live cohort** box: format, start/end dates, **Enroll by**, class days, class times (in the course time zone, default `Asia/Kolkata`) and **Seats**.

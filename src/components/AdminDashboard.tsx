@@ -1,11 +1,13 @@
 'use client';
-import { useState, type ReactNode } from 'react';
-import { BookOpen, FileText, LogOut, Radar, Users } from 'lucide-react';
+import { useEffect, useState, type ReactNode } from 'react';
+import { BookOpen, FileText, LogOut, Radar, RefreshCw, Users } from 'lucide-react';
 import OperationsPanel from './admin/OperationsPanel';
 import BlogMaker from './admin/BlogMaker';
 import CoursesPanel from './admin/CoursesPanel';
 import LearnersPanel from './admin/LearnersPanel';
 import { isLocalHost } from './admin/ui';
+import { syncCatalog } from '@/lib/courses/api';
+import { CATALOG } from '@/lib/courses/catalog';
 
 type Tab = 'operations' | 'blog' | 'courses' | 'learners';
 
@@ -33,6 +35,18 @@ export default function AdminDashboard({
 }) {
   const [tab, setTab] = useState<Tab>(loadTab);
   const local = isLocalHost();
+  // Website-defined courses are copied into Firestore on sign-in so enrollment works.
+  const [sync, setSync] = useState<{ state: 'running' | 'done' | 'error'; text: string }>(
+    cloudReady ? { state: 'running', text: 'Syncing website courses…' } : { state: 'done', text: '' }
+  );
+
+  useEffect(() => {
+    if (!cloudReady) return;
+    syncCatalog(CATALOG)
+      .then((writes) => setSync({ state: 'done', text: writes ? `Website courses synced (${writes} updated)` : 'Website courses up to date' }))
+      .catch((err) => setSync({ state: 'error', text: `Could not sync website courses: ${err.message}` }));
+  }, [cloudReady]);
+  const coursesReady = cloudReady && sync.state !== 'running';
 
   const selectTab = (next: Tab) => {
     setTab(next);
@@ -60,6 +74,11 @@ export default function AdminDashboard({
               Local Sync Active: {local ? 'YES' : 'NO'}
               {signedInAs && <> · Signed in: {signedInAs}</>}
             </p>
+            {sync.text && (
+              <p className={`text-xs mt-1 flex items-center gap-2 ${sync.state === 'error' ? 'text-red-400' : 'text-green-700'}`}>
+                {sync.state === 'running' && <RefreshCw size={12} className="animate-spin" />} {sync.text}
+              </p>
+            )}
           </div>
           <button type="button" onClick={onLogout} className="flex items-center gap-2 bg-red-900/20 border border-red-500/50 hover:bg-red-500 hover:text-black px-6 py-2 rounded-lg transition-all font-bold text-xs uppercase">
             <LogOut size={16} /> Terminate
@@ -88,8 +107,8 @@ export default function AdminDashboard({
         <div role="tabpanel">
           {tab === 'operations' && <OperationsPanel />}
           {tab === 'blog' && <BlogMaker />}
-          {tab === 'courses' && <CoursesPanel cloudReady={cloudReady} />}
-          {tab === 'learners' && <LearnersPanel cloudReady={cloudReady} />}
+          {tab === 'courses' && (coursesReady || !cloudReady ? <CoursesPanel cloudReady={cloudReady} /> : <RefreshCw className="animate-spin text-green-500" />)}
+          {tab === 'learners' && (coursesReady || !cloudReady ? <LearnersPanel cloudReady={cloudReady} /> : <RefreshCw className="animate-spin text-green-500" />)}
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import {
   ArrowDown, ArrowUp, BookOpen, CalendarDays, Edit3, ExternalLink, Eye, EyeOff, FileText, Link2, ListPlus, Plus, RefreshCw, Save,
-  Trash2, Video, X,
+  Lock, Trash2, Video, X,
 } from 'lucide-react';
 import { getYouTubeId } from '@/app/intelligence/utils';
 import { deleteCourse, getContent, listAllCourses, saveCourse, setCourseOrder } from '@/lib/courses/api';
@@ -11,6 +11,7 @@ import {
   formatBytes, newId, type Course, type CourseContent, type CourseLink, type Lesson,
 } from '@/lib/courses/types';
 import { formatDay, isValidTimeZone } from '@/lib/courses/schedule';
+import { catalogBySlug, catalogToCourse, catalogUrl } from '@/lib/courses/catalog';
 import { parseBulkLessons } from './bulkLessons';
 import { dangerButton, ghostButton, iconButton, input, label, panel, primaryButton, sectionTitle, type Notice } from './ui';
 import CloudNotReady from './CloudNotReady';
@@ -20,7 +21,7 @@ type EditPdf = { id: string; type: 'pdf'; title: string; fileId: string; fileNam
 /** `url` is the optional recording (unlisted YouTube), added after the class. */
 type EditSession = { id: string; type: 'session'; title: string; date: string; url: string };
 type EditLesson = EditVideo | EditPdf | EditSession;
-type EditModule = { title: string; lessons: EditLesson[] };
+type EditModule = { key?: string; title: string; lessons: EditLesson[] };
 
 interface Editor {
   isNew: boolean;
@@ -134,7 +135,7 @@ export default function CoursesPanel({ cloudReady }: { cloudReady: boolean }) {
         format: course.format, startDate: course.startDate, endDate: course.endDate, enrollBy: course.enrollBy,
         classDays: course.classDays, classStart: course.classStart, classEnd: course.classEnd,
         timeZone: course.timeZone || DEFAULT_TIME_ZONE, seats: course.seats ? String(course.seats) : '', enrolledCount: course.enrolledCount,
-        modules: content.modules.map((m) => ({ title: m.title, lessons: m.lessons.map(toEditLesson) })),
+        modules: content.modules.map((m) => ({ key: m.key, title: m.title, lessons: m.lessons.map(toEditLesson) })),
         links: content.links, previous: content,
       });
       setPendingPdfs(new Map());
@@ -252,13 +253,16 @@ export default function CoursesPanel({ cloudReady }: { cloudReady: boolean }) {
     try {
       const content: CourseContent = {
         modules: editor.modules.map((m) => ({
+          ...(m.key ? { key: m.key } : {}),
           title: m.title.trim(),
           lessons: m.lessons.map(toLesson),
         })),
         links: editor.links.map((l) => ({ label: l.label.trim(), url: l.url.trim() })),
       };
+      const entry = catalogBySlug(editor.id);
+      const fromCatalog = entry && !editor.isNew ? catalogToCourse(entry, editor.enrolledCount) : null;
       const saved = await saveCourse({
-        course: {
+        course: fromCatalog ?? {
           id: editor.id, title: editor.title.trim(), description: editor.description.trim(), priceUsd: Number(editor.price),
           tier: editor.tier.trim() || DEFAULT_TIER, published: editor.published, order: editor.order,
           format: editor.format.trim(), startDate: editor.startDate, endDate: editor.endDate, enrollBy: editor.enrollBy,
@@ -274,7 +278,7 @@ export default function CoursesPanel({ cloudReady }: { cloudReady: boolean }) {
       setPendingPdfs(new Map());
       setEditor({
         ...editor, isNew: false, idTouched: true, previous: saved,
-        modules: saved.modules.map((m) => ({ title: m.title, lessons: m.lessons.map(toEditLesson) })),
+        modules: saved.modules.map((m) => ({ key: m.key, title: m.title, lessons: m.lessons.map(toEditLesson) })),
       });
       await refresh();
       setNotice({ kind: 'ok', text: `Saved "${editor.title.trim()}". ${editor.published ? 'It is live now.' : 'It is a hidden draft.'}` });
@@ -312,6 +316,10 @@ export default function CoursesPanel({ cloudReady }: { cloudReady: boolean }) {
     setBusy(false);
   };
 
+  // Website courses (src/lib/courses/catalog.ts): public details come from the code.
+  const locked = Boolean(editor && !editor.isNew && catalogBySlug(editor.id));
+  const lockedEntry = editor ? catalogBySlug(editor.id) : undefined;
+
   return (
     <div className="space-y-8">
       {notice && <p role="status" className={`text-sm font-mono ${notice.kind === 'ok' ? 'text-green-400' : 'text-red-400'}`}>{notice.text}</p>}
@@ -336,6 +344,21 @@ export default function CoursesPanel({ cloudReady }: { cloudReady: boolean }) {
                 </button>
               </div>
 
+              {locked && lockedEntry ? (
+                <div className="border border-green-500/20 rounded-xl p-4 lg:p-6 space-y-3 bg-black/40">
+                  <p className="flex items-center gap-2 text-white font-bold uppercase tracking-widest text-sm"><Lock size={16} /> Website course</p>
+                  <p className="text-white text-lg font-bold">{lockedEntry.title}</p>
+                  <p className="text-green-600 text-sm font-mono">
+                    ${lockedEntry.priceUsd} · {formatDay(lockedEntry.startDate, true)} – {formatDay(lockedEntry.endDate, true)} · {lockedEntry.classDays} {lockedEntry.classStart}–{lockedEntry.classEnd} IST · {lockedEntry.seats} seats ({editor.enrolledCount} enrolled) · enroll by {formatDay(lockedEntry.enrollBy, true)}
+                  </p>
+                  <p className="text-xs text-green-700">
+                    Title, price, schedule and syllabus come from the website code. Here you add <strong className="text-green-500">recording links</strong> after each class,{' '}
+                    <strong className="text-green-500">PDFs</strong> per week, and the <strong className="text-green-500">Discord / Telegram links</strong> for enrolled learners.{' '}
+                    <a className="underline" href={catalogUrl(lockedEntry.slug)} target="_blank" rel="noopener noreferrer">Open public page</a>
+                  </p>
+                </div>
+              ) : (
+              <>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="md:col-span-2">
                   <label className={label} htmlFor="c-title">Title *</label>
@@ -420,6 +443,8 @@ export default function CoursesPanel({ cloudReady }: { cloudReady: boolean }) {
                   </p>
                 </div>
               </fieldset>
+              </>
+              )}
 
               {/* Modules and lessons */}
               <div className="space-y-6">
@@ -430,7 +455,7 @@ export default function CoursesPanel({ cloudReady }: { cloudReady: boolean }) {
                 </div>
                 <p className="text-xs text-green-700">Set YouTube videos and recordings to <strong className="text-green-500">Unlisted</strong>. Private videos cannot play on the site.</p>
 
-                <div className="border border-green-500/15 rounded-xl p-4 space-y-3 bg-black/40">
+                {!locked && <div className="border border-green-500/15 rounded-xl p-4 space-y-3 bg-black/40">
                   <button type="button" onClick={() => setBulkOpen((o) => !o)} aria-expanded={bulkOpen} className={ghostButton}>
                     <ListPlus size={14} /> {bulkOpen ? 'Hide bulk add' : 'Bulk add modules & lessons'}
                   </button>
@@ -453,16 +478,22 @@ export default function CoursesPanel({ cloudReady }: { cloudReady: boolean }) {
                       </button>
                     </div>
                   )}
-                </div>
+                </div>}
 
                 {editor.modules.map((m, mi) => (
                   <div key={mi} className="border border-green-500/15 rounded-xl p-4 lg:p-6 space-y-4 bg-black/40">
                     <div className="flex items-center gap-2">
                       <span className="text-xs font-black text-green-500/50 font-mono shrink-0">M{String(mi + 1).padStart(2, '0')}</span>
+                      {locked ? (
+                        <h4 className="flex-1 text-white font-bold uppercase tracking-tight">{m.title}</h4>
+                      ) : (
                       <input aria-label={`Module ${mi + 1} title`} className={`${input} flex-1 py-3`} value={m.title} onChange={(e) => patchModules((ms) => ms.map((x, i) => (i === mi ? { ...x, title: e.target.value } : x)))} placeholder="Module title *" />
+                      )}
+                      {!locked && <>
                       <button type="button" aria-label={`Move module ${mi + 1} up`} disabled={mi === 0} onClick={() => patchModules((ms) => move(ms, mi, -1))} className={`${iconButton} text-green-500 hover:bg-green-500/10`}><ArrowUp size={16} /></button>
                       <button type="button" aria-label={`Move module ${mi + 1} down`} disabled={mi === editor.modules.length - 1} onClick={() => patchModules((ms) => move(ms, mi, 1))} className={`${iconButton} text-green-500 hover:bg-green-500/10`}><ArrowDown size={16} /></button>
                       <button type="button" aria-label={`Remove module ${mi + 1}`} onClick={() => (m.lessons.length === 0 || confirm(`Remove "${m.title}" and its ${m.lessons.length} lessons?`)) && patchModules((ms) => ms.filter((_, i) => i !== mi))} className={`${iconButton} text-red-500 hover:bg-red-500/10`}><Trash2 size={16} /></button>
+                      </>}
                     </div>
 
                     <div className="space-y-3">
@@ -472,9 +503,9 @@ export default function CoursesPanel({ cloudReady }: { cloudReady: boolean }) {
                             {lessonIcon(l.type)} {String(li + 1).padStart(2, '0')}
                           </span>
                           {l.type === 'session' && (
-                            <input aria-label="Class date" type="date" className={`${input} py-2 md:w-44 ${l.date ? '' : 'border-red-500'}`} value={l.date} onChange={(e) => patchLesson(mi, li, { date: e.target.value })} />
+                            <input aria-label="Class date" type="date" disabled={locked} className={`${input} py-2 md:w-44 disabled:opacity-60 ${l.date ? '' : 'border-red-500'}`} value={l.date} onChange={(e) => patchLesson(mi, li, { date: e.target.value })} />
                           )}
-                          <input aria-label="Lesson title" className={`${input} py-2 md:flex-1`} value={l.title} onChange={(e) => patchLesson(mi, li, { title: e.target.value })} placeholder={l.type === 'session' ? 'Class topic *' : 'Lesson title *'} />
+                          <input aria-label="Lesson title" disabled={locked && l.type === 'session'} className={`${input} py-2 md:flex-1 disabled:opacity-60`} value={l.title} onChange={(e) => patchLesson(mi, li, { title: e.target.value })} placeholder={l.type === 'session' ? 'Class topic *' : 'Lesson title *'} />
                           {l.type === 'session' ? (
                             <input aria-label="Recording link" className={`${input} py-2 md:flex-1 font-mono text-sm ${l.url && !getYouTubeId(l.url) ? 'border-red-500' : ''}`} value={l.url} onChange={(e) => patchLesson(mi, li, { url: e.target.value })} placeholder="Recording link (add after class)" />
                           ) : l.type === 'video' ? (
@@ -486,23 +517,27 @@ export default function CoursesPanel({ cloudReady }: { cloudReady: boolean }) {
                             </label>
                           )}
                           <div className="flex gap-1 justify-end">
+                            {!locked && <>
                             <button type="button" aria-label="Move lesson up" disabled={li === 0} onClick={() => patchLessons(mi, (ls) => move(ls, li, -1))} className={`${iconButton} text-green-500 hover:bg-green-500/10`}><ArrowUp size={14} /></button>
                             <button type="button" aria-label="Move lesson down" disabled={li === m.lessons.length - 1} onClick={() => patchLessons(mi, (ls) => move(ls, li, 1))} className={`${iconButton} text-green-500 hover:bg-green-500/10`}><ArrowDown size={14} /></button>
                             {mi > 0 && <button type="button" title="Move to previous module" aria-label="Move lesson to previous module" onClick={() => patchModules((ms) => ms.map((x, i) => (i === mi - 1 ? { ...x, lessons: [...x.lessons, l] } : i === mi ? { ...x, lessons: x.lessons.filter((_, j) => j !== li) } : x)))} className={`${iconButton} text-blue-400 hover:bg-blue-500/10 text-[10px] font-bold`}>M↑</button>}
                             {mi < editor.modules.length - 1 && <button type="button" title="Move to next module" aria-label="Move lesson to next module" onClick={() => patchModules((ms) => ms.map((x, i) => (i === mi + 1 ? { ...x, lessons: [l, ...x.lessons] } : i === mi ? { ...x, lessons: x.lessons.filter((_, j) => j !== li) } : x)))} className={`${iconButton} text-blue-400 hover:bg-blue-500/10 text-[10px] font-bold`}>M↓</button>}
-                            <button type="button" aria-label="Remove lesson" onClick={() => patchLessons(mi, (ls) => ls.filter((_, j) => j !== li))} className={`${iconButton} text-red-500 hover:bg-red-500/10`}><Trash2 size={14} /></button>
+                            </>}
+                            {!(locked && l.type === 'session') && <button type="button" aria-label="Remove lesson" onClick={() => patchLessons(mi, (ls) => ls.filter((_, j) => j !== li))} className={`${iconButton} text-red-500 hover:bg-red-500/10`}><Trash2 size={14} /></button>}
                           </div>
                         </div>
                       ))}
                     </div>
 
                     <div className="flex flex-wrap gap-2">
+                      {!locked && <>
                       <button type="button" onClick={() => patchLessons(mi, (ls) => [...ls, { id: newId(), type: 'session', title: '', date: '', url: '' }])} className={ghostButton}>
                         <CalendarDays size={14} /> Add session
                       </button>
                       <button type="button" onClick={() => patchLessons(mi, (ls) => [...ls, { id: newId(), type: 'video', title: '', url: '' }])} className={ghostButton}>
                         <Video size={14} /> Add video
                       </button>
+                      </>}
                       <label className={`${ghostButton} cursor-pointer`}>
                         <FileText size={14} /> Add PDF
                         <input type="file" accept="application/pdf,.pdf" multiple className="hidden" onChange={(e) => { addPdfs(mi, e.target.files); e.target.value = ''; }} />
@@ -511,14 +546,14 @@ export default function CoursesPanel({ cloudReady }: { cloudReady: boolean }) {
                   </div>
                 ))}
 
-                <button type="button" onClick={() => patchModules((ms) => [...ms, { title: `Module ${ms.length + 1}`, lessons: [] }])} className={`${ghostButton} w-full justify-center py-3`}>
+                {!locked && <button type="button" onClick={() => patchModules((ms) => [...ms, { title: `Module ${ms.length + 1}`, lessons: [] }])} className={`${ghostButton} w-full justify-center py-3`}>
                   <Plus size={16} /> Add module
-                </button>
+                </button>}
               </div>
 
               {/* Enrolled-only links */}
               <div className="space-y-4">
-                <span className={label}>Links for enrolled learners (e.g. mentorship group, booking page)</span>
+                <span className={label}>Links for enrolled learners (e.g. Discord class invite, Telegram group)</span>
                 {editor.links.map((l, i) => (
                   <div key={i} className="flex flex-col md:flex-row gap-2">
                     <input aria-label="Link label" className={`${input} py-2 md:w-1/3`} value={l.label} onChange={(e) => patch({ links: editor.links.map((x, j) => (j === i ? { ...x, label: e.target.value } : x)) })} placeholder="Label" />
@@ -547,24 +582,27 @@ export default function CoursesPanel({ cloudReady }: { cloudReady: boolean }) {
           {!loaded && <RefreshCw className="animate-spin text-green-500" />}
           {loaded && courses.length === 0 && <p className="text-green-700 text-sm">No courses yet.</p>}
           <div className="space-y-3">
-            {courses.map((c, i) => (
+            {courses.map((c, i) => {
+              const website = Boolean(catalogBySlug(c.id));
+              return (
               <div key={c.id} className={`flex items-center gap-3 bg-[#111] p-3 rounded-xl border ${editor?.id === c.id ? 'border-green-500/60' : 'border-green-500/5'}`}>
                 <span title={c.published ? 'Published' : 'Draft'} className={c.published ? 'text-green-400' : 'text-yellow-500'}>
                   {c.published ? <Eye size={16} /> : <EyeOff size={16} />}
                 </span>
                 <div className="flex-1 min-w-0">
                   <h4 className="font-bold text-white text-sm uppercase tracking-tight truncate" title={c.title}>{c.title}</h4>
-                  <p className="text-green-700 text-[10px] tracking-[0.2em] font-black">{c.lessonCount} lessons · ${c.priceUsd}</p>
+                  <p className="text-green-700 text-[10px] tracking-[0.2em] font-black">{website && <span className="text-green-400">WEBSITE COURSE · </span>}{c.lessonCount} lessons · ${c.priceUsd}</p>
                 </div>
-                <div className="flex flex-col">
+                {!website && <div className="flex flex-col">
                   <button type="button" aria-label={`Move ${c.title} up`} disabled={busy || i === 0} onClick={() => handleReorder(i, -1)} className={`${iconButton} text-green-500 hover:bg-green-500/10`}><ArrowUp size={14} /></button>
                   <button type="button" aria-label={`Move ${c.title} down`} disabled={busy || i === courses.length - 1} onClick={() => handleReorder(i, 1)} className={`${iconButton} text-green-500 hover:bg-green-500/10`}><ArrowDown size={14} /></button>
-                </div>
-                <a href={courseUrl(c.id)} target="_blank" rel="noopener noreferrer" aria-label={`Open ${c.title}`} className={`${iconButton} text-green-500 hover:bg-green-500/10`}><ExternalLink size={16} /></a>
+                </div>}
+                <a href={website ? catalogUrl(c.id) : courseUrl(c.id)} target="_blank" rel="noopener noreferrer" aria-label={`Open ${c.title}`} className={`${iconButton} text-green-500 hover:bg-green-500/10`}><ExternalLink size={16} /></a>
                 <button type="button" aria-label={`Edit ${c.title}`} disabled={busy} onClick={() => startEdit(c)} className={`${iconButton} text-blue-500 hover:bg-blue-500/10`}><Edit3 size={16} /></button>
-                <button type="button" aria-label={`Delete ${c.title}`} disabled={busy} onClick={() => handleDelete(c)} className={`${iconButton} text-red-500 hover:bg-red-500/10`}><Trash2 size={16} /></button>
+                {!website && <button type="button" aria-label={`Delete ${c.title}`} disabled={busy} onClick={() => handleDelete(c)} className={`${iconButton} text-red-500 hover:bg-red-500/10`}><Trash2 size={16} /></button>}
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

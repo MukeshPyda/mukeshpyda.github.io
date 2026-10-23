@@ -6,7 +6,8 @@ import CohortDetails from './CohortDetails';
 import { courseUrl, type Course } from '@/lib/courses/types';
 import { useNow } from '@/lib/useNow';
 
-export default function CourseCard({ course, enrolled }: { course: Course; enrolled: boolean }) {
+export default function CourseCard({ course, enrolled = false, href, image }: { course: Course; enrolled?: boolean; href?: string; image?: string }) {
+  const link = href ?? courseUrl(course.id);
   const now = useNow();
   const count = (type: string) => course.syllabus.reduce((n, m) => n + m.lessons.filter((l) => l.type === type).length, 0);
   const sessions = count('session');
@@ -15,12 +16,16 @@ export default function CourseCard({ course, enrolled }: { course: Course; enrol
 
   return (
     <article className="group relative flex flex-col h-full overflow-hidden rounded-xl border border-green-500/10 bg-black/40 backdrop-blur-md p-6 transition-all duration-300 hover:border-green-500/40 hover:shadow-[0_0_40px_rgba(0,255,0,0.1)]">
+      {image && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={image} alt="" width={1200} height={630} className="w-full rounded-lg border border-green-500/20 mb-5 transition-transform duration-500 group-hover:scale-[1.02]" />
+      )}
       <div className="flex items-center justify-between gap-2 text-[10px] md:text-xs font-mono uppercase tracking-[0.2em] text-green-500/60 font-bold mb-4">
         <span className="flex items-center gap-2"><BookOpen size={14} /> {course.tier}</span>
         {enrolled && <span className="flex items-center gap-1 text-green-300"><CheckCircle2 size={14} /> Enrolled</span>}
       </div>
       <h3 className="text-xl md:text-2xl font-black text-white group-hover:text-green-400 transition-colors leading-tight uppercase italic tracking-tight mb-3">
-        <Link href={courseUrl(course.id)} className="after:absolute after:inset-0">{course.title}</Link>
+        <Link href={link} className="after:absolute after:inset-0">{course.title}</Link>
       </h3>
       {course.format && <p className="text-green-400 font-mono text-xs md:text-sm uppercase tracking-widest mb-3">{course.format}</p>}
       <p className="text-white/60 text-sm md:text-base leading-relaxed line-clamp-3 font-mono mb-6">{course.description}</p>
@@ -35,7 +40,7 @@ export default function CourseCard({ course, enrolled }: { course: Course; enrol
         {/* Above the stretched link so the currency button stays clickable */}
         <div className="relative z-10">
           {enrolled ? (
-            <Link href={courseUrl(course.id)} className="inline-block px-5 py-2 bg-green-500 text-black font-bold uppercase tracking-widest text-xs rounded-lg">Continue</Link>
+            <Link href={link} className="inline-block px-5 py-2 bg-green-500 text-black font-bold uppercase tracking-widest text-xs rounded-lg">Continue</Link>
           ) : (
             <PriceTag priceUsd={course.priceUsd} />
           )}

@@ -40,7 +40,7 @@ export default function CohortDetails({ course, now, compact = false }: { course
         <>
           {course.classDays && <>{course.classDays} · </>}
           {times.course}
-          {times.local && <span className="block text-green-500/60">= {times.local} your time</span>}
+          {times.local && now > 0 && <span className="block text-green-500/60">= {times.local} your time</span>}
         </>
       ),
     });

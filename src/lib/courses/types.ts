@@ -80,6 +80,8 @@ export interface SessionLesson {
 export type Lesson = VideoLesson | PdfLesson | SessionLesson;
 
 export interface CourseModule {
+  /** Stable id for modules that come from the website catalog (src/lib/courses/catalog.ts). */
+  key?: string;
   title: string;
   lessons: Lesson[];
 }
