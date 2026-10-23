@@ -2,12 +2,12 @@
 // and every read/write is checked by the Firestore security rules.
 // Paste the firebaseConfig object from Firebase console > Project settings > Your apps.
 const projectConfig = {
-  apiKey: '',
-  authDomain: '',
-  projectId: '',
-  storageBucket: '',
-  messagingSenderId: '',
-  appId: '',
+  apiKey: 'AIzaSyAf3XYkdKtmQXcmb_-OhT7UJiGn6KpXWhU',
+  authDomain: 'hmcyberacademy.firebaseapp.com',
+  projectId: 'hmcyberacademy',
+  storageBucket: 'hmcyberacademy.firebasestorage.app',
+  messagingSenderId: '310864176954',
+  appId: '1:310864176954:web:f587355ae153ca91709203',
 };
 
 // Local testing against the Firebase emulators (never set in the deployed build):
