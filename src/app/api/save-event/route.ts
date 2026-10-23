@@ -1,111 +1,118 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import type { TimelineEvent } from '@/lib/data';
+import {
+  LocalStoreError,
+  assertLocalDev,
+  errorResponse,
+  isDataUrl,
+  replaceExportedArray,
+  resolveInside,
+  safeId,
+  writeDataUrl,
+} from '@/lib/server/localStore';
+
+// Dev-only: writes timeline images to public/images/events/<id>/ and rewrites
+// initialTimelineData in src/lib/data.ts. Refused outside a local dev server.
+
+const EVENTS_DIR = path.join(process.cwd(), 'public', 'images', 'events');
+const DATA_FILE = path.join(process.cwd(), 'src', 'lib', 'data.ts');
+const DECLARATION = 'export const initialTimelineData: TimelineEvent[]';
+
+function text(value: unknown, field: string, max: number): string {
+  if (value === undefined || value === null) return '';
+  if (typeof value !== 'string' || value.length > max) {
+    throw new LocalStoreError(`${field} must be text under ${max} characters.`);
+  }
+  return value;
+}
+
+function imageRef(value: unknown): string {
+  const ref = text(value, 'Image', 20 * 1024 * 1024);
+  if (ref && !isDataUrl(ref) && !ref.startsWith('/')) {
+    throw new LocalStoreError('Images must be uploads or site paths.');
+  }
+  return ref;
+}
+
+function parseEvent(raw: unknown): TimelineEvent {
+  if (!raw || typeof raw !== 'object') throw new LocalStoreError('Event is missing.');
+  const e = raw as Record<string, unknown>;
+  if (!Array.isArray(e.collage ?? [])) throw new LocalStoreError('Collage must be a list.');
+  return {
+    id: safeId(e.id),
+    title: text(e.title, 'Title', 300),
+    date: text(e.date, 'Date', 100),
+    summary: text(e.summary, 'Summary', 2000),
+    description: text(e.description, 'Description', 20000),
+    mainImage: imageRef(e.mainImage),
+    collage: ((e.collage as unknown[]) ?? []).map(imageRef),
+  };
+}
+
+function parseEvents(raw: unknown): TimelineEvent[] {
+  if (!Array.isArray(raw)) throw new LocalStoreError('Event list is missing.');
+  return raw.map(parseEvent);
+}
+
+/** Deletes files in an event folder that the saved event no longer references. */
+function pruneFolder(dir: string, keep: string[]) {
+  if (!fs.existsSync(dir)) return;
+  const kept = new Set(keep.map((p) => path.basename(p)));
+  for (const file of fs.readdirSync(dir)) {
+    if (!kept.has(file)) fs.rmSync(resolveInside(dir, file), { force: true });
+  }
+}
 
 export async function POST(request: Request) {
-  // Security Check: Only allow local requests to modify the filesystem
-  const origin = request.headers.get('origin');
-  if (origin && !origin.includes('localhost') && !origin.includes('127.0.0.1')) {
-    return NextResponse.json({ error: 'Unauthorized: Global access to file system is disabled for security.' }, { status: 403 });
-  }
+  const denied = assertLocalDev(request);
+  if (denied) return denied;
 
   try {
     const body = await request.json();
-    const { event, allEvents } = body;
-    const { id, mainImage, collage } = event;
+    const event = parseEvent(body.event);
+    const allEvents = parseEvents(body.allEvents);
+    const id = String(event.id);
+    const eventDir = resolveInside(EVENTS_DIR, id);
+    const prefix = `/images/events/${id}`;
 
-    // 1. Create Directory Structure
-    const eventDir = path.join(process.cwd(), 'public', 'images', 'events', id.toString());
-    if (!fs.existsSync(eventDir)) {
-      fs.mkdirSync(eventDir, { recursive: true });
-    }
-
-    // 2. Process Main Image
-    let mainImagePath = mainImage;
-    if (mainImage && mainImage.startsWith('data:image')) {
-      const base64Data = mainImage.split(',')[1];
-      const buffer = Buffer.from(base64Data, 'base64');
-      const filename = `main.jpg`;
-      fs.writeFileSync(path.join(eventDir, filename), buffer);
-      mainImagePath = `/images/events/${id}/${filename}`;
-    }
-
-    // 3. Process Collage Images
-    const collagePaths = collage ? await Promise.all(collage.map((img: string, idx: number) => {
-      if (img && img.startsWith('data:image')) {
-        const base64Data = img.split(',')[1];
-        const buffer = Buffer.from(base64Data, 'base64');
-        const filename = `collage-${idx}.jpg`;
-        fs.writeFileSync(path.join(eventDir, filename), buffer);
-        return `/images/events/${id}/${filename}`;
-      }
-      return img;
-    })) : [];
-
-    // 4. Update the Event Object
-    const updatedEvent = { ...event, mainImage: mainImagePath, collage: collagePaths };
-    
-    // Find if the event exists already
-    const existingIndex = allEvents.findIndex((e: any) => e.id === id);
-    let finalEvents;
-    if (existingIndex !== -1) {
-      finalEvents = allEvents.map((e: any) => e.id === id ? updatedEvent : e);
-    } else {
-      finalEvents = [updatedEvent, ...allEvents];
-    }
-
-    // 5. Update src/lib/data.ts (SELF-MODIFYING CODE)
-    const dataPath = path.join(process.cwd(), 'src', 'lib', 'data.ts');
-    const currentData = fs.readFileSync(dataPath, 'utf-8');
-    
-    // Replace initialTimelineData array in data.ts
-    const newDataTs = currentData.replace(
-      /export const initialTimelineData: TimelineEvent\[\] = \[[\s\S]*?\];/,
-      `export const initialTimelineData: TimelineEvent[] = ${JSON.stringify(finalEvents, null, 2)};`
+    const mainImage = isDataUrl(event.mainImage)
+      ? writeDataUrl(eventDir, 'main', event.mainImage, prefix)
+      : event.mainImage;
+    const collage = event.collage.map((img, idx) =>
+      isDataUrl(img) ? writeDataUrl(eventDir, `collage-${idx}-${Date.now()}`, img, prefix) : img
     );
+    pruneFolder(eventDir, [mainImage, ...collage].filter((p) => p.startsWith(`${prefix}/`)));
 
-    fs.writeFileSync(dataPath, newDataTs);
+    const updatedEvent = { ...event, mainImage, collage };
+    const exists = allEvents.some((e) => e.id === event.id);
+    const finalEvents = exists
+      ? allEvents.map((e) => (e.id === event.id ? updatedEvent : e))
+      : [updatedEvent, ...allEvents];
 
+    replaceExportedArray(DATA_FILE, DECLARATION, finalEvents);
     return NextResponse.json({ success: true, updatedEvent, allEvents: finalEvents });
-  } catch (err: any) {
-    console.error('Local Sync Error (POST):', err);
-    return NextResponse.json({ error: err.message }, { status: 500 });
+  } catch (err) {
+    return errorResponse(err, 'Local Sync Error (POST)');
   }
 }
 
 export async function DELETE(request: Request) {
-  // Security Check
-  const origin = request.headers.get('origin');
-  if (origin && !origin.includes('localhost') && !origin.includes('127.0.0.1')) {
-    return NextResponse.json({ error: 'Unauthorized: Global access to file system is disabled for security.' }, { status: 403 });
-  }
+  const denied = assertLocalDev(request);
+  if (denied) return denied;
 
   try {
-    const { id, allEvents } = await request.json();
+    const body = await request.json();
+    const id = safeId(body.id);
+    const allEvents = parseEvents(body.allEvents);
 
-    // 1. Remove Physical Directory
-    const eventDir = path.join(process.cwd(), 'public', 'images', 'events', id.toString());
-    if (fs.existsSync(eventDir)) {
-      fs.rmSync(eventDir, { recursive: true, force: true });
-    }
+    fs.rmSync(resolveInside(EVENTS_DIR, String(id)), { recursive: true, force: true });
 
-    // 2. Filter the events list
-    const finalEvents = allEvents.filter((e: any) => e.id !== id);
-
-    // 3. Update src/lib/data.ts
-    const dataPath = path.join(process.cwd(), 'src', 'lib', 'data.ts');
-    const currentData = fs.readFileSync(dataPath, 'utf-8');
-    
-    const newDataTs = currentData.replace(
-      /export const initialTimelineData: TimelineEvent\[\] = \[[\s\S]*?\];/,
-      `export const initialTimelineData: TimelineEvent[] = ${JSON.stringify(finalEvents, null, 2)};`
-    );
-
-    fs.writeFileSync(dataPath, newDataTs);
-
+    const finalEvents = allEvents.filter((e) => e.id !== id);
+    replaceExportedArray(DATA_FILE, DECLARATION, finalEvents);
     return NextResponse.json({ success: true, allEvents: finalEvents });
-  } catch (err: any) {
-    console.error('Local Sync Error (DELETE):', err);
-    return NextResponse.json({ error: err.message }, { status: 500 });
+  } catch (err) {
+    return errorResponse(err, 'Local Sync Error (DELETE)');
   }
 }

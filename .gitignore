@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Real Firestore rules contain the admin email; only the template is committed
+/firestore.rules

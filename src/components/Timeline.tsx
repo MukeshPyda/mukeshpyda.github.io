@@ -1,6 +1,6 @@
 'use client';
 import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
-import { useRef, useState, useMemo, useEffect } from 'react';
+import { useRef, useState } from 'react';
 import TimelineItem from './TimelineItem';
 import Modal from './Modal';
 import { TimelineEvent } from '@/lib/data';
@@ -8,12 +8,7 @@ import { TimelineEvent } from '@/lib/data';
 export default function Timeline({ events }: { events: TimelineEvent[] }) {
   const containerRef = useRef(null);
   const [selectedEvent, setSelectedEvent] = useState<TimelineEvent | null>(null);
-  const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-  
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end end"]

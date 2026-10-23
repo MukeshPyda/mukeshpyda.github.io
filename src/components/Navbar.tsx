@@ -10,8 +10,8 @@ export default function Navbar() {
 
   const navLinks = [
     { name: 'Operations', href: '/', disabled: false },
-    { name: 'Intelligence', href: '/intelligence', disabled: false },
-    { name: 'Directives', href: '#', disabled: true },
+    { name: 'Intelligence', href: '/intelligence/', disabled: false },
+    { name: 'Courses', href: '/courses/', disabled: false },
   ];
 
   return (
@@ -40,7 +40,10 @@ export default function Navbar() {
 
         {/* Mobile Toggle */}
         <button 
+          type="button"
           className="md:hidden text-green-500 p-2"
+          aria-label={isOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={isOpen}
           onClick={() => setIsOpen(!isOpen)}
         >
           {isOpen ? <X size={24} /> : <Menu size={24} />}

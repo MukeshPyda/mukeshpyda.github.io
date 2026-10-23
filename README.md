@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# hmcyberacademy.com
 
-## Getting Started
+Mukesh Pyda's site: Next.js static export, deployed to GitHub Pages by `.github/workflows/deploy.yml` on every push to `main`.
 
-First, run the development server:
+| Route | What it is |
+|---|---|
+| `/` | Hero + timeline of workshops (`src/lib/data.ts`) |
+| `/intelligence/` | Blog archive; posts in `src/app/intelligence/blogs.json`, images in `public/intelligence/<slug>/` |
+| `/courses/` | Public course catalog; course pages at `/courses/view/?c=<course-id>` |
+| `/terminal-x-92/` | Admin (Google sign-in): Operations, Blog Maker, Courses, Learners |
+
+## Local development
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm ci
+npm run dev        # http://127.0.0.1:3000 (bound to this machine only)
+npm run lint
+npm run build      # static site in out/
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Writing blog posts (Blog Maker)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. `npm run dev`, open http://127.0.0.1:3000/terminal-x-92/ → **Blog Maker**.
+2. Fill in title, date, tags, summary, YouTube link, main image and the lab steps (description, code, images). **Preview** shows the real post page.
+3. **Publish to archive** writes `blogs.json` and the images. Reorder or delete posts from the list.
+4. Commit and push to publish.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Operations (timeline events) works the same way. Saving only works on the local dev server; the save API refuses any request that is not from this machine.
 
-## Learn More
+## Courses and learners (Firebase)
 
-To learn more about Next.js, take a look at the following resources:
+Course content and enrollment live in Firebase (free Spark plan): Google sign-in + Firestore. The security rules decide who can read what, so the site itself can stay a static GitHub Pages site.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+One-time setup:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Create the Firebase project, enable **Authentication → Google**, add `hmcyberacademy.com` and `www.hmcyberacademy.com` under Authorized domains, and create **Firestore** (production mode).
+2. Paste the web app config into `src/lib/firebase/config.ts` (it is public by design).
+3. Generate the rules with the admin email and publish them in Firestore → Rules:
+   ```bash
+   npm run rules -- <admin email>
+   ```
+   `firestore.rules` is git-ignored so the admin email never reaches the public repo; only `firestore.rules.template` is committed.
 
-## Deploy on Vercel
+Day to day, in `/terminal-x-92/` (works from any device once signed in):
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Courses**: modules of YouTube videos (set them to *Unlisted*) and PDFs (up to 20 MB, stored in Firestore), price in USD, enrolled-only links, publish toggle.
+- **Learners**: approve "Request access" requests, grant access by email, revoke access.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Testing against the Firebase emulators
+
+```bash
+npx firebase-tools emulators:start --only firestore,auth --project demo-hmca   # needs Java
+NEXT_PUBLIC_FIREBASE_EMULATOR=1 npm run dev
+```
+
+`firebase.json` points the emulators at `firestore.rules` on the ports the app expects. Generate the rules for a test admin first (`npm run rules -- admin@example.com`, then regenerate with the real email before publishing). The emulator sign-in popup lets you create fake Google accounts.

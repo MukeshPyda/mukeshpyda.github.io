@@ -3,8 +3,19 @@ import "./globals.css";
 import { siteConfig } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: `${siteConfig.name} | ${siteConfig.role}`,
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: `${siteConfig.name} | ${siteConfig.role}`,
+    template: `%s | ${siteConfig.name}`,
+  },
   description: siteConfig.bio,
+  openGraph: {
+    type: "website",
+    siteName: siteConfig.name,
+    title: `${siteConfig.name} | ${siteConfig.role}`,
+    description: siteConfig.bio,
+    url: "/",
+  },
 };
 
 export default function RootLayout({

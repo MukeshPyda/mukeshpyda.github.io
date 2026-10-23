@@ -2,10 +2,12 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: 'export',
+  // Export /page/index.html so both /page and /page/ work on GitHub Pages.
+  trailingSlash: true,
   images: {
     unoptimized: true,
   },
-  // Since the URL is mukeshpyda.github.io, basePath is empty
+  // Served from the custom domain root (hmcyberacademy.com), so basePath is empty
   basePath: '', 
 };
 

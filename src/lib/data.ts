@@ -128,5 +128,6 @@ export const siteConfig = {
   name: "Mukesh Pyda",
   role: "SECURITY SPECIALIST & MASTER INSTRUCTOR",
   bio: "A visionary in digital defense. Mukesh secured global infrastructures and mentored the next generation of security leaders through his direct, hands-on expertise.",
-  adminHash: "338a4805c297641ce81f27dd7d3a983159f5a18552a268e625999210ba5f4e19"
+  url: "https://hmcyberacademy.com",
+  contactEmail: "OxTORHAT@proton.me"
 };
