@@ -6,15 +6,16 @@ import type { User } from 'firebase/auth';
 import { CalendarDays, CheckCircle2, Hourglass, LayoutDashboard, LogOut, Mail, RefreshCw, Terminal } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import CohortDetails, { enrollState } from '@/components/courses/CohortDetails';
-import { CATALOG, catalogToCourse, catalogUrl, classroomUrl, enrollmentMailto, mergeCatalogContent, type CatalogCourse } from '@/lib/courses/catalog';
+import { CATALOG, catalogToCourse, catalogUrl, classroomUrl, mergeCatalogContent, type CatalogCourse } from '@/lib/courses/catalog';
 import { cancelRequest, getCourse, hasPendingRequest, requestAccess, watchMyCourses } from '@/lib/courses/api';
+import { contactConfigured, sendEnrollmentEmail } from '@/lib/contact';
 import { classTimes, formatDay, nextSession } from '@/lib/courses/schedule';
 import { courseUrl } from '@/lib/courses/types';
 import { describeAuthError, signInWithGoogle, signOutUser, useFirebaseUser, verifiedEmail } from '@/lib/firebase/client';
 import { siteConfig } from '@/lib/data';
 import { useNow } from '@/lib/useNow';
 
-type Status = 'none' | 'sending' | 'pending' | 'emailed';
+type Status = 'none' | 'sending' | 'pending';
 
 function Frame({ children }: { children: React.ReactNode }) {
   return (
@@ -130,23 +131,31 @@ function DashboardCourse({ entry, user, enrolled, focused }: { entry: CatalogCou
   const course = catalogToCourse(entry, enrolledCount);
   const state = enrollState(course, now);
   const current: Status | null = status?.email === email ? status.value : null;
-  const mailto = enrollmentMailto(entry, siteConfig.contactEmail, { name: user.displayName, email: user.email });
+  const contactMailto = `mailto:${siteConfig.contactEmail}?subject=${encodeURIComponent(`Enrollment: ${entry.title}`)}`;
   const next = now ? nextSession(course, mergeCatalogContent(entry, null).modules.flatMap((m) => m.lessons), now) : null;
   const nextTimes = next ? classTimes(course, next.lesson.date) : null;
 
-  const enroll = () => {
+  // Saves the request (what the admin approves) and emails it to the instructor via
+  // Web3Forms — no mail app, nothing for the learner to send.
+  const enroll = async () => {
     setError('');
     setStatus({ email, value: 'sending' });
-    const saved = requestAccess(user, entry.slug);
-    // Opens the learner's email app with a ready-to-send message to the instructor
-    // (a link click keeps this page open, unlike navigating to the mailto: URL).
-    const link = document.createElement('a');
-    link.href = mailto;
-    link.click();
-    saved.then(
-      () => setStatus({ email, value: 'pending' }),
-      () => setStatus({ email, value: 'emailed' })
-    );
+    try {
+      await requestAccess(user, entry.slug);
+    } catch {
+      setStatus({ email, value: 'none' });
+      setError('Could not send your request. Please try again.');
+      return;
+    }
+    setStatus({ email, value: 'pending' });
+    if (contactConfigured) {
+      try {
+        await sendEnrollmentEmail({ name: user.displayName ?? '', email, courseTitle: entry.title, courseSlug: entry.slug });
+      } catch {
+        // The request is saved and visible in the admin; the email is just a heads-up.
+        setError('Request received. (We could not auto-email us — if you like, message us to be sure.)');
+      }
+    }
   };
 
   const cancel = async () => {
@@ -183,17 +192,16 @@ function DashboardCourse({ entry, user, enrolled, focused }: { entry: CatalogCou
           </div>
         ) : current === null ? (
           <RefreshCw className="animate-spin text-green-500" size={18} />
-        ) : current === 'pending' || current === 'emailed' ? (
+        ) : current === 'pending' ? (
           <div className="space-y-3 border border-yellow-500/30 rounded-xl p-4 bg-yellow-500/5">
             <p className="flex items-center gap-2 text-yellow-400 font-mono text-sm font-bold uppercase tracking-widest"><Hourglass size={16} /> Pending approval</p>
             <p className="font-mono text-sm text-white/80">
-              {current === 'pending'
-                ? <>Your request is in. We&apos;ll reply to <span className="text-green-300 break-all">{user.email}</span> to complete your enrollment, and this page unlocks your classroom as soon as you&apos;re approved.</>
-                : <>We&apos;ve opened an email to {siteConfig.contactEmail} with your details. Send it, and we&apos;ll approve you soon. This page updates automatically.</>}
+              Your request has been sent. We&apos;ll email you at <span className="text-green-300 break-all">{user.email}</span> to confirm your enrollment, and this page unlocks your classroom as soon as you&apos;re approved.
             </p>
+            {error && <p className="font-mono text-xs text-yellow-300">{error}</p>}
             <div className="flex flex-wrap gap-4 font-mono text-xs uppercase tracking-widest">
-              <a href={mailto} className="flex items-center gap-1 text-green-300 hover:text-white"><Mail size={12} /> Email not sent? Send it now</a>
-              {current === 'pending' && <button type="button" onClick={cancel} className="text-red-400 hover:text-white uppercase tracking-widest">Cancel request</button>}
+              <a href={contactMailto} className="flex items-center gap-1 text-green-300 hover:text-white"><Mail size={12} /> Questions? {siteConfig.contactEmail}</a>
+              <button type="button" onClick={cancel} className="text-red-400 hover:text-white uppercase tracking-widest">Cancel request</button>
             </div>
           </div>
         ) : state !== 'open' ? (
@@ -206,10 +214,10 @@ function DashboardCourse({ entry, user, enrolled, focused }: { entry: CatalogCou
             <button type="button" onClick={enroll} disabled={current === 'sending'} className="px-8 py-4 bg-green-500 text-black font-black uppercase tracking-widest text-sm rounded-lg hover:shadow-[0_0_30px_rgba(0,255,0,0.4)] disabled:opacity-60">
               {current === 'sending' ? 'Sending…' : `Enroll · $${entry.priceUsd}`}
             </button>
-            <p className="font-mono text-xs text-white/60">This sends your request and opens a ready-to-send email to {siteConfig.contactEmail}.</p>
+            <p className="font-mono text-xs text-white/60">One click sends your enrollment request to us — no mail app needed. We&apos;ll email you to confirm.</p>
           </div>
         )}
-        {error && <p className="text-red-400 text-sm">{error}</p>}
+        {error && current !== 'pending' && <p className="text-red-400 text-sm">{error}</p>}
       </div>
     </article>
   );

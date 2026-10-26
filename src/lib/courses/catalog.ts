@@ -254,19 +254,3 @@ export function catalogToCourse(entry: CatalogCourse, enrolledCount = 0): Course
     enrolledCount,
   };
 }
-
-/** Ready-to-send enrollment email from the learner to the course contact address. */
-export function enrollmentMailto(entry: CatalogCourse, contact: string, learner: { name?: string | null; email?: string | null }) {
-  const subject = `Enrollment request: ${entry.title}`;
-  const body = [
-    'Hi,',
-    '',
-    `I'd like to enroll in "${entry.title}" (batch starting ${entry.startDate}).`,
-    '',
-    `Name: ${learner.name || ''}`,
-    `Google account: ${learner.email || ''}`,
-    '',
-    'Please let me know the next steps.',
-  ].join('\n');
-  return `mailto:${contact}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-}
