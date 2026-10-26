@@ -17,6 +17,28 @@ import { useNow } from '@/lib/useNow';
 
 type Status = 'none' | 'sending' | 'pending';
 
+// If the request couldn't be saved (e.g. the course isn't in Firestore yet) but the
+// email went through, remember it on this device so a reload still shows "pending".
+// The admin then approves with Grant access.
+const emailedKey = (email: string, slug: string) => `hmca:enroll-emailed:${slug}:${email}`;
+
+function readEmailed(email: string, slug: string) {
+  try {
+    return localStorage.getItem(emailedKey(email, slug)) === '1';
+  } catch {
+    return false;
+  }
+}
+
+function writeEmailed(email: string, slug: string, on: boolean) {
+  try {
+    if (on) localStorage.setItem(emailedKey(email, slug), '1');
+    else localStorage.removeItem(emailedKey(email, slug));
+  } catch {
+    // Storage blocked: the pending state just won't survive a reload.
+  }
+}
+
 function Frame({ children }: { children: React.ReactNode }) {
   return (
     <main className="min-h-screen bg-[#0a0a0a] text-white pt-20 pb-20 px-4 md:px-6 overflow-hidden">
@@ -124,8 +146,11 @@ function DashboardCourse({ entry, user, enrolled, focused }: { entry: CatalogCou
   useEffect(() => {
     if (!email || enrolled) return;
     hasPendingRequest(email, entry.slug)
-      .then((pending) => setStatus((s) => (s?.email === email ? s : { email, value: pending ? 'pending' : 'none' })))
-      .catch(() => setStatus({ email, value: 'none' }));
+      .catch(() => false)
+      .then((pending) => {
+        const value = pending || readEmailed(email, entry.slug) ? 'pending' : 'none';
+        setStatus((s) => (s?.email === email ? s : { email, value }));
+      });
   }, [email, entry.slug, enrolled]);
 
   const course = catalogToCourse(entry, enrolledCount);
@@ -136,35 +161,46 @@ function DashboardCourse({ entry, user, enrolled, focused }: { entry: CatalogCou
   const nextTimes = next ? classTimes(course, next.lesson.date) : null;
 
   // Saves the request (what the admin approves) and emails it to the instructor via
-  // Web3Forms — no mail app, nothing for the learner to send.
+  // Web3Forms — no mail app, nothing for the learner to send. Either one is enough
+  // for the instructor to know, so they run independently.
   const enroll = async () => {
     setError('');
     setStatus({ email, value: 'sending' });
-    try {
-      await requestAccess(user, entry.slug);
-    } catch {
+    const [saved, emailed] = await Promise.all([
+      requestAccess(user, entry.slug).then(() => true, () => false),
+      contactConfigured
+        ? sendEnrollmentEmail({ name: user.displayName ?? '', email, courseTitle: entry.title, courseSlug: entry.slug }).then(() => true, () => false)
+        : Promise.resolve(false),
+    ]);
+    if (!saved && !emailed) {
       setStatus({ email, value: 'none' });
-      setError('Could not send your request. Please try again.');
+      setError(`Could not send your request. Please try again, or email us at ${siteConfig.contactEmail}.`);
       return;
     }
-    setStatus({ email, value: 'pending' });
-    if (contactConfigured) {
-      try {
-        await sendEnrollmentEmail({ name: user.displayName ?? '', email, courseTitle: entry.title, courseSlug: entry.slug });
-      } catch {
-        // The request is saved and visible in the admin; the email is just a heads-up.
-        setError('Request received. (We could not auto-email us — if you like, message us to be sure.)');
-      }
+    if (!saved) {
+      writeEmailed(email, entry.slug, true);
+      setError("We received your request by email; you'll be approved shortly.");
+    } else if (contactConfigured && !emailed) {
+      // The request is saved and visible in the admin; the email is just a heads-up.
+      setError('Request received. (We could not auto-email us — if you like, message us to be sure.)');
     }
+    setStatus({ email, value: 'pending' });
   };
 
   const cancel = async () => {
+    const emailedOnly = readEmailed(email, entry.slug);
+    writeEmailed(email, entry.slug, false);
     try {
       await cancelRequest(email, entry.slug);
-      setStatus({ email, value: 'none' });
     } catch {
-      setError('Could not cancel the request. Please try again.');
+      // An email-only request has no saved doc to delete.
+      if (!emailedOnly) {
+        setError('Could not cancel the request. Please try again.');
+        return;
+      }
     }
+    setError('');
+    setStatus({ email, value: 'none' });
   };
 
   return (
