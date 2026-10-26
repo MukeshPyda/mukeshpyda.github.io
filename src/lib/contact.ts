@@ -1,9 +1,9 @@
 // Client-side form-to-email (Web3Forms). GitHub Pages has no server, so enrollment
 // requests are emailed through Web3Forms straight to the course contact inbox.
 // The access key is public by design: it only lets the form email that one inbox.
-// Create a key at https://web3forms.com with OxTORHAT@proton.me as the recipient,
-// then paste it between the quotes below (or set NEXT_PUBLIC_WEB3FORMS_KEY).
-export const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY || '';
+// Key created at https://web3forms.com for OxTORHAT@proton.me.
+// NEXT_PUBLIC_WEB3FORMS_KEY overrides it (used for testing).
+export const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY || 'dae4c230-6d60-4321-9bc9-6a73c081b4f1';
 
 export const contactConfigured = WEB3FORMS_ACCESS_KEY.length > 0;
 
