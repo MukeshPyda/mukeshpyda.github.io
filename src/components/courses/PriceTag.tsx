@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { Globe, RefreshCw } from 'lucide-react';
-import { RATES_ATTRIBUTION, detectCurrency, formatMoney, getUsdRates } from '@/lib/currency';
+import { RATES_ATTRIBUTION, detectCurrency, formatMoney, getUsdRates, isFixedRate, roundNice } from '@/lib/currency';
 
 /** USD price with an optional "≈ local currency" conversion. */
 export default function PriceTag({ priceUsd, large = false }: { priceUsd: number; large?: boolean }) {
@@ -26,7 +26,8 @@ export default function PriceTag({ priceUsd, large = false }: { priceUsd: number
     setStatus('idle');
   };
 
-  const converted = rates && currency !== 'USD' && rates[currency] ? priceUsd * rates[currency] : null;
+  const converted = rates && currency !== 'USD' && rates[currency] ? roundNice(priceUsd * rates[currency]) : null;
+  const fixed = isFixedRate(currency);
 
   return (
     <div className="space-y-2">
@@ -34,7 +35,10 @@ export default function PriceTag({ priceUsd, large = false }: { priceUsd: number
         <span className={`font-black text-white ${large ? 'text-3xl md:text-5xl' : 'text-xl'}`}>{formatMoney(priceUsd, 'USD')}</span>
         <span className="text-green-500/60 text-xs uppercase tracking-widest">USD</span>
         {converted !== null && (
-          <span className={`text-green-300 ${large ? 'text-lg md:text-2xl' : 'text-sm'}`}>≈ {formatMoney(converted, currency)} <span className="text-green-500/50 text-xs">(approx.)</span></span>
+          <span className={`text-green-300 ${large ? 'text-lg md:text-2xl' : 'text-sm'}`}>
+            {fixed ? '' : '≈ '}{formatMoney(converted, currency)}
+            {!fixed && <span className="text-green-500/50 text-xs"> (approx.)</span>}
+          </span>
         )}
       </div>
 

@@ -32,6 +32,15 @@ export function detectCurrency(): string {
 
 type Rates = Record<string, number>;
 
+/** Fixed, deliberate conversion rates that override the live ones (INR = ₹100 per $1). */
+export const FIXED_RATES: Rates = { INR: 100 };
+
+export function isFixedRate(currency: string) {
+  return currency in FIXED_RATES;
+}
+
+const withFixed = (rates: Rates): Rates => ({ ...rates, ...FIXED_RATES });
+
 function readCache(): Rates | null {
   try {
     const raw = localStorage.getItem(CACHE_KEY);
@@ -43,10 +52,10 @@ function readCache(): Rates | null {
   }
 }
 
-/** USD exchange rates, or null if they can't be loaded. */
+/** USD exchange rates (with the fixed overrides applied), or null if they can't be loaded. */
 export async function getUsdRates(): Promise<Rates | null> {
   const cached = readCache();
-  if (cached) return cached;
+  if (cached) return withFixed(cached);
   try {
     const res = await fetch(RATES_URL);
     const json = await res.json();
@@ -56,10 +65,18 @@ export async function getUsdRates(): Promise<Rates | null> {
     } catch {
       // caching is optional
     }
-    return json.rates as Rates;
+    return withFixed(json.rates as Rates);
   } catch {
     return null;
   }
+}
+
+/** Rounds a converted price to a clean figure (2 significant figures), e.g. 9401 → 9400, 14850 → 15000. */
+export function roundNice(amount: number): number {
+  if (amount <= 0) return 0;
+  if (amount < 10) return Math.round(amount);
+  const factor = Math.pow(10, Math.floor(Math.log10(amount)) - 1);
+  return Math.round(amount / factor) * factor;
 }
 
 export function formatMoney(amount: number, currency: string) {
@@ -67,7 +84,7 @@ export function formatMoney(amount: number, currency: string) {
     return new Intl.NumberFormat(undefined, {
       style: 'currency',
       currency,
-      maximumFractionDigits: amount >= 100 ? 0 : 2,
+      maximumFractionDigits: Number.isInteger(amount) ? 0 : 2,
     }).format(amount);
   } catch {
     return `${amount.toFixed(2)} ${currency}`;
