@@ -48,7 +48,7 @@ export default function CohortDetails({ course, now, compact = false }: { course
   if (left !== null) {
     rows.push({
       icon: <Users size={14} />,
-      text: left === 0 ? 'Batch full' : `${left} of ${course.seats} seats left`,
+      text: `${left} of ${course.seats} seats left`,
       tone: left === 0 ? 'text-red-400' : left <= 5 ? 'text-yellow-400' : undefined,
     });
   }

@@ -9,7 +9,7 @@ import PriceTag from '@/components/courses/PriceTag';
 import CohortDetails, { LessonIcon, enrollState } from '@/components/courses/CohortDetails';
 import Player from '@/components/courses/Classroom';
 import { formatDay } from '@/lib/courses/schedule';
-import { catalogBySlug, catalogUrl } from '@/lib/courses/catalog';
+import { catalogBySlug, catalogUrl, signInClosed } from '@/lib/courses/catalog';
 import { useNow } from '@/lib/useNow';
 import { describeAuthError, signInWithGoogle, signOutUser, useFirebaseUser, verifiedEmail } from '@/lib/firebase/client';
 import { getCourse, getMyCourses, hasPendingRequest, requestAccess } from '@/lib/courses/api';
@@ -197,7 +197,7 @@ function CourseOverview({
             <Mail size={18} /> {state === 'open' ? 'Contact to enroll' : 'Contact about the next batch'}
           </a>
           {!user ? (
-            <button type="button" onClick={signIn} className="w-full px-6 py-4 border border-green-500/30 hover:border-green-500 text-green-400 font-bold uppercase tracking-widest text-xs rounded-lg transition-all">
+            signInClosed ? null : <button type="button" onClick={signIn} className="w-full px-6 py-4 border border-green-500/30 hover:border-green-500 text-green-400 font-bold uppercase tracking-widest text-xs rounded-lg transition-all">
               Already enrolled? Sign in with Google
             </button>
           ) : checking ? (

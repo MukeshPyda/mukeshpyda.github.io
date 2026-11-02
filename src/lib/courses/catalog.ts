@@ -39,6 +39,8 @@ export interface CatalogCourse {
   classEnd: string;
   timeZone: string;
   seats: number;
+  /** Closed: shows 0 seats left and turns off learner sign-in. Set false to reopen. */
+  closed?: boolean;
   weeks: CatalogWeek[];
 }
 
@@ -93,6 +95,7 @@ export const CATALOG: CatalogCourse[] = [
     classEnd: '22:00',
     timeZone: 'Asia/Kolkata',
     seats: 20,
+    closed: true,
     weeks: [
     {
       key: 'week-1',
@@ -228,6 +231,12 @@ export function mergeCatalogContent(entry: CatalogCourse, existing: CourseConten
   for (const m of old) if (!used.has(m) && m.lessons.some((l) => l.type !== 'session')) modules.push({ ...m, lessons: m.lessons.filter((l) => l.type !== 'session') });
   return { modules, links: existing?.links ?? [] };
 }
+
+/** Seats taken as visitors see them: all of them while the course is closed. */
+export const shownEnrolled = (entry: CatalogCourse, enrolledCount: number) => (entry.closed ? entry.seats : enrolledCount);
+
+/** Learner sign-in is off while every website course is closed (admin sign-in is unaffected). */
+export const signInClosed = CATALOG.every((c) => c.closed);
 
 /** The public Firestore/course shape of a catalog entry. */
 export function catalogToCourse(entry: CatalogCourse, enrolledCount = 0): Course {

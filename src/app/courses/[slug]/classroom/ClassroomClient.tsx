@@ -5,7 +5,8 @@ import { ChevronLeft, Lock, RefreshCw } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Player from '@/components/courses/Classroom';
 import { dashboardUrl } from '@/components/courses/EnrollPanel';
-import { catalogBySlug, catalogToCourse, catalogUrl } from '@/lib/courses/catalog';
+import SignInClosed from '@/components/courses/SignInClosed';
+import { catalogBySlug, catalogToCourse, catalogUrl, signInClosed } from '@/lib/courses/catalog';
 import { watchMyCourses } from '@/lib/courses/api';
 import { describeAuthError, signInWithGoogle, useFirebaseUser, verifiedEmail } from '@/lib/firebase/client';
 
@@ -35,6 +36,14 @@ export default function ClassroomClient({ slug }: { slug: string }) {
     if (!user || !email) return;
     return watchMyCourses(email, (ids) => setMine({ uid: user.uid, ids }));
   }, [user]);
+
+  if (signInClosed) {
+    return (
+      <Frame>
+        <SignInClosed user={user} />
+      </Frame>
+    );
+  }
 
   if (!configured || loading || (user && mine?.uid !== user.uid)) {
     return (

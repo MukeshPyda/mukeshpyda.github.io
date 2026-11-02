@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { LayoutDashboard, Mail, RefreshCw } from 'lucide-react';
 import PriceTag from './PriceTag';
 import CohortDetails, { enrollState } from './CohortDetails';
-import { catalogBySlug, catalogToCourse } from '@/lib/courses/catalog';
+import { catalogBySlug, catalogToCourse, shownEnrolled, signInClosed } from '@/lib/courses/catalog';
 import { getCourse } from '@/lib/courses/api';
 import { describeAuthError, signInWithGoogle, useFirebaseUser } from '@/lib/firebase/client';
 import { siteConfig } from '@/lib/data';
@@ -30,7 +30,7 @@ export default function EnrollPanel({ slug, compact = false }: { slug: string; c
       .catch(() => {});
   }, [configured, slug]);
 
-  const course = catalogToCourse(entry, enrolledCount);
+  const course = catalogToCourse(entry, shownEnrolled(entry, enrolledCount));
   const state = enrollState(course, now);
 
   const enroll = async () => {
@@ -75,7 +75,7 @@ export default function EnrollPanel({ slug, compact = false }: { slug: string; c
         </div>
       )}
       {error && <p className="text-red-400 text-sm text-center">{error}</p>}
-      {!compact && (
+      {!compact && !signInClosed && (
         <Link href={dashboardUrl()} className="flex items-center justify-center gap-2 text-green-500/70 hover:text-green-300 font-mono text-xs uppercase tracking-widest">
           <LayoutDashboard size={14} /> Already enrolled? Open your dashboard
         </Link>

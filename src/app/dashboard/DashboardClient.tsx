@@ -6,7 +6,8 @@ import type { User } from 'firebase/auth';
 import { CalendarDays, CheckCircle2, Hourglass, LayoutDashboard, LogOut, Mail, RefreshCw, Terminal } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import CohortDetails, { enrollState } from '@/components/courses/CohortDetails';
-import { CATALOG, catalogToCourse, catalogUrl, classroomUrl, mergeCatalogContent, type CatalogCourse } from '@/lib/courses/catalog';
+import SignInClosed from '@/components/courses/SignInClosed';
+import { CATALOG, catalogToCourse, catalogUrl, classroomUrl, mergeCatalogContent, shownEnrolled, signInClosed, type CatalogCourse } from '@/lib/courses/catalog';
 import { cancelRequest, getCourse, hasPendingRequest, requestAccess, watchMyCourses } from '@/lib/courses/api';
 import { contactConfigured, sendEnrollmentEmail } from '@/lib/contact';
 import { classTimes, formatDay, nextSession } from '@/lib/courses/schedule';
@@ -60,6 +61,14 @@ export default function DashboardClient() {
     if (!user || !email) return;
     return watchMyCourses(email, (ids) => setMine({ uid: user.uid, ids }));
   }, [user]);
+
+  if (signInClosed) {
+    return (
+      <Frame>
+        <SignInClosed user={user} />
+      </Frame>
+    );
+  }
 
   if (!configured || loading) {
     return (
@@ -153,7 +162,7 @@ function DashboardCourse({ entry, user, enrolled, focused }: { entry: CatalogCou
       });
   }, [email, entry.slug, enrolled]);
 
-  const course = catalogToCourse(entry, enrolledCount);
+  const course = catalogToCourse(entry, shownEnrolled(entry, enrolledCount));
   const state = enrollState(course, now);
   const current: Status | null = status?.email === email ? status.value : null;
   const contactMailto = `mailto:${siteConfig.contactEmail}?subject=${encodeURIComponent(`Enrollment: ${entry.title}`)}`;
